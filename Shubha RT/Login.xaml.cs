@@ -21,5 +21,10 @@ namespace AccordianDemo
         {
             InitializeComponent();
         }
+
+        private void frame1_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            //Login Page
+        }
     }
 }

@@ -10,6 +10,6 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="119,119,0,0" Name="textBox2" VerticalAlignment="Top" Width="180" />
         <Button Content="Ok" Height="23" HorizontalAlignment="Left" Margin="93,178,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
         <Button Content="Cancle" Height="23" HorizontalAlignment="Left" Margin="212,178,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
-        <Frame Height="191" HorizontalAlignment="Left" Margin="12,44,0,0" Name="frame1" VerticalAlignment="Top" Width="339" />
+        <Frame Height="191" HorizontalAlignment="Left" Margin="12,44,0,0" Name="frame1" VerticalAlignment="Top" Width="339" Navigated="frame1_Navigated" />
     </Grid>
 </Window>
