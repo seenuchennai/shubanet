@@ -94,7 +94,6 @@ namespace StockD
                 textBox1.Text = "";
             }
            
-           
             Check_internet_connetion(url1);
         }
 
@@ -103,6 +102,11 @@ namespace StockD
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Close ");
+            savechanges();
+           
+        }
+        private void savechanges()
+        {
             if (dtStartDate.Text.ToString() == "")
             {
 
@@ -121,11 +125,21 @@ namespace StockD
                 fs.Close();
             }
         }
-
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.Application.Restart();
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+           
+           
+        }
+
+        private void tabItem2_DragLeave(object sender, System.Windows.DragEventArgs e)
+        {
+            savechanges();
         }
 
        

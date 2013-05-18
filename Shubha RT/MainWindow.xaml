@@ -55,7 +55,7 @@
                 </TabItem.Header>
                 <Grid></Grid>
             </TabItem>
-            <TabItem  Name="tabItem2">
+            <TabItem  Name="tabItem2" DragLeave="tabItem2_DragLeave">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image VerticalAlignment="Center"  Width="15" Source="Images/setting.jpeg" />
@@ -192,11 +192,14 @@
                                 <CheckBox Content="Corporate Events " Height="16" HorizontalAlignment="Left" Margin="93,10,0,0" Name="Cb_Corporate_Events" VerticalAlignment="Top" />
                                 <CheckBox Content="Board Message" Height="16" HorizontalAlignment="Left" Margin="259,11,0,0" Name="Cb_Board_Message" VerticalAlignment="Top" />
                                 <CheckBox Content="Delete All Avents" Height="16" HorizontalAlignment="Left" Margin="93,45,0,0" Name="Cb_Delete_all_events" VerticalAlignment="Top" Width="125" />
+                                
                             </Grid>
 
 
                         </l:AccordianItem>
                     </l:Accordian>
+                    <Button Content="Cancle" Height="23" HorizontalAlignment="Left" Margin="625,316,0,0" Name="button1" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="2" />
+                    <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="515,315,0,0" Name="button3" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="2" Click="button3_Click" />
                 </Grid>
             </TabItem>
            
