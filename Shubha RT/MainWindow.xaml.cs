@@ -15,6 +15,9 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using log4net;
 using log4net.Config;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 namespace StockD
 {
 
@@ -68,6 +71,30 @@ namespace StockD
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+            BinaryFormatter bf = new BinaryFormatter();
+            //Use For Serialization Data Get Save In Fileio.txt file 
+
+
+            if (File.Exists(@"C:\Fileio.txt"))
+            {
+                FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Open, FileAccess.Read);
+                target1 t1 = (target1)bf.Deserialize(fs);
+                txtTargetFolder.Text = t1.target;
+                dtStartDate.Text = t1.fromdate.ToShortDateString();
+                dtEndDate.Text = t1.todate.ToShortDateString();
+                fs.Close();
+
+
+
+            }
+            else
+            {
+                dtStartDate.Text = DateTime.Today.Date.ToString();
+                dtEndDate.Text = DateTime.Today.Date.ToString();
+                textBox1.Text = "";
+            }
+           
+           
             Check_internet_connetion(url1);
         }
 
@@ -76,6 +103,23 @@ namespace StockD
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Close ");
+            if (dtStartDate.Text.ToString() == "")
+            {
+
+            }
+            else
+            {
+                target1 t = new target1();
+                t.fromdate = Convert.ToDateTime(dtStartDate.Text);
+                t.todate = Convert.ToDateTime(dtEndDate.Text);
+                t.target = txtTargetFolder.Text;
+
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Create, FileAccess.Write);
+                bf.Serialize(fs, t);
+
+                fs.Close();
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -87,4 +131,12 @@ namespace StockD
        
 
      }
+    [Serializable]
+    public class target1
+    {
+        public string target;
+        public DateTime fromdate;
+        public DateTime todate;
+        public string checkboxevent;
+    }
 }
