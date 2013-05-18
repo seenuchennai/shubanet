@@ -1,0 +1,208 @@
+﻿<Window x:Class="Shubha_RT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="683" Width="839" Background="Blue"   >
+    <Grid Background="#FFD9E4F5">
+        <Label Content="Welcome" Height="28" HorizontalAlignment="Left" Margin="691,12,0,0" Name="label1" VerticalAlignment="Top" FontWeight="Bold" />
+        <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label2" VerticalAlignment="Top" />
+        <TabControl Height="525" HorizontalAlignment="Left" Margin="60,107,0,0" Name="tabControl1" VerticalAlignment="Top" Width="797" FontStyle="Normal" FontFamily="Times New Roman" FontSize="12" BorderBrush="#FF8B8BEB">
+            
+            <TabItem  Name="Home" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Name="img" Height="auto" Width="auto" Source="/Shubha%20RT;component/Images/Water%20lilies.jpg" />
+                        <TextBlock Text="HOME" Margin="2,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Focusable="False">
+                    <GroupBox Header="Shubah Downloader" Height="129" HorizontalAlignment="Left" Margin="10,10,0,0" Name="groupBox1" VerticalAlignment="Top" Width="688">
+                        <Grid Background="#FFCCCCF5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0*" />
+                                <ColumnDefinition Width="0*" />
+                                <ColumnDefinition Width="153*" />
+                                <ColumnDefinition Width="372*" />
+                                <ColumnDefinition Width="48*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="To Date" Height="28" HorizontalAlignment="Left" Margin="57,22,0,0" Name="label4" VerticalAlignment="Top" Grid.Column="3" FontWeight="Normal" FontFamily="Calibri" />
+                            <Label Content="From Date" Height="28" HorizontalAlignment="Left" Margin="0,22,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="2" FontWeight="Normal" FontFamily="Times New Roman" />
+                            <DatePicker Grid.Column="2" Height="25" HorizontalAlignment="Left" Margin="76,25,0,0" Name="datePicker1" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2" FontWeight="Normal" FontFamily="Calibri" />
+                            <DatePicker Grid.Column="3" Height="25" HorizontalAlignment="Right" Margin="0,25,186,0" Name="datePicker2" VerticalAlignment="Top" Width="115" FontWeight="Normal" FontFamily="Calibri" />
+                            <CheckBox Content="Auto Update From " Grid.Column="3" Height="16" HorizontalAlignment="Left" Margin="279,29,0,0" Name="checkBox1" VerticalAlignment="Top" Width="198" Grid.ColumnSpan="2" FontWeight="Normal" FontFamily="Calibri" />
+                            <Button Content="Stop" Grid.Column="3" Height="23" HorizontalAlignment="Left" Margin="73,76,0,0" Name="button1" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" />
+                            <Button Content="Reset" Grid.Column="3" Height="23" HorizontalAlignment="Right" Margin="0,76,196,0" Name="button2" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" />
+                            <Button Content="Download" Grid.Column="3" Height="23" HorizontalAlignment="Left" Margin="267,76,0,0" Name="button3" VerticalAlignment="Top" Width="135" FontWeight="Normal" FontFamily="Calibri" />
+                        </Grid>
+                    </GroupBox>
+                    <Button Content="Show Logs" Height="23" HorizontalAlignment="Left" Margin="16,145,0,0" Name="button4" VerticalAlignment="Top" Width="75" FontWeight="Normal" />
+                    <Image Height="141"  HorizontalAlignment="Left" Margin="10,174,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="682" />
+                    <Polygon Height="65" HorizontalAlignment="Left" Margin="82,185,0,0" Name="polygon1" Stroke="Black" VerticalAlignment="Top" Width="114" />
+                    <Image Height="150" HorizontalAlignment="Left" Margin="456,147,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="200" />
+                </Grid >
+            </TabItem>
+            <TabItem Header="Product" Name="Tab_Product" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+
+
+                </Grid >
+            </TabItem>
+            <TabItem Header="Setting" Name="Tab_setting" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+                    <GroupBox Header="groupBox2" Height="452" HorizontalAlignment="Left" Margin="10,33,0,0" Name="groupBox2" VerticalAlignment="Top" Width="677">
+                        <Grid Height="438" Width="680">
+                            <Expander Header="Select Output Folder Path and Output Folder" Height="156" HorizontalAlignment="Left" Margin="10,10,0,0" Name="expander1" VerticalAlignment="Top" Width="649">
+                                <Grid Height="128">
+                                    <Label Content="Output Folder Path" Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label15" VerticalAlignment="Top" />
+                                    <TextBox Height="26" HorizontalAlignment="Left" Margin="135,12,0,0" Name="textBox9" VerticalAlignment="Top" Width="274" />
+                                    <CheckBox Content="STD.CSV" Height="16" HorizontalAlignment="Left" Margin="36,62,0,0" Name="checkBox4" VerticalAlignment="Top" />
+                                    <CheckBox Content="Advance_Get" Height="16" HorizontalAlignment="Left" Margin="295,62,0,0" Name="checkBox5" VerticalAlignment="Top" />
+                                    <CheckBox Content="MetaStock" Height="16" HorizontalAlignment="Left" Margin="36,96,0,0" Name="checkBox6" VerticalAlignment="Top" />
+                                    <CheckBox Content="AmiBroker" Height="16" HorizontalAlignment="Left" Margin="146,62,0,0" Name="checkBox7" VerticalAlignment="Top" Width="88" />
+                                    <CheckBox Content="FChart" Height="16" HorizontalAlignment="Left" Margin="424,62,0,0" Name="checkBox8" VerticalAlignment="Top" />
+                                    <CheckBox Content="Ninja" Height="16" HorizontalAlignment="Left" Margin="146,96,0,0" Name="checkBox9" VerticalAlignment="Top" />
+                                    <ListView Height="100" HorizontalAlignment="Left" Margin="10,10,0,0" Name="listView1" VerticalAlignment="Top" Width="120" />
+                                    <Expander Header="Google" Height="100" HorizontalAlignment="Left" Margin="457,-24,0,0" Name="Google" VerticalAlignment="Top">
+                                        <Grid>
+                                            <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
+                                            <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
+                                            <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" />
+                                            <ComboBox Height="23" HorizontalAlignment="Left" Margin="20,20,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" />
+                                            <ComboBox Height="23" HorizontalAlignment="Left" Margin="20,20,0,0" Name="GHRS" VerticalAlignment="Top" Width="120" />
+                                            <ComboBox Height="23" HorizontalAlignment="Left" Margin="25,25,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" />
+                                            <CheckBox Content="Google EOD 1Min " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_MCX_Google_IEOD_1min" VerticalAlignment="Top" />
+                                            <CheckBox Content="Google EOD 5Min " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" />
+                                            <CheckBox Content="Google EOD " Height="16" HorizontalAlignment="Left" Margin="129,29,0,0" Name="Cb_Google_EOD" VerticalAlignment="Top" Width="125" />
+                                        </Grid>
+                                    </Expander>
+                                    <Expander Header="Calender Event" Height="100" HorizontalAlignment="Left" Margin="519,92,0,0" Name="Calender_Event" VerticalAlignment="Top">
+                                        <Grid>
+                                            <Label Content="Show All Events" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_Show_All_Events" VerticalAlignment="Top" />
+                                            <CheckBox Content="Corporate Events " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_Corporate_Events" VerticalAlignment="Top" />
+                                            <CheckBox Content="Board Message" Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_Board_Message" VerticalAlignment="Top" />
+                                            <CheckBox Content="Delete All Avents" Height="16" HorizontalAlignment="Left" Margin="129,29,0,0" Name="Cb_Delete_all_events" VerticalAlignment="Top" Width="125" />
+                                        </Grid>
+                                    </Expander>
+                                </Grid>
+                            </Expander>
+                            <Expander Header="BSE" Height="113" HorizontalAlignment="Left" Margin="9,172,0,0" Name="expander2" VerticalAlignment="Top" Width="559">
+                                <Grid >
+                                    <CheckBox Content="BSE INDEX" Height="16" HorizontalAlignment="Left" Margin="36,20,0,0" Name="Cb_BSE_INDEX" VerticalAlignment="Top" />
+                                    <CheckBox Content="BSE Cash Market  " Height="16" HorizontalAlignment="Left" Margin="136,20,0,0" Name="Cb_BSE_CASH_MARKET" VerticalAlignment="Top" />
+                                    <CheckBox Content="BSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="269,20,0,0" Name="Cb_BSE_Equity_Futures" VerticalAlignment="Top" Width="125" />
+                                    <CheckBox Content="BSE Equity Options" Height="16" HorizontalAlignment="Right" Margin="0,20,24,0" Name="Cb_BSE_Equity_Options" VerticalAlignment="Top" />
+                                </Grid>
+                            </Expander>
+                            <Expander Header="NSE" Height="113" HorizontalAlignment="Left" Margin="8,273,0,0" Name="NSE" VerticalAlignment="Top" Width="559">
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="318*" />
+                                        <ColumnDefinition Width="0*" />
+                                        <ColumnDefinition Width="239*" />
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Content="NSE Forex Future" Height="16" HorizontalAlignment="Left" Margin="84,7,0,0" Name="Cb_NSE_Forex_Future" VerticalAlignment="Top" Grid.Column="2" />
+                                    <CheckBox Content="NSE Cash Market  " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" />
+                                    <CheckBox Content="NSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="129,7,0,0" Name="Cb_NSE_Equity_Futures" VerticalAlignment="Top" Width="125" />
+                                    <CheckBox Content="NSE Equity Options" Height="16" HorizontalAlignment="Right" Margin="0,7,181,0" Name="Cb_NSE_Equity_Options" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                    <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="84,29,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Grid.Column="2" />
+                                    <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="260,29,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                    <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" />
+                                    <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="129,29,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" />
+                                    <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="13,56,0,0" Name="Cb_Reports" VerticalAlignment="Top" Grid.Column="2" />
+                                    <CheckBox Content="NSE Combine Reports" Height="16" HorizontalAlignment="Left" Margin="129,56,0,0" Name="Cb_NSE_Combine_Reports" VerticalAlignment="Top" />
+                                    <CheckBox Content="NCDEX Futures" Height="16" HorizontalAlignment="Left" Margin="4,56,0,0" Name="Cb_NCDEX_Futures" VerticalAlignment="Top" />
+                                </Grid>
+                            </Expander>
+                            <Expander Header="MCX" Height="100" HorizontalAlignment="Left" Margin="579,172,0,0" Name="MCX" VerticalAlignment="Top">
+                                <Grid >
+
+                                    <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="84,7,0,0" Name="Cb_MCX_Forex_Future" VerticalAlignment="Top" Grid.Column="2" />
+                                    <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_MCX_Equity_Futures" VerticalAlignment="Top" />
+                                    <CheckBox Content="MCX Commodity Futures" Height="16" HorizontalAlignment="Left" Margin="129,7,0,0" Name="Cb_MCX_Commodity_Futures" VerticalAlignment="Top" Width="125" />
+                                    <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Right" Margin="0,7,181,0" Name="Cb_MCX_Equity_Options" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                    <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="84,29,0,0" Name="Cb_MCX_Forex_Options" VerticalAlignment="Top" Grid.Column="2" />
+                                    <CheckBox Content="National Spot Exchange" Height="16" HorizontalAlignment="Left" Margin="260,29,0,0" Name="Cb_National_Spot_Exchange" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                    <CheckBox Content="MCX-SX Equity Indices  " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_MCX_Equity_Indices" VerticalAlignment="Top" />
+                                    <CheckBox Content="MCX Index" Height="16" HorizontalAlignment="Left" Margin="129,29,0,0" Name="Cb_MCX_Index" VerticalAlignment="Top" Width="125" />
+                                    <CheckBox Content="Mutual Funds NAV" Height="16" HorizontalAlignment="Left" Margin="13,56,0,0" Name="Cb_Mutual_Funds_NAV" VerticalAlignment="Top" Grid.Column="2" />
+                                </Grid>
+                            </Expander>
+                            <Expander Header="Yahoo" Height="100" HorizontalAlignment="Left" Margin="563,277,0,0" Name="Yahoo" VerticalAlignment="Top">
+                                <Grid>
+                                    <CheckBox Content="Yahoo Fundamental" Height="16" HorizontalAlignment="Left" Margin="84,29,0,0" Name="Cb_Yahoo_EOD" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                    <CheckBox Content="Yahoo IEOD 1Min " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_MCX_Yahoo_IEOD_1min" VerticalAlignment="Top" />
+
+                                    <CheckBox Content="Yahoo IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="4,29,0,0" Name="Cb_MCX_Yahoo_IEOD_5min" VerticalAlignment="Top" />
+                                    <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="129,29,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" />
+                                    <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" />
+                                    <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_Hours" VerticalAlignment="Top" />
+
+                                    <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="15,15,0,0" Name="lbl_Minutes" VerticalAlignment="Top" />
+
+                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="20,20,0,0" Name="HRS" VerticalAlignment="Top" Width="120" />
+                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="25,25,0,0" Name="MIN" VerticalAlignment="Top" Width="120" />
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </GroupBox>
+                </Grid >
+            </TabItem>
+            <TabItem Header="Yahoo" Name="Tab_Yahoo" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+
+
+                </Grid >
+            </TabItem>
+            <TabItem Header="Market Analysis" Name="Tab_Market_Analysis" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+                    <GroupBox Header="Market Analysis" Height="390" HorizontalAlignment="Left" Margin="13,6,0,0" Name="groupBox4" VerticalAlignment="Top" Width="666">
+                        <Grid>
+                            <Label Content="Select File " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label13" VerticalAlignment="Top" />
+                            <Label Content="Search" Height="28" HorizontalAlignment="Left" Margin="10,48,0,0" Name="label14" VerticalAlignment="Top" />
+                            <ComboBox Height="23" HorizontalAlignment="Left" Margin="98,15,0,0" Name="comboBox1" VerticalAlignment="Top" Width="138" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="98,53,0,0" Name="textBox8" VerticalAlignment="Top" Width="223" />
+                            <CheckBox Content="Case Sensitive" Height="16" HorizontalAlignment="Left" Margin="358,56,0,0" Name="checkBox2" VerticalAlignment="Top" Width="104" />
+                            <CheckBox Content="Regular Expression " Height="16" HorizontalAlignment="Left" Margin="481,56,0,0" Name="checkBox3" VerticalAlignment="Top" />
+                        </Grid>
+                    </GroupBox>
+                </Grid >
+            </TabItem>
+            <TabItem Header="Calender" Name="Tab_Calender" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+                    <GroupBox Header="Calender" Height="333" HorizontalAlignment="Left" Margin="10,10,0,0" Name="groupBox5" VerticalAlignment="Top" Width="663">
+                        <Grid Height="326" Width="667">
+                            <Calendar Height="170" HorizontalAlignment="Left" Margin="10,10,0,0" Name="calendar1" VerticalAlignment="Top" Width="180" />
+                        </Grid>
+                    </GroupBox>
+                </Grid >
+            </TabItem>
+            <TabItem Header="Contact Us" Name="Tab_ContactUs" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid >
+                    <GroupBox Header="Contact Us " Height="350" HorizontalAlignment="Left" Margin="10,10,0,0" Name="groupBox3" VerticalAlignment="Top" Width="677">
+                        <Grid>
+                            <Label Content="Title " Height="28" HorizontalAlignment="Left" Margin="61,33,0,0" Name="label6" VerticalAlignment="Top" />
+                            <Label Content="First Name" Height="28" HorizontalAlignment="Left" Margin="24,66,0,0" Name="label7" VerticalAlignment="Top" />
+                            <Label Content="Last Name" Height="28" HorizontalAlignment="Left" Margin="24,97,0,0" Name="label8" VerticalAlignment="Top" />
+                            <Label Content="Mobile " Height="28" HorizontalAlignment="Left" Margin="30,130,0,0" Name="label9" VerticalAlignment="Top" />
+                            <Label Content="City" Height="28" HorizontalAlignment="Left" Margin="61,160,0,0" Name="label10" VerticalAlignment="Top" />
+                            <Label Content="Email Address" Height="28" HorizontalAlignment="Left" Margin="30,193,0,0" Name="label11" VerticalAlignment="Top" />
+                            <Label Content="Comment " Height="28" HorizontalAlignment="Left" Margin="47,226,0,0" Name="label12" VerticalAlignment="Top" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,31,0,0" Name="textBox1" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,64,0,0" Name="textBox2" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,97,0,0" Name="textBox3" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,130,0,0" Name="textBox4" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,163,0,0" Name="textBox5" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="23" HorizontalAlignment="Left" Margin="127,196,0,0" Name="textBox6" VerticalAlignment="Top" Width="400" />
+                            <TextBox Height="49" HorizontalAlignment="Left" Margin="127,229,0,0" Name="textBox7" VerticalAlignment="Top" Width="400" />
+                            <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="301,299,0,0" Name="button5" VerticalAlignment="Top" Width="75" />
+                            <Button Content="Submit" Height="23" HorizontalAlignment="Left" Margin="419,299,0,0" Name="button6" VerticalAlignment="Top" Width="95" />
+                        </Grid>
+                    </GroupBox>
+                </Grid >
+            </TabItem>
+            <TabItem Header="Help" Name="Tab_Help" Background="#FFD6E2F5" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+                <Grid ></Grid >
+            </TabItem>
+        </TabControl>
+        <Label Content="Shubha Downloader" Height="39" HorizontalAlignment="Left" Margin="60,10,0,0" Name="label5" VerticalAlignment="Top" FontStyle="Italic" FontSize="20" Width="212" Foreground="#FF82A2D8" />
+    </Grid>
+</Window>
