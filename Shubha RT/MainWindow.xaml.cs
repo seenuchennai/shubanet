@@ -45,9 +45,10 @@ namespace StockD
             string baseurl;
              DateTime  StartDate, EndDate;
 
-             StartDate = Convert.ToDateTime(dtStartDate.Text);
-             EndDate = Convert.ToDateTime(dtEndDate.Text);
-
+            
+                 StartDate = Convert.ToDateTime(dtStartDate.Text);
+                 EndDate = Convert.ToDateTime(dtEndDate.Text);
+             
             if (!Directory.Exists(strYearDir))
                 Directory.CreateDirectory(strYearDir);
 
@@ -346,7 +347,42 @@ namespace StockD
 
             }
 
+
+            if (Cb_NSE_Vix.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string day1, month, year;
+
+
+                    if (day.Day < 10)
+                    {
+                        day1 = "0" + day.Day.ToString();
+                    }
+                    else
+                    {
+                        day1 = day.Day.ToString();
+
+                    }
+
+                    string date1 = day1 + "-" + strMonthName + "-" + day.Year;
+
+
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\" + date1 + "_" + date1 + ".csv";
+                    baseurl = "http://www.nseindia.com/content/vix/histdata/hist_india_vix_" + date1 + "_" + date1 + ".csv";
+
+                    // baseurl=" http://www.nseindia.com/content/vix/histdata/hist_india_vix_06-May-2013_06-May-2013.csv
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
          
+
 
 
         }
@@ -464,8 +500,10 @@ namespace StockD
                 FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Open, FileAccess.Read);
                 target1 t1 = (target1)bf.Deserialize(fs);
                 txtTargetFolder.Text = t1.target;
-                dtStartDate.Text = t1.fromdate.ToShortDateString();
-                dtEndDate.Text = t1.todate.ToShortDateString();
+               // dtStartDate.Text = t1.fromdate.ToShortDateString();
+               // dtEndDate.Text = t1.todate.ToShortDateString();
+                dtEndDate.Text = DateTime.Today.ToShortDateString();
+                dtStartDate .Text = DateTime.Today.ToShortDateString();
                 Cb_BSE_CASH_MARKET.IsChecked =  t1.Cb_BSE_CASH_MARKET;
 
 
@@ -497,7 +535,9 @@ Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
  Cb_NSE_Bulk_Deal.IsChecked = t1.Cb_NSE_Bulk_Deal;
  Cb_NSE_Block_Deal.IsChecked = t1.Cb_NSE_Block_Deal;
  Cb_NSE_India_Vix.IsChecked = t1.Cb_NSE_India_Vix;
+ Cb_NSE_Vix.IsChecked = t1.Cb_NSE_Vix;
 
+                
 
                 
 
@@ -619,8 +659,9 @@ t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;
 t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;
 t.Cb_NSE_Bulk_Deal = Cb_NSE_Bulk_Deal.IsChecked.Value;
 t.Cb_NSE_Block_Deal = Cb_NSE_Block_Deal.IsChecked.Value; 
-t.Cb_NSE_India_Vix = Cb_NSE_India_Vix.IsChecked.Value; 
+t.Cb_NSE_India_Vix = Cb_NSE_India_Vix.IsChecked.Value;
 
+t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value; 
                 
                 
                 
@@ -680,6 +721,7 @@ t.Cb_NSE_India_Vix = Cb_NSE_India_Vix.IsChecked.Value;
         public bool Cb_NSE_Bulk_Deal;
         public bool Cb_NSE_Block_Deal;
         public bool Cb_NSE_India_Vix;
+        public bool Cb_NSE_Vix;
 
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;

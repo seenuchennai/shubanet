@@ -151,10 +151,11 @@
                                 <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Left" Margin="250,70,0,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
                                 <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="310,70,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
                                 <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="400,70,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
+                                <CheckBox Content="NSE  Vix" Height="16" HorizontalAlignment="Left" Margin="500,70,0,0" Name="Cb_NSE_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
 
 
 
-                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="0,150,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
+                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="100,7,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
                                 <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="0,50,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
 
                                 <CheckBox Content="NSE EOD BhavCopy" Height="16" HorizontalAlignment="Left" Margin="100,50,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125"/>
