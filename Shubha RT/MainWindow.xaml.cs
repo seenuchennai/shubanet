@@ -57,6 +57,7 @@ namespace StockD
                 baseurl="http://www.nseindia.com/content/equities/sec_list.csv";
                 downliaddata(strYearDir,baseurl);
             }
+            
             if (Cb_NSE_EOD_BhavCopy.IsChecked == true)
             {
 
@@ -75,6 +76,23 @@ namespace StockD
                
             }
 
+            if (chkCombinedReport.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\combined_report"+formatdate(day)+".zip";
+                    baseurl = "http://www.nseindia.com/archives/combine_report/combined_report"+formatdate(day)+".zip";
+
+                    //http://www.nseindia.com/archives/combine_report/combined_report16052013.zip
+
+
+                    downliaddata(strYearDir, baseurl);
+                }
+               
+            }
 
             if (Cb_NSE_Delivary_Data_Download.IsChecked == true)
             {
@@ -86,29 +104,10 @@ namespace StockD
 
                
                     //baseurl = "http://www.nseindia.com/content/historical/EQUITIES/" + day.Year.ToString() + "/" + strMonthName.ToUpper() + "/cm" + day.Day + strMonthName.ToUpper() + day.Year + "bhav.csv.zip";
-                    string date1;
-                    if (day.Day < 10)
-                    {
-                        date1 = "0" + day.Day.ToString();
-                    }
-                    else
-                    {
-                        date1 = day.Day.ToString();
-                    }
+                    
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\ " + formatdate(day) + ".xls";
 
-                    if (day.Month < 10)
-                    {
-
-                        date1 = date1 + "0" + day.Month.ToString();
-                    }
-                    else
-                    {
-                        date1 = date1 + day.Month.ToString();
-                    }
-                    date1 = date1 + day.Year;
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\ " + date1 + ".xls";
-
-                    baseurl = " http://nseindia.com/archives/equities/mto/MTO_" + date1+".DAT" ;
+                    baseurl = " http://nseindia.com/archives/equities/mto/MTO_" + formatdate(day)+".DAT" ;
                
 
 
@@ -122,7 +121,31 @@ namespace StockD
 
 
         }
-    
+
+        private string formatdate(DateTime day)
+        {
+            string date1;
+            if (day.Day < 10)
+            {
+                date1 = "0" + day.Day.ToString();
+            }
+            else
+            {
+                date1 = day.Day.ToString();
+            }
+
+            if (day.Month < 10)
+            {
+
+                date1 = date1 + "0" + day.Month.ToString();
+            }
+            else
+            {
+                date1 = date1 + day.Month.ToString();
+            }
+            date1 = date1 + day.Year;
+            return date1;
+        }
         private void downliaddata(string path,string url)
         {
              WebClient Client = new WebClient();
