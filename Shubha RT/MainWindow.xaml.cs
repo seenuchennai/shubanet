@@ -61,6 +61,7 @@ namespace StockD
             if (Cb_NSE_EOD_BhavCopy.IsChecked == true)
             {
 
+               
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -104,11 +105,33 @@ namespace StockD
 
                
                     //baseurl = "http://www.nseindia.com/content/historical/EQUITIES/" + day.Year.ToString() + "/" + strMonthName.ToUpper() + "/cm" + day.Day + strMonthName.ToUpper() + day.Year + "bhav.csv.zip";
-                    
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\ " + formatdate(day) + ".xls";
+
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\MTO_" + formatdate(day) + ".xls";
 
                     baseurl = " http://nseindia.com/archives/equities/mto/MTO_" + formatdate(day)+".DAT" ;
                
+
+
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
+
+            if (Cb_NSE_Index.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+
+
+
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\ind_close_all_" + formatdate(day) + ".csv";
+
+                    baseurl = "http://nseindia.com/content/indices/ind_close_all_" + formatdate(day) + ".csv";
 
 
 
