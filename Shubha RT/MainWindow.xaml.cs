@@ -27,25 +27,54 @@ namespace StockD
     public partial class MainWindow : Window
     {
         string url1 = "http://www.goog";
+       
         public MainWindow()
         {
             
         }
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
 
+                yield return day;
+        }
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
 
-            string strYearDir = txtTargetFolder.Text + "\\Downloads";
+           string strYearDir = txtTargetFolder.Text + "\\Downloads";
             string baseurl;
+             DateTime  StartDate, EndDate;
+
+             StartDate = Convert.ToDateTime(dtStartDate.Text);
+             EndDate = Convert.ToDateTime(dtEndDate.Text);
 
             if (!Directory.Exists(strYearDir))
                 Directory.CreateDirectory(strYearDir);
 
-            if (Cb_NSE_CASH_MARKET.IsChecked == true)
+            if (Cb_NSE_Sec_List.IsChecked == true)
             {
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
                 baseurl="http://www.nseindia.com/content/equities/sec_list.csv";
                 downliaddata(strYearDir,baseurl);
             }
+            if (Cb_NSE_EOD_BhavCopy.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\cm"+day.Day  + strMonthName +day.Year +"bhav.csv.zip";
+                    baseurl = "http://www.nseindia.com/content/historical/EQUITIES/"+day.Year .ToString()+"/" + strMonthName.ToUpper() + "/cm" + day.Day + strMonthName.ToUpper() + day.Year + "bhav.csv.zip";
+
+
+
+
+                    downliaddata(strYearDir, baseurl);
+                }
+               
+            }
+
 
 
 
@@ -64,7 +93,7 @@ namespace StockD
                         Client.Headers.Add("Accept", "application/zip");
                         Client.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
                         Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
-                        Client.DownloadFile(url, path  +"\\sec_list.csv");
+                        Client.DownloadFile(url, path );
                         
                         //string clientHeader = "DATE" + "," + "TICKER" + " " + "," + "NAME" + "," + " " + "," + " " + "," + "OPEN" + "," + "HIGH" + "," + "LOW" + "," + "CLOSE" + "," + "VOLUME" + "," + "OPENINT" + Environment.NewLine;
 
@@ -75,6 +104,9 @@ namespace StockD
                      
                         if ((ex.ToString().Contains("404")) || (ex.ToString().Contains("400")))
                         {
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Warn("Data Not Found For " +url );
                            
                         }
                     }
@@ -149,7 +181,7 @@ ChkBseFo.IsChecked=t1.ChkBseFo;
 
 
 Cb_NSE_CASH_MARKET.IsChecked=t1.Cb_NSE_CASH_MARKET;
-Cb_NSE_Equity_Futures.IsChecked=t1.Cb_NSE_Equity_Futures;
+Cb_NSE_EOD_BhavCopy.IsChecked=t1.Cb_NSE_EOD_BhavCopy;
 chkEquity.IsChecked=t1.chkEquity;
 Cb_NSE_Forex_Options.IsChecked=t1.Cb_NSE_Forex_Options;
 Cb_NSE_SME.IsChecked=t1.Cb_NSE_SME;
@@ -159,9 +191,9 @@ Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
  chkCombinedReport.IsChecked=t1.chkCombinedReport;
  chkNseForex.IsChecked=t1.chkNseForex;
  chkNseNcdex.IsChecked=t1.chkNseNcdex;
-     
 
 
+ Cb_NSE_Sec_List.IsChecked = t1.Cb_NSE_Sec_List;
  MCXSX_Forex_Future.IsChecked=t1.MCXSX_Forex_Future;
  MCXSX_Equity_Futures.IsChecked=t1.MCXSX_Equity_Futures;
  MCXCommodity_Futures.IsChecked=t1.MCXCommodity_Futures;
@@ -232,7 +264,7 @@ t.ChkBseFo=ChkBseFo.IsChecked.Value;
 
 
 t.Cb_NSE_CASH_MARKET=Cb_NSE_CASH_MARKET.IsChecked.Value;
-t.Cb_NSE_Equity_Futures=Cb_NSE_Equity_Futures.IsChecked.Value;
+t.Cb_NSE_EOD_BhavCopy=Cb_NSE_EOD_BhavCopy.IsChecked.Value;
 t.chkEquity=chkEquity.IsChecked.Value;
 t.Cb_NSE_Forex_Options=Cb_NSE_Forex_Options.IsChecked.Value;
 t.Cb_NSE_SME=Cb_NSE_SME.IsChecked.Value;
@@ -269,8 +301,9 @@ t.Cb_MCX_Google_IEOD_5min= Cb_MCX_Google_IEOD_5min.IsChecked.Value;
 t.Cb_Corporate_Events= Cb_Corporate_Events.IsChecked.Value;
 t.Cb_Board_Message= Cb_Board_Message.IsChecked.Value;
 t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
-                
-                
+
+t.Cb_NSE_Sec_List = Cb_NSE_Sec_List.IsChecked.Value;
+
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Create, FileAccess.Write);
                 bf.Serialize(fs, t);
@@ -320,6 +353,8 @@ t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
         public bool  checkboxevent;
 
 
+        public bool Cb_NSE_Sec_List;
+
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
 public bool ChkBSEEquity;
@@ -327,7 +362,7 @@ public bool ChkBseFo;
 
 
 public bool Cb_NSE_CASH_MARKET;
-public bool Cb_NSE_Equity_Futures;
+public bool Cb_NSE_EOD_BhavCopy;
 public bool chkEquity;
 public bool Cb_NSE_Forex_Options;
 public bool Cb_NSE_SME;
