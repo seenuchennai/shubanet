@@ -148,6 +148,8 @@
                                 <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="4,70,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_Reports" />
                                 <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="70,70,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Grid.Column="1" />
                                 <CheckBox Content="NSE PR" Height="16" HorizontalAlignment="Left" Margin="170,70,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
+                                <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Left" Margin="250,70,0,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
+                                <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="310,70,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
 
 
 

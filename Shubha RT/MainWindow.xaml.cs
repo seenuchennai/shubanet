@@ -224,6 +224,95 @@ namespace StockD
 
             }
 
+            if (Cb_NSE_Bulk_Deal.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string day1,month, year;
+
+
+                    if (day.Day < 10)
+                    {
+                        day1  = "0" + day.Day.ToString()+"-";
+                    }
+                    else
+                    {
+                        day1 =  day.Day.ToString() + "-";
+
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        month  = "0" + day.Month.ToString()+"-";
+                    }
+                    else
+                    {
+                        month =  day.Month.ToString() + "-";
+
+                    }
+                  
+
+                    string date1=day1 + month + day.Year ;
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\" + date1 +"-TO-"+date1+"_bulk.csv";
+
+                    baseurl = "http://www.nseindia.com/content/equities/bulkdeals/datafiles/" + date1 + "-TO-" + date1 + "_bulk.csv";
+
+              // baseurl=" http://www.nseindia.com/content/equities/bulkdeals/datafiles/06-05-2013-TO-09-05-2013_bulk.csv";
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
+            if (Cb_NSE_Block_Deal.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string day1, month, year;
+
+
+                    if (day.Day < 10)
+                    {
+                        day1 = "0" + day.Day.ToString() + "-";
+                    }
+                    else
+                    {
+                        day1 = day.Day.ToString() + "-";
+
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        month = "0" + day.Month.ToString() + "-";
+                    }
+                    else
+                    {
+                        month = day.Month.ToString() + "-";
+
+                    }
+
+
+                    string date1 = day1 + month + day.Year;
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\" + date1 + "-TO-" + date1 + "_block.csv";
+
+                    baseurl = "http://www.nseindia.com/content/equities/bulkdeals/datafiles/" + date1 + "-TO-" + date1 + "_block.csv";
+
+                    // baseurl=" http://www.nseindia.com/content/equities/bulkdeals/datafiles/09-05-2013-TO-09-05-2013_block.csv
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
+         
             
 
 
@@ -372,6 +461,10 @@ Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
  Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
 
  Cb_NSE_PR.IsChecked = t1.Cb_NSE_PR;
+ Cb_NSE_Bulk_Deal.IsChecked = t1.Cb_NSE_Bulk_Deal;
+ Cb_NSE_Block_Deal.IsChecked = t1.Cb_NSE_Block_Deal;
+
+                
 
  MCXSX_Forex_Future.IsChecked=t1.MCXSX_Forex_Future;
  MCXSX_Equity_Futures.IsChecked=t1.MCXSX_Equity_Futures;
@@ -488,7 +581,11 @@ t.Cb_NSE_Sec_List = Cb_NSE_Sec_List.IsChecked.Value;
 t.Cb_NSE_Delivary_Data_Download = Cb_NSE_Delivary_Data_Download.IsChecked.Value;
 
 t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;
-t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;   
+t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;
+t.Cb_NSE_Bulk_Deal = Cb_NSE_Bulk_Deal.IsChecked.Value;
+t.Cb_NSE_Block_Deal = Cb_NSE_Block_Deal.IsChecked.Value; 
+
+                
                 
 
                 BinaryFormatter bf = new BinaryFormatter();
@@ -543,6 +640,8 @@ t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;
         public bool Cb_NSE_Sec_List;
         public bool Cb_NSE_Market_Activity;
         public bool Cb_NSE_PR;
+        public bool Cb_NSE_Bulk_Deal;
+        public bool Cb_NSE_Block_Deal;
 
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
