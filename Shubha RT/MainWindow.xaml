@@ -140,6 +140,7 @@
                                 <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" />
                                 <CheckBox Content="NSE EOD BhavCopy" Height="16" HorizontalAlignment="Left" Margin="100,7,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125"/>
                                 <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="350,7,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" />
+                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="450,7,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" />
 
                                 <CheckBox Content="NSE Equity Options" Margin="277,8,0,0" Name="chkEquity" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkEquity" Grid.Column="1" />
                                 
