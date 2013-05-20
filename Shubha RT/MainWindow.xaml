@@ -150,6 +150,7 @@
                                 <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="421,30,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
                                 <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="4,56,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_Reports" />
                                 <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="50,56,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Grid.Column="1" />
+                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="100,50,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
 
                                 <CheckBox Content="NSE Forex Future" Margin="88,104,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseForex" Grid.Column="1" />
                                 <CheckBox Content="NCDEX Futures" Margin="88,146,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" Grid.Column="1" />

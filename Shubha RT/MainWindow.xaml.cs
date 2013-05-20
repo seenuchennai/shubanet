@@ -140,7 +140,49 @@ namespace StockD
 
             }
 
+            if (Cb_NSE_Market_Activity.IsChecked == true)
+            {
 
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string date1,year;
+                    
+
+                    if (day.Day < 10)
+                    {
+                        date1 = "0" + day.Day.ToString();
+                    }
+                    else
+                    {
+                        date1 = day.Day.ToString();
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        date1 = date1 + "0" + day.Month.ToString();
+                    }
+                    else
+                    {
+                        date1 = date1 + day.Month.ToString();
+                    }
+                    year = day.Year.ToString();
+
+                    string lastTwoChars = year.Substring(year.Length - 2);
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\MA" + date1 + lastTwoChars  + ".csv";
+
+                    baseurl = "http://www.nseindia.com/archives/equities/mkt/MA" + date1 + lastTwoChars +".csv";
+
+                //http://www.nseindia.com/archives/equities/mkt/MA160513.csv
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
+            
 
 
         }
@@ -283,9 +325,9 @@ Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
 
 
  Cb_NSE_Sec_List.IsChecked = t1.Cb_NSE_Sec_List;
- Cb_NSE_Delivary_Data_Download.IsChecked = t1.Cb_NSE_Delivary_Data_Download;           
+ Cb_NSE_Delivary_Data_Download.IsChecked = t1.Cb_NSE_Delivary_Data_Download;
 
-
+ Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
 
 
  MCXSX_Forex_Future.IsChecked=t1.MCXSX_Forex_Future;
@@ -402,7 +444,7 @@ t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
 t.Cb_NSE_Sec_List = Cb_NSE_Sec_List.IsChecked.Value;
 t.Cb_NSE_Delivary_Data_Download = Cb_NSE_Delivary_Data_Download.IsChecked.Value;
 
-
+t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;          
 
 
 
@@ -456,6 +498,8 @@ t.Cb_NSE_Delivary_Data_Download = Cb_NSE_Delivary_Data_Download.IsChecked.Value;
 
 
         public bool Cb_NSE_Sec_List;
+        public bool Cb_NSE_Market_Activity;
+
 
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
