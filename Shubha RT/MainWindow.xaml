@@ -138,20 +138,27 @@
                         <l:AccordianItem Header="NSE">
                             <Grid Height="84" Width="611">
                                 <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" />
-                                <CheckBox Content="NSE EOD BhavCopy" Height="16" HorizontalAlignment="Left" Margin="100,7,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125"/>
-                                <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="350,7,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" />
-                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="450,7,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" />
+                                
 
                                 <CheckBox Content="NSE Equity Options" Margin="277,8,0,0" Name="chkEquity" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkEquity" Grid.Column="1" />
                                 
                                 <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="4,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseFO"/>
                                 <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="134,30,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
                                 <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="274,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" />
-                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="421,30,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="4,56,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_Reports" />
-                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="50,56,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Grid.Column="1" />
-                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="100,50,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
+                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="4,70,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_Reports" />
+                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="70,70,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Grid.Column="1" />
+                                <CheckBox Content="NSE PR" Height="16" HorizontalAlignment="Left" Margin="170,70,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
 
+
+
+                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="0,150,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
+                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="0,50,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
+
+                                <CheckBox Content="NSE EOD BhavCopy" Height="16" HorizontalAlignment="Left" Margin="100,50,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125"/>
+                                <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="300,50,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" />
+                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="400,50,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" />
+                                
+                                
                                 <CheckBox Content="NSE Forex Future" Margin="88,104,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseForex" Grid.Column="1" />
                                 <CheckBox Content="NCDEX Futures" Margin="88,146,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" Grid.Column="1" />
 

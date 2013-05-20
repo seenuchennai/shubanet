@@ -140,6 +140,48 @@ namespace StockD
 
             }
 
+
+            if (Cb_NSE_PR.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string date1, year;
+
+
+                    if (day.Day < 10)
+                    {
+                        date1 = "0" + day.Day.ToString();
+                    }
+                    else
+                    {
+                        date1 = day.Day.ToString();
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        date1 = date1 + "0" + day.Month.ToString();
+                    }
+                    else
+                    {
+                        date1 = date1 + day.Month.ToString();
+                    }
+                    year = day.Year.ToString();
+
+                    string lastTwoChars = year.Substring(year.Length - 2);
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + ".zip";
+
+                    baseurl = "http://www.nseindia.com/archives/equities/bhavcopy/pr/PR" + date1 + lastTwoChars + ".zip";
+
+                    //http://www.nseindia.com/archives/equities/bhavcopy/pr/PR160513.zip
+
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
             if (Cb_NSE_Market_Activity.IsChecked == true)
             {
 
@@ -329,6 +371,7 @@ Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
 
  Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
 
+ Cb_NSE_PR.IsChecked = t1.Cb_NSE_PR;
 
  MCXSX_Forex_Future.IsChecked=t1.MCXSX_Forex_Future;
  MCXSX_Equity_Futures.IsChecked=t1.MCXSX_Equity_Futures;
@@ -444,9 +487,9 @@ t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
 t.Cb_NSE_Sec_List = Cb_NSE_Sec_List.IsChecked.Value;
 t.Cb_NSE_Delivary_Data_Download = Cb_NSE_Delivary_Data_Download.IsChecked.Value;
 
-t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;          
-
-
+t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;
+t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;   
+                
 
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Create, FileAccess.Write);
@@ -499,7 +542,7 @@ t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;
 
         public bool Cb_NSE_Sec_List;
         public bool Cb_NSE_Market_Activity;
-
+        public bool Cb_NSE_PR;
 
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
