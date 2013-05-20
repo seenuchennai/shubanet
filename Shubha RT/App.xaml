@@ -10,7 +10,6 @@
     		<ResourceDictionary.MergedDictionaries>
     			<ResourceDictionary Source="Themes\Accordian.Generic.xaml"/>
     			<ResourceDictionary Source="Themes\AccordianItem.Generic.xaml"/>
-                <ResourceDictionary Source="Themes\Generic.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
         

@@ -35,7 +35,59 @@ namespace StockD
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
 
+            string strYearDir = txtTargetFolder.Text + "\\Downloads";
+            string baseurl;
+
+            if (!Directory.Exists(strYearDir))
+                Directory.CreateDirectory(strYearDir);
+
+            if (Cb_NSE_CASH_MARKET.IsChecked == true)
+            {
+                baseurl="http://www.nseindia.com/content/equities/sec_list.csv";
+                downliaddata(strYearDir,baseurl);
+            }
+
+
+
         }
+    
+        private void downliaddata(string path,string url)
+        {
+             WebClient Client = new WebClient();
+
+                    try
+                    {
+
+                        //If Data is Not Present For Date Then  Exception Occure And It Get Added Into List Box  
+                       // Client.DownloadFile("http://www.mcx-sx.com/downloads/daily/EquityDownloads/Market%20Statistics%20Report_" + date1 + ".csv.", File_path);
+
+                        Client.Headers.Add("Accept", "application/zip");
+                        Client.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+                        Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
+                        Client.DownloadFile(url, path  +"\\sec_list.csv");
+                        
+                        //string clientHeader = "DATE" + "," + "TICKER" + " " + "," + "NAME" + "," + " " + "," + " " + "," + "OPEN" + "," + "HIGH" + "," + "LOW" + "," + "CLOSE" + "," + "VOLUME" + "," + "OPENINT" + Environment.NewLine;
+
+                        //Format_Header(File_path, clientHeader);
+                    }
+                    catch (Exception ex)
+                    {
+                     
+                        if ((ex.ToString().Contains("404")) || (ex.ToString().Contains("400")))
+                        {
+                           
+                        }
+                    }
+                   
+
+                }
+
+        
+
+
+        
+
+       
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             // Updating the Label which displays the current second
@@ -71,6 +123,11 @@ namespace StockD
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+
+            log4net.Config.XmlConfigurator.Configure();
+            ILog log = LogManager.GetLogger(typeof(MainWindow));
+            log.Debug("Application Strated Successfully");
+            
             BinaryFormatter bf = new BinaryFormatter();
             //Use For Serialization Data Get Save In Fileio.txt file 
 
@@ -236,6 +293,19 @@ t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
         private void tabItem2_DragLeave(object sender, System.Windows.DragEventArgs e)
         {
             savechanges();
+        }
+
+        private void btnTarget_Click(object sender, RoutedEventArgs e)
+        {
+            var Open_Folder = new System.Windows.Forms.FolderBrowserDialog();
+            if (Open_Folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string Target_Folder_Path = Open_Folder.SelectedPath;
+
+
+                txtTargetFolder.Text = Target_Folder_Path;
+            }
+
         }
 
        

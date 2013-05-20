@@ -1,12 +1,10 @@
 ﻿<Window x:Class="StockD.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:StockD"
+       
          xmlns:l="clr-namespace:AccordianDemo.Controls"
         Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" SizeToContent="WidthAndHeight" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.DataContext>
-        <local:StockDViewModel/>
-    </Window.DataContext>
+   
     <Grid Name="MyGrid" Background="#FFB9D4F5" Height="649" Width="861">
         <Image Height="57" HorizontalAlignment="Left" Margin="10,16,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="/AccordianDemo;component/Images/logo.jpg" />
         <Label Content="Welcome" Height="28" HorizontalAlignment="Left" Margin="691,12,0,0" Name="labe" VerticalAlignment="Top" ClipToBounds="False" FontWeight="Bold" Grid.Column="1" />
@@ -96,7 +94,7 @@
                                         <Label Content="Output" Height="28" HorizontalAlignment="Left" Margin="240,43,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
 
                                         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,9,16,0" Name="txtTargetFolder" VerticalAlignment="Top" Width="457" Text="{Binding TargetFolder}" Grid.Column="1" />
-                                        <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75" Command="{Binding Path=UpdateTargetDirectory}"  CommandParameter="TargetFolderButton" Grid.ColumnSpan="2" />
+                                        <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75" Command="{Binding Path=UpdateTargetDirectory}"  CommandParameter="TargetFolderButton" Grid.ColumnSpan="2" Click="btnTarget_Click" />
                                     </Grid>
                                 </GroupBox>
                                 
@@ -113,7 +111,7 @@
                         </l:AccordianItem>
                         <l:AccordianItem Header="NSE">
                             <Grid Height="84" Width="611">
-                                <CheckBox Content="NSE Cash Market " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_CASH_MARKET"/>
+                                <CheckBox Content="NSE Cash Market " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" />
                                 <CheckBox Content="NSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="134,7,0,0" Name="Cb_NSE_Equity_Futures" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseFO" />
                                 <CheckBox Content="NSE Equity Options" Margin="277,8,0,0" Name="chkEquity" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkEquity" Grid.Column="1" />
                                 
