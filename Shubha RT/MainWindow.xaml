@@ -15,7 +15,7 @@
             <TabItem  Name="tabItem3">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image VerticalAlignment="Center"  Width="15" Source=" Images/home.jpeg" />
+                        <Image VerticalAlignment="Center"  Width="15" Source="Images/home.jpeg" />
                         <TextBlock VerticalAlignment="Center" Margin="5, 0" >HOME</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
@@ -66,7 +66,8 @@
                         <Button Content="Stop" Height="23" Margin="230,140,0,0" Name="btnExit" Width="93" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" />
                         <CheckBox Content="Auto Update From " Height="16" HorizontalAlignment="Left" Margin="533,58,0,0" Name="checkBox1" VerticalAlignment="Top" Width="198" FontWeight="Normal" FontFamily="Calibri" FontSize="15" Grid.Column="1" />
                         <Button Content="Reset" Height="23" HorizontalAlignment="Right" Margin="0,140,597,0" Name="button2" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="button2_Click" />
-                        <Image Height="159" HorizontalAlignment="Left" Margin="60,201,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="650" Source="Images/logo%20icon.jpg" Grid.Column="1" ImageFailed="image2_ImageFailed" />
+                        <Image Height="159" HorizontalAlignment="Left" Margin="60,254,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="650" Source="Images/logo%20icon.jpg" Grid.Column="1" ImageFailed="image2_ImageFailed" />
+                        <ProgressBar Height="28" HorizontalAlignment="Left" Margin="61,212,0,0" Name="ProgressBar1" VerticalAlignment="Top" Width="627" Grid.Column="1" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -133,7 +134,7 @@
                                 <CheckBox Content="BSE INDEX" Height="16" Name="BSE_Index" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="11,22,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseEquity"/>
                                 <CheckBox Content="BSE Equity Options" Height="15" Name="ChkBseFo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
                                 <CheckBox Content="BSE Delivary Data" Height="15" Name="BSE_Delivary_Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,100,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
-                                <CheckBox Content="BSE Block" Height="15" Name="BSE_Block" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
+                                <CheckBox Content="BSE Block" Height="15" Name="BSE_Block" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,100,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
 
                             </Grid>
                         </l:AccordianItem>
