@@ -42,7 +42,7 @@ namespace StockD
         {
 
            string strYearDir = txtTargetFolder.Text + "\\Downloads";
-            string baseurl;
+            string baseurl,filename="";
              DateTime  StartDate, EndDate;
 
             
@@ -415,17 +415,341 @@ namespace StockD
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\eq" + date1 + lastTwoChars + "_csv.zip";
                     baseurl = " http://www.bseindia.com/download/BhavCopy/Equity/eq" + date1 + lastTwoChars + "_csv.zip";
 
-                    // baseurl=" http://www.bseindia.com/download/BhavCopy/Equity/eq231112_csv.zip
-                //http://www.bseindia.com/download/BhavCopy/Equity/eq231112_csv.zip
+                  
                     downliaddata(strYearDir, baseurl);
                 }
 
             }
 
-         
+         if (BSE_Delivary_Data.IsChecked == true)
+         {
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1;
 
 
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
 
+                
+                 year = day.Year.ToString();
+
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\SCBSEALL" + date1 + lastTwoChars + ".zip";
+                 baseurl = "http://www.bseindia.com/BSEDATA/gross/" + day.Year + "/SCBSEALL" + date1 + lastTwoChars + ".zip";
+
+                 downliaddata(strYearDir, baseurl);
+             }
+
+         }
+
+         if (Cb_BSE_Equity_Futures.IsChecked == true)
+         {
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1,date2,datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 =  "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 =  day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = date1 + "-" + date2 + "-" + lastTwoChars;
+
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\bhavcopy" + datetoselect + ".zip";
+                 baseurl = "http://www.bseindia.com/download/Bhavcopy/Derivative/bhavcopy" +datetoselect + ".zip";
+                 //http://www.bseindia.com/download/Bhavcopy/Derivative/bhavcopy23-11-12.zip
+                 downliaddata(strYearDir, baseurl);
+             }
+
+         }
+
+         if (BSE_Index.IsChecked == true)
+         {
+             strYearDir = strYearDir + "\\Bse";
+             if (!Directory.Exists(strYearDir))
+                 Directory.CreateDirectory(strYearDir);
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = date2 + "/" + date1 + "/" +day.Year ;
+                 filename=day.Day.ToString() ;
+                    //BSE30
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSE30.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSE30%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //MIDCAP
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\MIDCAP.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=MIDCAP%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //SMLCAP
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\SMLCAP.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=SMLCAP%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+                     //BSE100
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSE100.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSE100%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+                   //BSE200
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSE200.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSE200%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BSE500
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSE500.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSE500%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BSE500
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSE500.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSE500%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //AUTO
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\AUTO.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=AUTO%20%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BANKEX
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BANKEX.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BANKEX%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BSECD
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSECD.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSECD%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                  //BSECG
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSECG.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSECG%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+
+                     //BSEFMCG
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSEFMCG.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSEFMCG&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BSEHC
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSEHC.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSEHC%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+
+                     //BSEIT
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSEIT.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSEIT%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //METAL
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\METAL.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=METAL%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //OILGAS
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\OILGAS.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=OILGAS%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+
+                     //POWER
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\POWER.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=POWER%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //BSEPSU
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSEPSU.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSEPSU%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //REALTY
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\REALTY.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=REALTY%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //TECK
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\TECK.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=TECK%20%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+
+                     //DOL
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\DOL.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=DOL30%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //DOL100
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\DOL100.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=DOL100%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //DOL200
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\DOL200.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=DOL200%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //SHA50
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\SHA50.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=SHA50%20%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //GREENX
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\GREENX.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=GREENX%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+                     //BSEIPO
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\BSEIPO.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=BSEIPO%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //CARBON
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\CARBON.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=CARBON%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+                     //SMEIPO
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse\\SMEIPO.csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=SMEIPO%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
+                     downliaddata(strYearDir, baseurl);
+
+
+                     string[] csvFileNames = Directory.GetFiles(@"C:\Documents and Settings\maheshwar\My Documents\data\Downloads\bse", "*.csv");
+
+                     JoinCsvFiles(csvFileNames, @"C:\Documents and Settings\maheshwar\My Documents\data\Downloads\BSEIndex"+day.Day +".csv");
+
+                
+             }
+             if (BSE_Block.IsChecked == true)
+             {
+
+                 foreach (DateTime day in EachDay(StartDate, EndDate))
+                 {
+                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                     string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                     string day1, month, year, date1, date2, datetoselect;
+
+
+                     if (day.Day < 10)
+                     {
+                         date1 = "0" + day.Day.ToString();
+                     }
+                     else
+                     {
+                         date1 = day.Day.ToString();
+                     }
+                     if (day.Month < 10)
+                     {
+
+                         date2 = "0" + day.Month.ToString();
+                     }
+                     else
+                     {
+                         date2 = day.Month.ToString();
+                     }
+
+                     year = day.Year.ToString();
+                     string lastTwoChars = year.Substring(year.Length - 2);
+                     datetoselect = date1 + "-" + date2 + "-" + lastTwoChars;
+
+                     strYearDir = txtTargetFolder.Text + "\\Downloads\\bhavcopy" + datetoselect + ".csv";
+                     baseurl = "http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_" + date1 + strMonthName +day.Year +".csv";
+                     //http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_26Dec2012.csv
+                     downliaddata(strYearDir, baseurl);
+                 }
+
+             }
+             
+
+         }
+
+            
+      
+        
+
+        }
+        private static void JoinCsvFiles(string[] csvFileNames, string outputDestinationPath)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            bool columnHeadersRead = false;
+
+            foreach (string csvFileName in csvFileNames)
+            {
+                TextReader tr = new StreamReader(csvFileName);
+
+                string columnHeaders = tr.ReadLine();
+
+                // Skip appending column headers if already appended
+                if (!columnHeadersRead)
+                {
+                    sb.AppendLine(columnHeaders);
+                    columnHeadersRead = true;
+                }
+
+                sb.AppendLine(tr.ReadToEnd());
+
+                
+            }
+            
+            File.WriteAllText(outputDestinationPath, sb.ToString());
+            
+          
         }
 
         private string formatdate(DateTime day)
@@ -473,7 +797,6 @@ namespace StockD
                     }
                     catch (Exception ex)
                     {
-                     
                         if ((ex.ToString().Contains("404")) || (ex.ToString().Contains("400")))
                         {
                             log4net.Config.XmlConfigurator.Configure();
@@ -547,11 +870,17 @@ namespace StockD
                 dtEndDate.Text = DateTime.Today.ToShortDateString();
                 dtStartDate.Text = DateTime.Today.ToShortDateString();
                 Cb_BSE_CASH_MARKET.IsChecked = t1.Cb_BSE_CASH_MARKET;
+                BSE_Delivary_Data.IsChecked = t1.BSE_Delivary_Data;
+                BSE_Block.IsChecked = t1.BSE_Block;
+
+
+                
 
 
 
                 Cb_BSE_Equity_Futures.IsChecked = t1.Cb_BSE_Equity_Futures;
-                ChkBSEEquity.IsChecked = t1.ChkBSEEquity;
+                BSE_Index.IsChecked = t1.BSE_Index;
+
                 ChkBseFo.IsChecked = t1.ChkBseFo;
 
 
@@ -647,7 +976,6 @@ namespace StockD
                 
                 t.Cb_BSE_CASH_MARKET=Cb_BSE_CASH_MARKET.IsChecked.Value ;
 t.Cb_BSE_Equity_Futures=Cb_BSE_Equity_Futures.IsChecked.Value;
-t.ChkBSEEquity=ChkBSEEquity.IsChecked.Value;
 t.ChkBseFo=ChkBseFo.IsChecked.Value;
                 
 
@@ -701,8 +1029,13 @@ t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;
 t.Cb_NSE_Bulk_Deal = Cb_NSE_Bulk_Deal.IsChecked.Value;
 t.Cb_NSE_Block_Deal = Cb_NSE_Block_Deal.IsChecked.Value; 
 t.Cb_NSE_India_Vix = Cb_NSE_India_Vix.IsChecked.Value;
+t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
+t.BSE_Delivary_Data = BSE_Delivary_Data.IsChecked.Value;
+t.BSE_Index = BSE_Index.IsChecked.Value;
+t.BSE_Block = BSE_Block.IsChecked.Value; 
 
-t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value; 
+
+                
                 
                 
                 
@@ -749,6 +1082,11 @@ t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
 
         }
 
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
        
 
      }
@@ -768,12 +1106,15 @@ t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
         public bool Cb_NSE_Block_Deal;
         public bool Cb_NSE_India_Vix;
         public bool Cb_NSE_Vix;
+        public bool BSE_Delivary_Data;
+        public bool BSE_Index;
 
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
 public bool ChkBSEEquity;
 public bool ChkBseFo;
  public bool Cb_NSE_Delivary_Data_Download;
+ public bool BSE_Block;
 
 
 public bool Cb_NSE_CASH_MARKET;
