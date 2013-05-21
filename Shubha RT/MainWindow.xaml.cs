@@ -347,8 +347,8 @@ namespace StockD
 
             }
 
-
-            if (Cb_NSE_Vix.IsChecked == true)
+            
+                 if (Cb_NSE_Vix.IsChecked == true)
             {
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
@@ -376,6 +376,47 @@ namespace StockD
 
                     // baseurl=" http://www.nseindia.com/content/vix/histdata/hist_india_vix_06-May-2013_06-May-2013.csv
 
+                    downliaddata(strYearDir, baseurl);
+                }
+
+            }
+
+         if (Cb_BSE_CASH_MARKET.IsChecked == true)
+            {
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string day1, month, year,date1;
+
+
+                    if (day.Day < 10)
+                    {
+                        date1 = "0" + day.Day.ToString();
+                    }
+                    else
+                    {
+                        date1 = day.Day.ToString();
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        date1 = date1 + "0" + day.Month.ToString();
+                    }
+                    else
+                    {
+                        date1 = date1 + day.Month.ToString();
+                    }
+                    year = day.Year.ToString();
+
+                    string lastTwoChars = year.Substring(year.Length - 2);
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\eq" + date1 + lastTwoChars + "_csv.zip";
+                    baseurl = " http://www.bseindia.com/download/BhavCopy/Equity/eq" + date1 + lastTwoChars + "_csv.zip";
+
+                    // baseurl=" http://www.bseindia.com/download/BhavCopy/Equity/eq231112_csv.zip
+                //http://www.bseindia.com/download/BhavCopy/Equity/eq231112_csv.zip
                     downliaddata(strYearDir, baseurl);
                 }
 
@@ -497,79 +538,79 @@ namespace StockD
 
             if (File.Exists(@"C:\Fileio.txt"))
             {
+
                 FileStream fs = new FileStream(@"C:\Fileio.txt", FileMode.Open, FileAccess.Read);
                 target1 t1 = (target1)bf.Deserialize(fs);
                 txtTargetFolder.Text = t1.target;
-               // dtStartDate.Text = t1.fromdate.ToShortDateString();
-               // dtEndDate.Text = t1.todate.ToShortDateString();
+                 dtStartDate.Text = t1.fromdate.ToShortDateString();
+                 dtEndDate.Text = t1.todate.ToShortDateString();
                 dtEndDate.Text = DateTime.Today.ToShortDateString();
-                dtStartDate .Text = DateTime.Today.ToShortDateString();
-                Cb_BSE_CASH_MARKET.IsChecked =  t1.Cb_BSE_CASH_MARKET;
+                dtStartDate.Text = DateTime.Today.ToShortDateString();
+                Cb_BSE_CASH_MARKET.IsChecked = t1.Cb_BSE_CASH_MARKET;
 
 
-             
-Cb_BSE_Equity_Futures.IsChecked=t1.Cb_BSE_Equity_Futures;
-ChkBSEEquity.IsChecked=t1.ChkBSEEquity;
-ChkBseFo.IsChecked=t1.ChkBseFo;
+
+                Cb_BSE_Equity_Futures.IsChecked = t1.Cb_BSE_Equity_Futures;
+                ChkBSEEquity.IsChecked = t1.ChkBSEEquity;
+                ChkBseFo.IsChecked = t1.ChkBseFo;
 
 
-Cb_NSE_CASH_MARKET.IsChecked=t1.Cb_NSE_CASH_MARKET;
-Cb_NSE_EOD_BhavCopy.IsChecked=t1.Cb_NSE_EOD_BhavCopy;
-chkEquity.IsChecked=t1.chkEquity;
-Cb_NSE_Forex_Options.IsChecked=t1.Cb_NSE_Forex_Options;
-Cb_NSE_SME.IsChecked=t1.Cb_NSE_SME;
- Cb_NSE_ETF.IsChecked=t1.Cb_NSE_ETF;
-Cb_NSE_Index.IsChecked=t1.Cb_NSE_Index;
- Cb_Reports.IsChecked=t1.Cb_Reports;
- chkCombinedReport.IsChecked=t1.chkCombinedReport;
- chkNseForex.IsChecked=t1.chkNseForex;
- chkNseNcdex.IsChecked=t1.chkNseNcdex;
+                Cb_NSE_CASH_MARKET.IsChecked = t1.Cb_NSE_CASH_MARKET;
+                Cb_NSE_EOD_BhavCopy.IsChecked = t1.Cb_NSE_EOD_BhavCopy;
+                chkEquity.IsChecked = t1.chkEquity;
+                Cb_NSE_Forex_Options.IsChecked = t1.Cb_NSE_Forex_Options;
+                Cb_NSE_SME.IsChecked = t1.Cb_NSE_SME;
+                Cb_NSE_ETF.IsChecked = t1.Cb_NSE_ETF;
+                Cb_NSE_Index.IsChecked = t1.Cb_NSE_Index;
+                Cb_Reports.IsChecked = t1.Cb_Reports;
+                chkCombinedReport.IsChecked = t1.chkCombinedReport;
+                chkNseForex.IsChecked = t1.chkNseForex;
+                chkNseNcdex.IsChecked = t1.chkNseNcdex;
 
 
- Cb_NSE_Sec_List.IsChecked = t1.Cb_NSE_Sec_List;
- Cb_NSE_Delivary_Data_Download.IsChecked = t1.Cb_NSE_Delivary_Data_Download;
+                Cb_NSE_Sec_List.IsChecked = t1.Cb_NSE_Sec_List;
+                Cb_NSE_Delivary_Data_Download.IsChecked = t1.Cb_NSE_Delivary_Data_Download;
 
- Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
+                Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
 
- Cb_NSE_PR.IsChecked = t1.Cb_NSE_PR;
- Cb_NSE_Bulk_Deal.IsChecked = t1.Cb_NSE_Bulk_Deal;
- Cb_NSE_Block_Deal.IsChecked = t1.Cb_NSE_Block_Deal;
- Cb_NSE_India_Vix.IsChecked = t1.Cb_NSE_India_Vix;
- Cb_NSE_Vix.IsChecked = t1.Cb_NSE_Vix;
-
-                
-
-                
-
- MCXSX_Forex_Future.IsChecked=t1.MCXSX_Forex_Future;
- MCXSX_Equity_Futures.IsChecked=t1.MCXSX_Equity_Futures;
- MCXCommodity_Futures.IsChecked=t1.MCXCommodity_Futures;
- MCXSX_Equity_Options.IsChecked=t1.MCXSX_Equity_Options;
- MCXSXForex_Options.IsChecked=t1.MCXSXForex_Options;
- National_Spot_Exchange.IsChecked=t1.National_Spot_Exchange;
- MCXSX_Equity_Indices.IsChecked=t1.MCXSX_Equity_Indices;
-  MCX_Index.IsChecked=t1.MCX_Index;
+                Cb_NSE_PR.IsChecked = t1.Cb_NSE_PR;
+                Cb_NSE_Bulk_Deal.IsChecked = t1.Cb_NSE_Bulk_Deal;
+                Cb_NSE_Block_Deal.IsChecked = t1.Cb_NSE_Block_Deal;
+                Cb_NSE_India_Vix.IsChecked = t1.Cb_NSE_India_Vix;
+                Cb_NSE_Vix.IsChecked = t1.Cb_NSE_Vix;
 
 
- chkYahooEOD.IsChecked=t1.chkYahooEOD;
- ChkYahooIEOD1.IsChecked=t1.ChkYahooIEOD1;
- chkYahooFundamental.IsChecked=t1.chkYahooFundamental;
- ChkYahooIEOD5.IsChecked=t1.ChkYahooIEOD5;
- Cb_Yahoo_Realtime.IsChecked=t1.Cb_Yahoo_Realtime;
-
- ChkGoogleEOD.IsChecked=t1.ChkGoogleEOD;
- ChkGoogleIEOD.IsChecked=t1.ChkGoogleIEOD;
- Cb_MCX_Google_IEOD_5min.IsChecked=t1.Cb_MCX_Google_IEOD_5min;
 
 
- Cb_Corporate_Events.IsChecked=t1.Cb_Corporate_Events;
- Cb_Board_Message.IsChecked=t1.Cb_Board_Message;
- Cb_Delete_all_events.IsChecked=t1.Cb_Delete_all_events;
+
+                MCXSX_Forex_Future.IsChecked = t1.MCXSX_Forex_Future;
+                MCXSX_Equity_Futures.IsChecked = t1.MCXSX_Equity_Futures;
+                MCXCommodity_Futures.IsChecked = t1.MCXCommodity_Futures;
+                MCXSX_Equity_Options.IsChecked = t1.MCXSX_Equity_Options;
+                MCXSXForex_Options.IsChecked = t1.MCXSXForex_Options;
+                National_Spot_Exchange.IsChecked = t1.National_Spot_Exchange;
+                MCXSX_Equity_Indices.IsChecked = t1.MCXSX_Equity_Indices;
+                MCX_Index.IsChecked = t1.MCX_Index;
 
 
-               
+                chkYahooEOD.IsChecked = t1.chkYahooEOD;
+                ChkYahooIEOD1.IsChecked = t1.ChkYahooIEOD1;
+                chkYahooFundamental.IsChecked = t1.chkYahooFundamental;
+                ChkYahooIEOD5.IsChecked = t1.ChkYahooIEOD5;
+                Cb_Yahoo_Realtime.IsChecked = t1.Cb_Yahoo_Realtime;
+
+                ChkGoogleEOD.IsChecked = t1.ChkGoogleEOD;
+                ChkGoogleIEOD.IsChecked = t1.ChkGoogleIEOD;
+                Cb_MCX_Google_IEOD_5min.IsChecked = t1.Cb_MCX_Google_IEOD_5min;
+
+
+                Cb_Corporate_Events.IsChecked = t1.Cb_Corporate_Events;
+                Cb_Board_Message.IsChecked = t1.Cb_Board_Message;
+                Cb_Delete_all_events.IsChecked = t1.Cb_Delete_all_events;
+
+
+
                 fs.Close();
-
 
 
             }
@@ -700,6 +741,11 @@ t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
 
                 txtTargetFolder.Text = Target_Folder_Path;
             }
+
+        }
+
+        private void image2_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
 
         }
 

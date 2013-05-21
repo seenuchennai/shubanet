@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AccordianDemo
+namespace ShubhaRt
 {
     /// <summary>
     /// Interaction logic for Login.xaml

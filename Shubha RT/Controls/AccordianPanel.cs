@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 
-namespace AccordianDemo.Controls
+namespace ShubhaRt.Controls
 {
     /// <summary>
     /// AccordianPanel
