@@ -19,16 +19,24 @@ using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections.Specialized ;
+using System.Collections;
 namespace StockD
 {
+     
+
+      
+       
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+       
+
         string url1 = "http://www.goog";
         int flag = 0;
+        WebClient Client = new WebClient();
         double value = 0;
         public MainWindow()
         {
@@ -879,10 +887,10 @@ namespace StockD
                      baseurl = "http://www.bseindia.com/stockinfo/indices_main_excel.aspx?ind=SMEIPO%20&fromDate=" + datetoselect + "&toDate=" + datetoselect + "&DMY=D";
                      downliaddata(strYearDir, baseurl);
 
+                     
+                     string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\bse", "*.csv");
 
-                     string[] csvFileNames = Directory.GetFiles(@"C:\Documents and Settings\maheshwar\My Documents\data\Downloads\bse", "*.csv");
-
-                     JoinCsvFiles(csvFileNames, @"C:\Documents and Settings\maheshwar\My Documents\data\Downloads\BSEIndex"+day.Day +".csv");
+                     JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\BSEIndex"+day.Day +".csv");
 
                 
              }
@@ -1047,7 +1055,7 @@ namespace StockD
         }
         private void downliaddata(string path,string url)
         {
-             WebClient Client = new WebClient();
+           
 
                     try
                     {
@@ -1140,10 +1148,10 @@ namespace StockD
             
            
         }
-
+       
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
-
+            
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Strated Successfully");
@@ -1394,7 +1402,7 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-         
+          
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
@@ -1455,7 +1463,14 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
 
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            Cb_NSE_Sec_List.IsChecked  = false;
+            dtEndDate.Text = "";
+            dtStartDate.Text = "";
+
+        }
+
+        private void Btn_Setting_reset_Click(object sender, RoutedEventArgs e)
+        {
+            Cb_NSE_Sec_List.IsChecked = false;
 
             Cb_NSE_Market_Activity.IsChecked = false;
             Cb_NSE_PR.IsChecked = false;
@@ -1517,6 +1532,8 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
 
 
         }
+
+     
 
         
        

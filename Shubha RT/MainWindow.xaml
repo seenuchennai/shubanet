@@ -6,12 +6,12 @@
         Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" SizeToContent="WidthAndHeight" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="880" Height="555">
    
     <Grid Name="MyGrid" Background="#FFB9D4F5" Height="649" Width="861">
-        <Image Height="57" HorizontalAlignment="Left" Margin="10,16,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="Images/logo.jpg" />
+        <Image Height="68" HorizontalAlignment="Left" Margin="10,16,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="Images/logo.jpg" />
         <Label Content="Welcome" Height="28" HorizontalAlignment="Left" Margin="691,12,0,0" Name="labe" VerticalAlignment="Top" ClipToBounds="False" FontWeight="Bold" Grid.Column="1" />
-        <Ellipse Height="14" Margin="498,16,344,0" Name="Net_Connection" Stroke="Black" VerticalAlignment="Top" Fill="#FFF21C1C" />
-        <Label Content="Internet Connection" Height="28" HorizontalAlignment="Left" Margin="394,12,0,0" Name="Lbl_internet" VerticalAlignment="Top" />
+        <Ellipse Height="14" Margin="498,16,344,0" Name="Net_Connection" Stroke="Black" VerticalAlignment="Top" Fill="#FFF21C1C" Visibility="Hidden" />
+        <Label Content="Internet Connection" Height="28" HorizontalAlignment="Left" Margin="394,12,0,0" Name="Lbl_internet" VerticalAlignment="Top" Visibility="Hidden" />
 
-        <TabControl HorizontalAlignment="Stretch" Margin="2,78,48,99" Name="tabControl1" VerticalAlignment="Stretch">
+        <TabControl HorizontalAlignment="Stretch" Margin="17,120,33,57" Name="tabControl1" VerticalAlignment="Stretch">
             <TabItem  Name="tabItem3">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -31,8 +31,9 @@
                             <ColumnDefinition Width="817*" />
                         </Grid.ColumnDefinitions>
                         <GroupBox Height="145" HorizontalAlignment="Left" Margin="61,8,0,0" Name="group" VerticalAlignment="Top" Width="644" Background="#FF85B6F2" Grid.Column="1">
-                          
                         </GroupBox>
+                        <Button Content="DownLoad" Margin="403,119,263,247" Height="23" Name="btnStart" Width="93" Command="{Binding Path=EODControlClicked}" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" />
+
                         <Label Content="Start Date" Height="28" HorizontalAlignment="Left" Margin="118,51,0,0" Name="label1" VerticalAlignment="Top" Grid.Column="1" />
                         <DatePicker Height="25" HorizontalAlignment="Left" Margin="183,52,0,0" Name="dtStartDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=StartDate}" Grid.Column="1"  >
                             <DatePicker.Resources>
@@ -41,14 +42,14 @@
                                         <Setter.Value>
                                             <ControlTemplate>
                                                 <TextBox x:Name="PART_TextBox" 
-                                    Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat={}{0:dd/MM/yyyy}}" />
+                                    Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" />
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>
-                        <Label Content="End Date" Height="28" HorizontalAlignment="Left" Margin="318,52,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="1" />
+                        <Label Content="End Date" Height="28" HorizontalAlignment="Left" Margin="318,46,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="1" />
                         <DatePicker Height="25" HorizontalAlignment="Left" Margin="379,53,0,0" Name="dtEndDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=EndDate}" Grid.Column="1" >
                             <DatePicker.Resources>
                                 <Style TargetType="{x:Type DatePickerTextBox}">
@@ -56,7 +57,7 @@
                                         <Setter.Value>
                                             <ControlTemplate>
                                                 <TextBox x:Name="PART_TextBox" 
-                                    Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat={}{0:dd/MM/yyyy}}" />
+                                    Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" />
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -65,8 +66,6 @@
                         </DatePicker>
                         <Button Content="Stop" Height="23" Margin="0,118,386,0" Name="btnExit" Width="93" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" />
                         <CheckBox Content="Auto Update From " Height="16" HorizontalAlignment="Left" Margin="533,58,0,0" Name="checkBox1" VerticalAlignment="Top" Width="198" FontWeight="Normal" FontFamily="Calibri" FontSize="15" Grid.Column="1" />
-                        <Button Content="DownLoad" Height="23" Margin="405,117,261,249" Name="btnStart" Width="93" Command="{Binding Path=EODControlClicked}" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" />
-
                         <Button Content="Reset" Height="23" HorizontalAlignment="Right" Margin="0,118,507,0" Name="Lbl_reset" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="Lbl_reset_Click" />
                         <Image Height="127" HorizontalAlignment="Left" Margin="61,235,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="642" Source="Images/logo%20icon.jpg" Grid.Column="1" ImageFailed="image2_ImageFailed" />
                         <ProgressBar Height="28" HorizontalAlignment="Left" Margin="61,195,0,0" Name="ProgressBar1" VerticalAlignment="Top" Width="627" Grid.Column="1" />
@@ -107,7 +106,7 @@
                     <l:Accordian Margin="2,-1,159,309" Grid.ColumnSpan="2" Height="303" Grid.RowSpan="3" Background="#FFAFD0F8">
                         <l:AccordianItem Header="Select Output Folder Path And Output Format" Foreground="#FF00004B">
                             <Grid>
-                                <GroupBox Header="Miscellaneous" Height="105" HorizontalAlignment="Left" Margin="23,17,0,0" Name="groupBox5" VerticalAlignment="Top" Width="600" Background="#FF85B6F2">
+                                <GroupBox  Height="105" HorizontalAlignment="Left" Margin="23,17,0,0" Name="groupBox5" VerticalAlignment="Top" Width="600" Background="#FF85B6F2">
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -125,7 +124,7 @@
                                         </ComboBox>
                                         <Label Content="Output" Height="28" HorizontalAlignment="Left" Margin="240,43,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
 
-                                        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,9,16,0" Name="txtTargetFolder" VerticalAlignment="Top" Width="457" Text="{Binding TargetFolder}" Grid.Column="1" />
+                                        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,9,16,0" Name="txtTargetFolder" VerticalAlignment="Top" Width="457" Grid.Column="1" />
                                         <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75" Command="{Binding Path=UpdateTargetDirectory}"  CommandParameter="TargetFolderButton" Grid.ColumnSpan="2" Click="btnTarget_Click" />
                                     </Grid>
                                 </GroupBox>
@@ -133,48 +132,39 @@
                             </Grid>
                         </l:AccordianItem>
                         <l:AccordianItem Header="BSE">
-                            <Grid >
+                            <Grid>
                                 <CheckBox Content="BSE Cash Market  " Height="16" HorizontalAlignment="Left" Margin="136,20,0,0" Name="Cb_BSE_CASH_MARKET" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_BSE_CASH_MARKET" />
                                 <CheckBox Content="BSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="269,20,0,0" Name="Cb_BSE_Equity_Futures" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
                                 <CheckBox Content="BSE INDEX" Height="16" Name="BSE_Index" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="11,22,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseEquity"/>
-                                <CheckBox Content="BSE Equity Options" Height="15" Name="ChkBseFo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
-                                <CheckBox Content="BSE Delivary Data" Height="15" Name="BSE_Delivary_Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="266,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
+                                <CheckBox Content="BSE Equity Options" Height="15" Name="ChkBseFo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="407,23,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" IsEnabled="False" />
+                                <CheckBox Content="BSE Delivary Data" Height="15" Name="BSE_Delivary_Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
                                 <CheckBox Content="BSE Block" Height="15" Name="BSE_Block" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
-                                <CheckBox Content="BSE Bulk" Height="15" Name="BSE_Bulk" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
+                                <CheckBox Content="BSE Bulk" Height="15" Name="BSE_Bulk" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
 
                             </Grid>
                         </l:AccordianItem>
                         <l:AccordianItem Header="NSE">
-                            <Grid Height="129" Width="611">
-                                <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="4,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" />
+                            <Grid >
+                                <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="358,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="6,74,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Visibility="Visible" />
+                                <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Left" Margin="215,52,0,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="215,74,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="358,7,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NCDEX Futures" Margin="358,55,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" Visibility="Visible" IsEnabled="False" />
 
-
-                                <CheckBox Content="NSE Equity Options" Margin="0,7,95,0" Name="chkEquity" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkEquity" />
-
-                                <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="4,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseFO"/>
-                                <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="140,30,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
-                                <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="274,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" />
-                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="4,70,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_Reports" />
-                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="274,50,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" />
-                                <CheckBox Content="NSE PR" Height="16" HorizontalAlignment="Left" Margin="140,70,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-                                <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Left" Margin="274,70,0,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-                                <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="403,70,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-                                <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="403,50,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-                                <CheckBox Content="NSE  Vix" Height="16" HorizontalAlignment="Left" Margin="3,92,0,0" Name="Cb_NSE_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-
-                                <CheckBox Content="NSE Forex Future" Margin="140,92,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseForex" />
-                                <CheckBox Content="NCDEX Futures" Margin="274,92,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" />
-
-                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="274,7,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" />
-                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="4,50,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" />
-
-                                <CheckBox Content="NSE CASH MARKET" Height="16" HorizontalAlignment="Left" Margin="140,7,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125"/>
-                                <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="140,50,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" />
-                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="403,30,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" />
-
-
-
-
+                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="215,6,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" Visibility="Visible" />
+                                <CheckBox Content="NSE CASH MARKET" Height="16" HorizontalAlignment="Left" Margin="6,30,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125" Visibility="Visible" />
+                                <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" Visibility="Visible" />
+                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="6,52,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" Visibility="Visible" />
+                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="6,92,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE PR" Height="16" HorizontalAlignment="Left" Margin="215,30,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE  Vix" Height="16" HorizontalAlignment="Left" Margin="215,92,0,0" Name="Cb_NSE_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="358,74,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_SME" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NSE Equity Options" Margin="0,96,333,0" Name="chkEquity" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="chkEquity" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="489,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="489,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseFO" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="489,52,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_Reports" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NSE Forex Future" Margin="490,76,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseForex" IsEnabled="False" Visibility="Visible" />
                             </Grid>
                         </l:AccordianItem>
                         <l:AccordianItem Header="MCX">
@@ -246,7 +236,7 @@
 
                         </l:AccordianItem>
                     </l:Accordian>
-                    <Button Content="Cancle" Height="23" HorizontalAlignment="Left" Margin="625,316,0,0" Name="button1" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="2" />
+                    <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="625,316,0,0" Name="Btn_Setting_reset" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="2" Click="Btn_Setting_reset_Click" />
                     <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="515,315,0,0" Name="button3" VerticalAlignment="Top" Width="75" Grid.Column="1" Grid.Row="2" Click="button3_Click" />
                 </Grid>
             </TabItem>
