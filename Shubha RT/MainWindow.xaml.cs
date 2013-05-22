@@ -68,6 +68,10 @@ namespace StockD
                     System.Windows.Threading.DispatcherPriority.Background,
                     new object[] { System.Windows.Controls.ProgressBar.ValueProperty, value });
         }
+
+
+
+
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
 
@@ -84,8 +88,17 @@ namespace StockD
                 return;
 
             }
-           
-            
+
+            string strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBlock";
+
+            if (Directory.Exists(strYearDir))
+                Directory.Delete(strYearDir,true);
+
+            strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBulk";
+
+            if (Directory.Exists(strYearDir))
+                Directory.Delete(strYearDir,true );
+
             lbl_Download.Visibility = Visibility.Visible;
             lbl_Download.Content = "Please Wait File Is Downloading.....";
             //Configure the ProgressBar
@@ -114,9 +127,9 @@ namespace StockD
                     System.Windows.Threading.DispatcherPriority.Background,
                     new object[] { System.Windows.Controls.ProgressBar.ValueProperty, value });
 
-           string strYearDir = txtTargetFolder.Text + "\\Downloads";
             string baseurl,filename="";
              DateTime  StartDate, EndDate;
+            strYearDir = txtTargetFolder.Text + "\\Downloads";
 
             
                  StartDate = Convert.ToDateTime(dtStartDate.Text);
@@ -626,6 +639,9 @@ namespace StockD
                  baseurl = "http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_" + date1 + strMonthName + day.Year + ".csv";
                  //http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_26Dec2012.csv
                  downliaddata(strYearDir, baseurl);
+                 string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\BSEBlock", "*.csv");
+
+                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\bseblockdeals..csv");
 
              }
             
@@ -674,8 +690,13 @@ namespace StockD
                  //http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_26Dec2012.csv
                  downliaddata(strYearDir, baseurl);
 
+                 string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\BSEBulk", "*.csv");
+
+                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\bsebulkdeals..csv");
+
              }
 
+            
 
          }
              
@@ -1309,7 +1330,9 @@ t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
 t.BSE_Delivary_Data = BSE_Delivary_Data.IsChecked.Value;
 t.BSE_Index = BSE_Index.IsChecked.Value;
 t.BSE_Block = BSE_Block.IsChecked.Value;
-t.BSE_Bulk = BSE_Bulk.IsChecked.Value; 
+t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
+
+
 
                 
 
@@ -1346,15 +1369,21 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
             forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
             forms["mTbdate"] = "05%2F15%2F2013";
             forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
-            forms["mImgBtnGo.x"] = "13";
-            forms["mImgBtnGo.y"] = "6";
+            //forms["mImgBtnGo.x"] = "10";
+            //forms["mImgBtnGo.y"] = "10";
             //forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
-             
             webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
             var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx", "POST", forms);
             System.IO.File.WriteAllBytes(@"c:\11152012.csv", responseData);
-        }
+       }
 
+        static string Extract(string s, string tag)
+        {
+            var startTag = String.Format("id=\"{0}\" value=\"", tag);
+            var eaPos = s.IndexOf(startTag) + startTag.Length;
+            var eaPosLast = s.IndexOf('"', eaPos);
+            return s.Substring(eaPos, eaPosLast - eaPos);
+        }
         private static string ExtractVariable(string s, string valueName)
         {
             string tokenStart = valueName + "\" value=\"";
@@ -1422,6 +1451,71 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
         private void tabItem2_Drop(object sender, System.Windows.DragEventArgs e)
         {
            
+        }
+
+        private void Lbl_reset_Click(object sender, RoutedEventArgs e)
+        {
+            Cb_NSE_Sec_List.IsChecked  = false;
+
+            Cb_NSE_Market_Activity.IsChecked = false;
+            Cb_NSE_PR.IsChecked = false;
+            Cb_NSE_Bulk_Deal.IsChecked = false;
+            Cb_NSE_Block_Deal.IsChecked = false;
+            Cb_NSE_India_Vix.IsChecked = false;
+            Cb_NSE_Vix.IsChecked = false;
+            BSE_Delivary_Data.IsChecked = false;
+            BSE_Index.IsChecked = false;
+            BSE_Bulk.IsChecked = false;
+
+
+            Cb_BSE_CASH_MARKET.IsChecked = false;
+            Cb_BSE_Equity_Futures.IsChecked = false;
+            ChkBseFo.IsChecked = false;
+            Cb_NSE_Delivary_Data_Download.IsChecked = false;
+            BSE_Block.IsChecked = false;
+
+
+            Cb_NSE_CASH_MARKET.IsChecked = false;
+            Cb_NSE_EOD_BhavCopy.IsChecked = false;
+            chkEquity.IsChecked = false;
+            Cb_NSE_Forex_Options.IsChecked = false;
+            Cb_NSE_SME.IsChecked = false;
+            Cb_NSE_ETF.IsChecked = false;
+            Cb_NSE_Index.IsChecked = false;
+            Cb_Reports.IsChecked = false;
+            chkCombinedReport.IsChecked = false;
+            chkNseForex.IsChecked = false;
+            chkNseNcdex.IsChecked = false;
+
+
+
+            MCXSX_Forex_Future.IsChecked = false;
+            MCXSX_Equity_Futures.IsChecked = false;
+            MCXCommodity_Futures.IsChecked = false;
+            MCXSX_Equity_Options.IsChecked = false;
+            MCXSXForex_Options.IsChecked = false;
+            National_Spot_Exchange.IsChecked = false;
+            MCXSX_Equity_Indices.IsChecked = false;
+            MCX_Index.IsChecked = false;
+
+
+            chkYahooEOD.IsChecked = false;
+            ChkYahooIEOD1.IsChecked = false;
+            chkYahooFundamental.IsChecked = false;
+            ChkYahooIEOD5.IsChecked = false;
+            Cb_Yahoo_Realtime.IsChecked = false;
+
+            ChkGoogleEOD.IsChecked = false;
+            ChkGoogleIEOD.IsChecked = false;
+            Cb_MCX_Google_IEOD_5min.IsChecked = false;
+
+
+            Cb_Corporate_Events.IsChecked = false;
+            Cb_Board_Message.IsChecked = false;
+            Cb_Delete_all_events.IsChecked = false;
+
+
+
         }
 
         

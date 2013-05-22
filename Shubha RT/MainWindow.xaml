@@ -67,7 +67,7 @@
                         <CheckBox Content="Auto Update From " Height="16" HorizontalAlignment="Left" Margin="533,58,0,0" Name="checkBox1" VerticalAlignment="Top" Width="198" FontWeight="Normal" FontFamily="Calibri" FontSize="15" Grid.Column="1" />
                         <Button Content="DownLoad" Height="23" Margin="405,117,261,249" Name="btnStart" Width="93" Command="{Binding Path=EODControlClicked}" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" />
 
-                        <Button Content="Reset" Height="23" HorizontalAlignment="Right" Margin="0,118,507,0" Name="button2" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="button2_Click" />
+                        <Button Content="Reset" Height="23" HorizontalAlignment="Right" Margin="0,118,507,0" Name="Lbl_reset" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="Lbl_reset_Click" />
                         <Image Height="127" HorizontalAlignment="Left" Margin="61,235,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="642" Source="Images/logo%20icon.jpg" Grid.Column="1" ImageFailed="image2_ImageFailed" />
                         <ProgressBar Height="28" HorizontalAlignment="Left" Margin="61,195,0,0" Name="ProgressBar1" VerticalAlignment="Top" Width="627" Grid.Column="1" />
                         <Label Content="Please Wait File Is Downloading....." Height="28" HorizontalAlignment="Left" Margin="61,167,0,0" Name="lbl_Download" VerticalAlignment="Top" Grid.Column="1" Foreground="#FF3D1AFF" FontSize="15" Visibility="Hidden" />
