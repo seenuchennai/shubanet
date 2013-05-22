@@ -18,6 +18,7 @@ using log4net.Config;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections.Specialized ;
 namespace StockD
 {
 
@@ -27,7 +28,8 @@ namespace StockD
     public partial class MainWindow : Window
     {
         string url1 = "http://www.goog";
-       
+        int flag = 0;
+        double value = 0;
         public MainWindow()
         {
             
@@ -39,16 +41,60 @@ namespace StockD
                 yield return day;
         }
         private delegate void UpdateProgressBarDelegate(System.Windows.DependencyProperty dp, Object value);
+        
 
+
+        private void prograss()
+        {
+             
+            //Stores the value of the ProgressBar
+           
+
+            //Create a new instance of our ProgressBar Delegate that points
+            //  to the ProgressBar's SetValue method.
+            UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(ProgressBar1.SetValue);
+
+            //Tight Loop:  Loop until the ProgressBar.Value reaches the max
+           
+       
+                
+             
+                /*Update the Value of the ProgressBar:
+                  1)  Pass the "updatePbDelegate" delegate that points to the ProgressBar1.SetValue method
+                  2)  Set the DispatcherPriority to "Background"
+                  3)  Pass an Object() Array containing the property to update (ProgressBar.ValueProperty) and the new value */
+               value += 10;
+                Dispatcher.Invoke(updatePbDelegate,
+                    System.Windows.Threading.DispatcherPriority.Background,
+                    new object[] { System.Windows.Controls.ProgressBar.ValueProperty, value });
+        }
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+
+            if (dtStartDate.Text == "" || dtEndDate.Text == "")
+            {
+                System.Windows.Forms.MessageBox.Show("Please Select Date.. ");
+
+                return;
+
+            }
+            if(txtTargetFolder.Text=="")
+            {
+                System.Windows.Forms.MessageBox.Show("Please Set Path.. ");
+                return;
+
+            }
+           
+            
+            lbl_Download.Visibility = Visibility.Visible;
+            lbl_Download.Content = "Please Wait File Is Downloading.....";
             //Configure the ProgressBar
             ProgressBar1.Minimum = 0;
             ProgressBar1.Maximum = short.MaxValue;
             ProgressBar1.Value = 0;
 
             //Stores the value of the ProgressBar
-            double value = 0;
+           
 
             //Create a new instance of our ProgressBar Delegate that points
             //  to the ProgressBar's SetValue method.
@@ -57,12 +103,13 @@ namespace StockD
             //Tight Loop:  Loop until the ProgressBar.Value reaches the max
             do
             {
-                value += 10;
+                
                 btnStart.IsEnabled = false;
                 /*Update the Value of the ProgressBar:
                   1)  Pass the "updatePbDelegate" delegate that points to the ProgressBar1.SetValue method
                   2)  Set the DispatcherPriority to "Background"
                   3)  Pass an Object() Array containing the property to update (ProgressBar.ValueProperty) and the new value */
+                value += 10;
                 Dispatcher.Invoke(updatePbDelegate,
                     System.Windows.Threading.DispatcherPriority.Background,
                     new object[] { System.Windows.Controls.ProgressBar.ValueProperty, value });
@@ -80,7 +127,7 @@ namespace StockD
 
             if (Cb_NSE_Sec_List.IsChecked == true)
             {
-                value += 10;
+                prograss();
 
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
                 baseurl="http://www.nseindia.com/content/equities/sec_list.csv";
@@ -90,7 +137,8 @@ namespace StockD
             if (Cb_NSE_EOD_BhavCopy.IsChecked == true)
             {
 
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -108,7 +156,8 @@ namespace StockD
 
             if (chkCombinedReport.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -126,7 +175,8 @@ namespace StockD
 
             if (Cb_NSE_Delivary_Data_Download.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
@@ -151,7 +201,8 @@ namespace StockD
 
             if (Cb_NSE_Index.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
@@ -174,7 +225,8 @@ namespace StockD
 
             if (Cb_NSE_PR.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -215,7 +267,8 @@ namespace StockD
             }
             if (Cb_NSE_Market_Activity.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -257,7 +310,8 @@ namespace StockD
 
             if (Cb_NSE_Bulk_Deal.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
@@ -302,7 +356,8 @@ namespace StockD
 
             if (Cb_NSE_Block_Deal.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
@@ -348,7 +403,8 @@ namespace StockD
 
             if (Cb_NSE_India_Vix.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -382,7 +438,8 @@ namespace StockD
             
                  if (Cb_NSE_Vix.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -415,7 +472,8 @@ namespace StockD
 
          if (Cb_BSE_CASH_MARKET.IsChecked == true)
             {
-                value += 10;
+                prograss();
+
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -455,7 +513,8 @@ namespace StockD
 
          if (BSE_Delivary_Data.IsChecked == true)
          {
-             value += 10;
+             prograss();
+
              foreach (DateTime day in EachDay(StartDate, EndDate))
              {
                  System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -486,7 +545,8 @@ namespace StockD
 
          if (Cb_BSE_Equity_Futures.IsChecked == true)
          {
-             value += 10;
+             prograss();
+
 
              foreach (DateTime day in EachDay(StartDate, EndDate))
              {
@@ -524,10 +584,11 @@ namespace StockD
              }
 
          }
-
+        
          if (BSE_Block.IsChecked == true)
          {
-             value += 10;
+             prograss();
+
              foreach (DateTime day in EachDay(StartDate, EndDate))
              {
                  System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -557,17 +618,72 @@ namespace StockD
                  string lastTwoChars = year.Substring(year.Length - 2);
                  datetoselect = date1 + "-" + date2 + "-" + lastTwoChars;
                  strMonthName = strMonthName.Substring(0, 3);
-                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Block_" + day.Day  + ".csv";
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBlock";
+
+                 if (!Directory.Exists(strYearDir))
+                     Directory.CreateDirectory(strYearDir);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBlock\\Block_" + day.Day  + ".csv";
                  baseurl = "http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_" + date1 + strMonthName + day.Year + ".csv";
                  //http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_26Dec2012.csv
                  downliaddata(strYearDir, baseurl);
+
              }
+            
+
+         }
+
+         if (BSE_Bulk.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = date1 + "-" + date2 + "-" + lastTwoChars;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBulk";
+
+                 if (!Directory.Exists(strYearDir))
+                     Directory.CreateDirectory(strYearDir);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\BSEBulk\\Bulk_" + day.Day + ".csv";
+                 baseurl = "http://www.bseindia.com/stockinfo/BulkBlockFiles/Bulk_" + date1 + strMonthName + day.Year + ".csv";
+                 //http://www.bseindia.com/stockinfo/BulkBlockFiles/Block_26Dec2012.csv
+                 downliaddata(strYearDir, baseurl);
+
+             }
+
 
          }
              
          if (BSE_Index.IsChecked == true)
          {
-             value += 10;
+             prograss();
+             prograss();
+
              strYearDir =  txtTargetFolder.Text + "\\Downloads\\Bse";
              if (!Directory.Exists(strYearDir))
                  Directory.CreateDirectory(strYearDir);
@@ -749,18 +865,109 @@ namespace StockD
 
                 
              }
-             
+         }
+
+         if (MCXSX_Equity_Futures.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = date1 + date2 + day.Year;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\MarketStatisticsReport" + day.Day + ".csv";
+                 baseurl = "http://www.mcx-sx.com/downloads/daily/EquityDownloads/Market%20Statistics%20Report_" + datetoselect + ".csv";
+                 //http://www.mcx-sx.com/downloads/daily/EquityDownloads/Market%20Statistics%20Report_15042013.csv.
+                 downliaddata(strYearDir, baseurl);
+             }
+
 
          }
 
+         //if (MCX_Index.IsChecked == true)
+         //{
+         //    WebClient webClient = new WebClient();
+         //    byte[] b = webClient.DownloadData("http://www.mcxindia.com/SitePages/indexhistory.aspx");
 
-         
-                value += 10;
+         //    string s = System.Text.Encoding.UTF8.GetString(b);
+         //    var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+         //    //__EVENTVALIDATION.Dump();
+         //    var forms = new NameValueCollection();
+         //    forms["__EVENTTARGET"] = "btnLink_Excel";
+         //    forms["__EVENTARGUMENT"] = "";
+         //    forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+         //    forms["mTbdate"] = "05%2F15%2F2013";
+         //    forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+         //    //forms["mImgBtnGo.x"] = "13";
+         //    //forms["mImgBtnGo.y"] = "6";
+         //    //forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+
+         //    webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+         //    var responseData = webClient.UploadValues(@"http://www.mcxindia.com/SitePages/indexhistory.aspx", "POST", forms);
+
+         //    System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\13052013.csv", responseData);
+         //}
+
+         if (MCXCommodity_Futures.IsChecked == true)
+         {
+             WebClient webClient = new WebClient();
+             byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx");
+
+             string s = System.Text.Encoding.UTF8.GetString(b);
+             var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+             //__EVENTVALIDATION.Dump();
+             var forms = new NameValueCollection();
+             forms["__EVENTTARGET"] = "btnLink_Excel";
+             forms["__EVENTARGUMENT"] = "";
+             forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+             forms["mTbdate"] = "05%2F15%2F2013";
+             forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+             //forms["mImgBtnGo.x"] = "13";
+             //forms["mImgBtnGo.y"] = "6";
+             //forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+
+             webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+             var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx", "POST", forms);
+
+             System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\13052013.csv", responseData);
+         }
+
+
+                         prograss();
+
                 ProgressBar1.Value = ProgressBar1.Maximum;
          }
          while (ProgressBar1.Value != ProgressBar1.Maximum);
 
          btnStart.IsEnabled =true ;
+         lbl_Download.Content = "Download Completed ";
          System.Windows.Forms.MessageBox.Show("Download Completed Please See Log File In c:\\Temp");
 
         }
@@ -823,7 +1030,7 @@ namespace StockD
 
                     try
                     {
-
+                        prograss();
                         //If Data is Not Present For Date Then  Exception Occure And It Get Added Into List Box  
                        // Client.DownloadFile("http://www.mcx-sx.com/downloads/daily/EquityDownloads/Market%20Statistics%20Report_" + date1 + ".csv.", File_path);
 
@@ -857,7 +1064,14 @@ namespace StockD
 
                 }
 
-        
+      
+       
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
 
 
         
@@ -874,10 +1088,18 @@ namespace StockD
             Check_internet_connetion(url1);
 
         }
+
+
+
+
         private void Check_internet_connetion(string url)
         {
             //Check Internet Connection Is Present Or Not
-            DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
+
+
+            //if (Net_Connection.Fill == "#FFF21C1C")
+            //{
+                DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
 
             try
             {
@@ -894,6 +1116,8 @@ namespace StockD
                 DispatcherTimer1.Interval = new TimeSpan(0, 0, 10);
                 DispatcherTimer1.Start();
             }
+            
+           
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -920,6 +1144,9 @@ namespace StockD
                 Cb_BSE_CASH_MARKET.IsChecked = t1.Cb_BSE_CASH_MARKET;
                 BSE_Delivary_Data.IsChecked = t1.BSE_Delivary_Data;
                 BSE_Block.IsChecked = t1.BSE_Block;
+                BSE_Bulk.IsChecked = t1.BSE_Bulk;
+
+                
 
 
                 
@@ -998,7 +1225,7 @@ namespace StockD
                 textBox1.Text = "";
             }
            
-            Check_internet_connetion(url1);
+           // Check_internet_connetion(url1);
         }
 
         private void wMain_Closed(object sender, EventArgs e)
@@ -1006,7 +1233,7 @@ namespace StockD
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Close ");
-            savechanges();
+            //savechanges();
            
         }
         private void savechanges()
@@ -1017,6 +1244,7 @@ namespace StockD
             //}
             //else
             {
+                flag = 1;
                 target1 t = new target1();
                // t.fromdate = Convert.ToDateTime(dtStartDate.Text);
                // t.todate = Convert.ToDateTime(dtEndDate.Text);
@@ -1080,7 +1308,13 @@ t.Cb_NSE_India_Vix = Cb_NSE_India_Vix.IsChecked.Value;
 t.Cb_NSE_Vix = Cb_NSE_Vix.IsChecked.Value;
 t.BSE_Delivary_Data = BSE_Delivary_Data.IsChecked.Value;
 t.BSE_Index = BSE_Index.IsChecked.Value;
-t.BSE_Block = BSE_Block.IsChecked.Value; 
+t.BSE_Block = BSE_Block.IsChecked.Value;
+t.BSE_Bulk = BSE_Bulk.IsChecked.Value; 
+
+                
+
+
+                
 
 
                 
@@ -1093,23 +1327,57 @@ t.BSE_Block = BSE_Block.IsChecked.Value;
                 bf.Serialize(fs, t);
 
                 fs.Close();
+                System.Windows.Forms.MessageBox.Show("Changes Save Succeessfully");
             }
+        }
+
+
+        private void mcx()
+        {
+
+            WebClient webClient = new WebClient();
+            byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx");
+            string s = System.Text.Encoding.UTF8.GetString(b);
+            var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+            //__EVENTVALIDATION.Dump();
+            var forms = new NameValueCollection();
+            forms["__EVENTTARGET"] = "btnLink_Excel";
+            forms["__EVENTARGUMENT"] = "";
+            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+            forms["mTbdate"] = "05%2F15%2F2013";
+            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+            forms["mImgBtnGo.x"] = "13";
+            forms["mImgBtnGo.y"] = "6";
+            //forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+             
+            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+            var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx", "POST", forms);
+            System.IO.File.WriteAllBytes(@"c:\11152012.csv", responseData);
+        }
+
+        private static string ExtractVariable(string s, string valueName)
+        {
+            string tokenStart = valueName + "\" value=\"";
+            string tokenEnd = "\" />";
+            int start = s.IndexOf(tokenStart) + tokenStart.Length;
+            int length = s.IndexOf(tokenEnd, start) - start;
+            return s.Substring(start, length);
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.Application.Restart();
-            System.Windows.Application.Current.Shutdown();
+         
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-           
+            savechanges();
            
         }
 
         private void tabItem2_DragLeave(object sender, System.Windows.DragEventArgs e)
         {
-            savechanges();
+           
+            //System.Windows.Forms.MessageBox.Show("Please Save Data Befor Leaving");
         }
 
         private void btnTarget_Click(object sender, RoutedEventArgs e)
@@ -1130,11 +1398,33 @@ t.BSE_Block = BSE_Block.IsChecked.Value;
 
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void tabItem2_LostFocus(object sender, RoutedEventArgs e)
         {
+            
 
         }
 
+        private void tabItem2_Unloaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void tabItem2_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            
+
+        }
+
+        private void tabItem2_GotFocus(object sender, RoutedEventArgs e)
+        {
+            flag = 0;
+        }
+
+        private void tabItem2_Drop(object sender, System.Windows.DragEventArgs e)
+        {
+           
+        }
+
+        
        
 
      }
@@ -1156,7 +1446,9 @@ t.BSE_Block = BSE_Block.IsChecked.Value;
         public bool Cb_NSE_Vix;
         public bool BSE_Delivary_Data;
         public bool BSE_Index;
+        public bool BSE_Bulk;
 
+        
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
 public bool ChkBSEEquity;

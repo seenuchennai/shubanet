@@ -34,10 +34,12 @@
     <InstallUrl>http://shubhalabha.in/dev1/</InstallUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
+    <ProductName>ShubhaDownloader</ProductName>
+    <PublisherName>ShubhaDownloader</PublisherName>
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>Shubha Rt.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <WebPage>ShubhaRt.htm</WebPage>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
