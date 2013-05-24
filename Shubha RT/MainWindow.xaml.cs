@@ -32,7 +32,26 @@ namespace StockD
     /// </summary>
     public partial class MainWindow : Window
     {
-       
+
+
+        //List for Symbols of Each File
+        private List<string> lstYahooIEODSymbols1Min;
+        private List<string> lstYahooIEODSymbols5Min;
+        private List<string> lstYahooEODSymbols;
+        private List<string> lstYahooFundamentalSymbols;
+        private List<string> lstGoogleEODSymbols;
+        private List<string> lstGoogleIEODSymbols;
+        private List<string> lstIndiaIndicesSymbols;
+
+        //Symbol File Names
+        string strYahooIEOD1MinFile;
+        string strYahooIEOD5MinFile;
+        string strYahooEODFile;
+        string strYahooFundamentalFile;
+        string strGoogleEODFile;
+        string strGoogleIEODFile;
+        string strIndiaIndicesFile;
+
 
         string url1 = "http://www.goog";
         int flag = 0;
@@ -124,6 +143,7 @@ namespace StockD
             //Tight Loop:  Loop until the ProgressBar.Value reaches the max
             do
             {
+                ProgressBar1.Visibility = Visibility.Visible ;
                 
                 btnStart.IsEnabled = false;
                 /*Update the Value of the ProgressBar:
@@ -240,6 +260,222 @@ namespace StockD
 
                     downliaddata(strYearDir, baseurl);
                 }
+
+            }
+
+            if (ChkYahooIEOD1.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo1min";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory (strYearDir);
+                string [] yahooieod1 = new string[] {"ACROPETAL.ns","ADANIENT.ns","ADANIPOWE.ns","ADFFOODS.ns","ADHUNIK.ns","ADORWELD.ns","ADSL.ns","ADVANIHOT.ns","ADVANTA.ns","AEGISCHEM.ns","AFL.ns","AFTEK.ns","AREVAT&D.ns","M&M.ns" };
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                     
+
+                    for(int i=0;i<14;i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo1min\\" + day.Day + yahooieod1[i] + ".csv";
+
+                    baseurl = "http://chartapi.finance.yahoo.com/instrument/1.0/"+yahooieod1[i]+ "/chartdata;type=quote;range=1d/csv/";
+
+
+                   // "http://chartapi.finance.yahoo.com/instrument/1.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
+
+                    downliaddata(strYearDir, baseurl);
+                    }
+                  
+                }
+
+            }
+
+            if (ChkYahooIEOD5.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] yahooieod5 = new string[] {"ACROPETAL.ns","ADANIENT.ns","ADANIPOWE.ns","ADFFOODS.ns","ADHUNIK.ns","ADORWELD.ns","ADSL.ns","ADVANIHOT.ns","ADVANTA.ns","AEGISCHEM.ns","AFL.ns","AFTEK.ns","AREVAT&D.ns","M&M.ns","^AEX","^AORD","^ATX","^BFX ","^HSI","^JKSE","^KLSE","^KS11","^N225","^NZ50","^OMXSPI","^OSEAX","^SMSI","^SSEC","^SSMI","^STI","^TWII","000001.SS","^GSPC","^IXIC","^DJI","^DJT","^DJU","^DJA","^TV.N","^NYA","^NUS","^NIN","^NWL","^NTM","^TV.O","^NDX","^IXBK","^IXFN","^IXF","^IXID","^IXIS","^IXK","^IXTR","^IXUT","^NBI","^OEX","^MID","^SML","^SPSUPX","^XAX","^IIX","^NWX","^XMI","^PSE","^SOXX","^RUI","^RUA","^DOT","^DWC","^BATSK","^DJC","^XAU","^TYX","^TNX","^FVX","^IRX","^FCHI","^FTSE","^GDAXI","NIFTY","^NSEI"};
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+
+
+                    for (int i = 0; i <81 ; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + day.Day + yahooieod5[i] + ".csv";
+
+                        baseurl = "http://chartapi.finance.yahoo.com/instrument/5.0/" + yahooieod5[i] + "/chartdata;type=quote;range=5d/csv/";
+
+
+                        // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
+
+                        downliaddata(strYearDir, baseurl);
+                    }
+
+                }
+
+            }
+            if (chkYahooFundamental.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoofun";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] yahoofun = new string[] { "tatasteel.ns","ADANIENT.ns","ADANIPOWE.ns","ADFFOODS.ns","ADHUNIK.ns","ADORWELD.ns","ADSL.ns","ADVANIHOT.ns","ADVANTA.ns","AEGISCHEM.ns","AFL.ns","AFTEK.ns","AREVAT&D.ns","M&M.ns"};
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string date1,date2;
+                    if (day.Day < 10)
+                    {
+                        date1 = "0" + (day.Day-1).ToString();
+                    }
+                    else
+                    {
+                        date1 = day.Day.ToString();
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        date2 =  "0" + day.Month.ToString();
+                    }
+                    else
+                    {
+                        date2 = day.Month.ToString();
+                    }
+
+                    for (int i = 0; i < 14; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoofun\\" + day.Day + yahoofun[i] + ".csv";
+                        baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s="+yahoofun [i]+"&f=snl1ee7e8e9r5b4j4p5s6s7r1qdt8j1f6&e=.csv";
+                        // "http://download.finance.yahoo.com/d/quotes.csv?s=ADANIENT.ns&f=snl1ee7e8e9r5b4j4p5s6s7r1qdt8j1f6&e=.csv"
+
+
+                        downliaddata(strYearDir, baseurl);
+                    }
+
+                }
+                
+
+            }
+
+            if (chkYahooEOD.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooEod";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] yahooeod = new string[] { "YHOO","ADANIENT.ns","ADANIPOWE.ns","ADFFOODS.ns","ADHUNIK.ns","ADORWELD.ns","ADSL.ns","ADVANIHOT.ns","ADVANTA.ns","AEGISCHEM.ns","AFL.ns","AFTEK.ns","AREVAT&D.ns","M&M.ns","^AEX","^AORD","^ATX","^BFX ","^HSI","^JKSE","^KLSE","^KS11","^N225","^NZ50","^OMXSPI","^OSEAX","^SMSI","^SSEC","^SSMI","^STI","^TWII","000001.SS","^GSPC","^IXIC","^DJI","^DJT","^DJU","^DJA","^TV.N","^NYA","^NUS","^NI","^NWL","^NTM","^TV.O","^NDX","^IXBK","^IXFN","^IXF","^IXID","^IXIS","^IXK","^IXTR","^IXUT","^NBI","^OEX","^MID","^SML","^SPSUPX","^XAX","^IIX","^NWX","^XMI","^PSE","^SOXX","^RUI","^RUA","^DOT","^DWC","^BATSK","^DJC","^XAU","^TYX","^TNX","^FVX","^IRX","^FCHI","^FTSE","^GDAXI","NIFTY","^NSEI"};
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                    string date1,date2;
+                    if (day.Day < 10)
+                    {
+                        date1 = "0" + (day.Day-1).ToString();
+                    }
+                    else
+                    {
+                        date1 = day.Day.ToString();
+                    }
+
+                    if (day.Month < 10)
+                    {
+
+                        date2 =  "0" + day.Month.ToString();
+                    }
+                    else
+                    {
+                        date2 = day.Month.ToString();
+                    }
+
+                    for (int i = 0; i < 81; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooEod\\" + day.Day + yahooeod[i] + ".csv";
+                        string e1=Convert.ToInt32(date1)+1.ToString();
+                        baseurl = "http://ichart.finance.yahoo.com/table.csv?s=ADANIENT.ns&a="+date2+day.Month+"&b="+date1+"&c="+day.Year+"&d="+date2+"&e"+ e1 +"&f="+day.Year +"&g=d";
+                                  //http://ichart.finance.yahoo.com/table.csv?s=ADANIENT.ns&a=045&b=01&c=2013&d=04&e=02&f=2013&g=d"
+
+                        downliaddata(strYearDir, baseurl);
+                    }
+
+                }
+                
+
+            }
+
+            if (ChkGoogleEOD.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] GoogleEod = new string[] { "LICHSGFIN.nse","ADANIENT.nse","ADANIPOWE.nse","ADFFOODS.nse","ADHUNIK.nse","ADORWELD.nse","ADSL.nse","ADVANIHOT.nse","ADVANTA.nse","AEGISCHEM.nse","AFL.nse","AFTEK.nse","AREVAT&D.nse","M&M.nse",".AEX,indexeuro",".AORD,indexasx",".HSI,indexhangseng",",.N225,indexnikkei",".NSEI,nse",".NZ50,nze",".TWII,tpe","000001,sha","CNX100,nse","CNX500,nse","CNXENERGY,nse","CNXFMCG,nse","CNXINFRA,nse","CNXIT,nse"};
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                   
+                    for (int i = 0; i < 14; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod\\" + day.Day + GoogleEod[i] + ".csv";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod [i] + "&i=d&p=15d&f=d,o,h,l,c,v";
+                        // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=d&p=15d&f=d,o,h,l,c,v"
+
+
+                        downliaddata(strYearDir, baseurl);
+                    }
+
+                }
+
+
+            }
+
+
+            if (ChkGoogleIEOD.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] GoogleIEod = new string[] { "LICHSGFIN.nse", "ADANIENT.nse", "ADANIPOWE.nse", "ADFFOODS.nse", "ADHUNIK.nse", "ADORWELD.nse", "ADSL.nse", "ADVANIHOT.nse", "ADVANTA.nse", "AEGISCHEM.nse", "AFL.nse", "AFTEK.nse", "AREVAT&D.nse", "M&M.nse", ".AEX,indexeuro", ".AORD,indexasx", ".HSI,indexhangseng", ",.N225,indexnikkei", ".NSEI,nse", ".NZ50,nze", ".TWII,tpe", "000001,sha", "CNX100,nse", "CNX500,nse", "CNXENERGY,nse", "CNXFMCG,nse", "CNXINFRA,nse", "CNXIT,nse" };
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+
+                    for (int i = 0; i < 14; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod\\" + day.Day + GoogleIEod[i] + ".csv";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&i=60&p=15d&f=d,o,h,l,c,v";
+                        // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=60&p=15d&f=d,o,h,l,c,v"
+
+
+                        downliaddata(strYearDir, baseurl);
+                    }
+
+                }
+
 
             }
 
@@ -1023,6 +1259,7 @@ namespace StockD
          btnStart.IsEnabled =true ;
          lbl_Download.Content = "Download Completed ";
          System.Windows.Forms.MessageBox.Show("Download Completed Please See Log File In c:\\Temp");
+         ProgressBar1.Visibility = Visibility.Hidden;
 
         }
         private static void JoinCsvFiles(string[] csvFileNames, string outputDestinationPath)
