@@ -38,8 +38,8 @@
     <PublisherName>ShubhaDownloader</PublisherName>
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>ShubhaRt.htm</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <WebPage>index.html</WebPage>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
