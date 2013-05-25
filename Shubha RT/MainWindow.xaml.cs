@@ -1132,6 +1132,49 @@ namespace StockD
              }
          }
 
+         if (National_Spot_Exchange.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect =  date2+date1  + day.Year;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\NSEL_" + day.Day + ".csv";
+                 baseurl = "http://www.nationalspotexchange.com//NSELBhavCopyFiles///25052013//hdy2zs5511tyhiunba5ybyjt//NSEL_" + datetoselect + ".csv";
+                 //http://www.nationalspotexchange.com//NSELBhavCopyFiles///25052013//hdy2zs5511tyhiunba5ybyjt//NSEL_05242013.csv
+                 downliaddata(strYearDir, baseurl);
+             }
+
+
+         }
+
+         
          if (MCXSX_Equity_Futures.IsChecked == true)
          {
              prograss();
@@ -1174,7 +1217,134 @@ namespace StockD
 
          }
 
-         
+         if (MCXSX_Currency.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = date1 + date2 + day.Year;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Currency_MarketStatisticsReport" + day.Day + ".xls";
+                 baseurl = "http://www.mcx-sx.com/downloads/daily/CurrencyDownloads/Bhavcopy%20"+strMonthName +"%20"+date1 +",%20"+day.Year +".xls";
+                 //http://www.mcx-sx.com/downloads/daily/CurrencyDownloads/Bhavcopy%20May%2016,%202013.xls.
+                 downliaddata(strYearDir, baseurl);
+             }
+
+
+         }
+
+
+         if (MCXSX_Block.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = day.Year + date2 + date1;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\MCX-SX-EQ_BLOCK_DEAL_" + day.Day + ".csv";
+                 baseurl = "http://www.mcx-sx.com/downloads/daily/EquityDownloads/MCX-SX-EQ_BLOCK_DEAL_" + datetoselect + ".csv";
+                 //http://www.mcx-sx.com/downloads/daily/EquityDownloads/MCX-SX-EQ_BLOCK_DEAL_20130213.csv.
+                 downliaddata(strYearDir, baseurl);
+             }
+
+
+         }
+
+         if (MCXSX_Bulk.IsChecked == true)
+         {
+             prograss();
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+
+                 year = day.Year.ToString();
+                 string lastTwoChars = year.Substring(year.Length - 2);
+                 datetoselect = day.Year + date2 + date1;
+                 strMonthName = strMonthName.Substring(0, 3);
+                 strYearDir = txtTargetFolder.Text + "\\Downloads\\MCX-SX-EQ_BULK_DEAL_" + day.Day + ".csv";
+                 baseurl = "http://www.mcx-sx.com/downloads/daily/EquityDownloads/MCX-SX-EQ_BULK_DEAL_" + datetoselect + ".csv";
+                 //http://www.mcx-sx.com/downloads/daily/EquityDownloads/MCX-SX-EQ_BULK_DEAL_20130502.csv.
+                 downliaddata(strYearDir, baseurl);
+             }
+
+
+         }
+
+
 
          if (MCXCommodity_Futures.IsChecked == true)
          {
@@ -1222,7 +1392,7 @@ namespace StockD
                  forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
                  forms["mImgBtnGo.x"] = "13";
                  forms["mImgBtnGo.y"] = "6";
-                 forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+                // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
 
 
                  webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
@@ -1250,6 +1420,214 @@ namespace StockD
          }
 
 
+         if (MCX_Index.IsChecked == true)
+         {
+             WebClient webClient = new WebClient();
+           string[] arrIndexValues =  new string[]{"323","324","325","326"};
+           string []arrindexvaluesname = new string[] { "MCXCOMDEX","MCXMETAL","MCXENRGY","MCXAGRI"};
+     string[] arrSpotIndexValues = new string[]{"327","328","329","330"};
+               
+
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+                 for(int i=0;i<4;i++)
+                 {
+                 byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/indexhistory.aspx");
+
+                 string s = System.Text.Encoding.UTF8.GetString(b);
+                 var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+                 //__EVENTVALIDATION.Dump();
+                 var forms = new NameValueCollection();
+                 //  forms["__EVENTTARGET"] = "btnLink_Excel";
+                 forms["__EVENTARGUMENT"] = "";
+                 forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+
+                 forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                 forms["mDdlOtherIndex"] = arrIndexValues[i];
+                 forms["mRbtLstSpotFut_0"] = "1";
+                 forms["mTbFromDate"] = date2 + "/" + date1 + "/" + day.Year;
+
+                 forms["mTbToDate"] = date2 + "/" + date1 + "/" + day.Year; ;
+
+
+                 forms["mBtnGo.x"] = "130";
+                 forms["mBtnGo.y"] = "40";
+
+                 // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+
+                 webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                 var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                // System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\index.html", responseData);
+
+
+                 s = System.Text.Encoding.UTF8.GetString(responseData);
+                 __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+
+                 forms = new NameValueCollection();
+                 forms["__EVENTTARGET"] = "linkButton";
+                 forms["__EVENTARGUMENT"] = "";
+                 forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+
+                 forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                 forms["mDdlOtherIndex"] = arrIndexValues[i];
+                 forms["mRbtLstSpotFut_0"] = "1";
+                 forms["mTbFromDate"] = "05/07/2013";
+                 forms["mTbToDate"] = "05/07/2013";
+
+
+
+                 webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                 responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                 System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\"+arrindexvaluesname[i]+"_"+day.Day +".csv", responseData);
+             }
+             }
+
+
+            
+         }
+
+
+         if (MCXSX_Spot_Indices.IsChecked == true)
+         {
+             WebClient webClient = new WebClient();
+             string[] arrIndexValues = new string[] { "323", "324", "325", "326" };
+             string[] arrindexvaluesname = new string[] { "Spot_MCXCOMDEX", "Spot_MCXMETAL", "Spot_MCXENRGY", "Spot_MCXAGRI" };
+             string[] arrSpotIndexValues = new string[] { "327", "328", "329", "330" };
+
+
+
+             foreach (DateTime day in EachDay(StartDate, EndDate))
+             {
+
+                 System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                 string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                 string day1, month, year, date1, date2, datetoselect;
+
+
+                 if (day.Day < 10)
+                 {
+                     date1 = "0" + day.Day.ToString();
+                 }
+                 else
+                 {
+                     date1 = day.Day.ToString();
+                 }
+                 if (day.Month < 10)
+                 {
+
+                     date2 = "0" + day.Month.ToString();
+                 }
+                 else
+                 {
+                     date2 = day.Month.ToString();
+                 }
+                 for (int i = 0; i < 4; i++)
+                 {
+                     byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/indexhistory.aspx");
+
+                     string s = System.Text.Encoding.UTF8.GetString(b);
+                     var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+                     //__EVENTVALIDATION.Dump();
+                     var forms = new NameValueCollection();
+                     //  forms["__EVENTTARGET"] = "btnLink_Excel";
+                     forms["__EVENTARGUMENT"] = "";
+                     forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+
+                     forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                   //  forms["mDdlOtherIndex"] = arrSpotIndexValues [i];
+                     forms["mRbtLstSpotFut"] = "0";
+                   //  forms["mTbFromDate"] = date2 + "/" + date1 + "/" + day.Year;
+                    // forms["mTbToDate"] = date2 + "/" + date1 + "/" + day.Year; ;
+
+
+                    // forms["mBtnGo.x"] = "130";
+                    // forms["mBtnGo.y"] = "40";
+
+                     // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+
+                     webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                     var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                      System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\index.html", responseData);
+
+
+                     s = System.Text.Encoding.UTF8.GetString(responseData);
+                     __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+
+                     forms = new NameValueCollection();
+                     //forms["__EVENTTARGET"] = "linkButton";
+                     forms["__EVENTARGUMENT"] = "";
+                     forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+
+                     forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                     forms["mDdlOtherIndex"] = arrSpotIndexValues[i];
+                     forms["mRbtLstSpotFut"] = "0";
+                     forms["mTbFromDate"] = date2 + "/" + date1 + "/" + day.Year;
+                     forms["mTbToDate"] = date2 + "/" + date1 + "/" + day.Year; ;
+
+
+                     webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                     responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                     System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\index1.html", responseData);
+
+
+
+                     s = System.Text.Encoding.UTF8.GetString(responseData);
+                     __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+
+                     forms = new NameValueCollection();
+                     forms["__EVENTTARGET"] = "linkButton";
+                     forms["__EVENTARGUMENT"] = "";
+                     forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+
+                     forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                     forms["mDdlOtherIndex"] = arrSpotIndexValues[i];
+                     forms["mRbtLstSpotFut"] = "0";
+                     forms["mTbFromDate"] = date2 + "/" + date1 + "/" + day.Year;
+                     forms["mTbToDate"] = date2 + "/" + date1 + "/" + day.Year; ;
+
+
+                     webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                     responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+
+
+                     System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\" + arrindexvaluesname[i] + "_" + day.Day + ".csv", responseData);
+                 }
+             }
+
+
+
+         }
                          prograss();
 
                 ProgressBar1.Value = ProgressBar1.Maximum;
@@ -1436,9 +1814,15 @@ namespace StockD
                 BSE_Delivary_Data.IsChecked = t1.BSE_Delivary_Data;
                 BSE_Block.IsChecked = t1.BSE_Block;
                 BSE_Bulk.IsChecked = t1.BSE_Bulk;
+                MCXSX_Currency.IsChecked = t1.MCXSX_Currency;
+                MCXSX_Block.IsChecked = t1.MCXSX_Block;
+                MCXSX_Bulk.IsChecked = t1.MCXSX_Bulk;
+
+
 
                 
-
+                
+                
 
                 
 
@@ -1601,7 +1985,13 @@ t.BSE_Delivary_Data = BSE_Delivary_Data.IsChecked.Value;
 t.BSE_Index = BSE_Index.IsChecked.Value;
 t.BSE_Block = BSE_Block.IsChecked.Value;
 t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
+t.MCXSX_Currency = MCXSX_Currency.IsChecked.Value;
+t.MCXSX_Block = MCXSX_Block.IsChecked.Value;
+t.MCXSX_Bulk = MCXSX_Bulk.IsChecked.Value;
 
+
+                
+                
 
 
                 
@@ -1629,45 +2019,62 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
         {
 
             WebClient webClient = new WebClient();
-            byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx");
-
-            string s = System.Text.Encoding.UTF8.GetString(b);
-            var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
-            //__EVENTVALIDATION.Dump();
-            var forms = new NameValueCollection();
-           // forms["__EVENTTARGET"] = "btnLink_Excel";
-            forms["__EVENTARGUMENT"] = "";
-            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
-            forms["mTbdate"] = "05/08/2013";
-            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
-            forms["mImgBtnGo.x"] = "13";
-            forms["mImgBtnGo.y"] = "6";
-            forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
 
 
-            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-            var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx", "POST", forms);
 
-            System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\13052013.html", responseData);
+                //*********************************************************
+
+                byte[] b = webClient.DownloadData("http://www.mcxindia.com/sitepages/indexhistory.aspx");
+
+                string s = System.Text.Encoding.UTF8.GetString(b);
+                var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+                //__EVENTVALIDATION.Dump();
+                var forms = new NameValueCollection();
+             //  forms["__EVENTTARGET"] = "btnLink_Excel";
+                forms["__EVENTARGUMENT"] = "";
+                forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+              
+                forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                forms["mRbtLstSpotFut"] = "0";
+                //forms["mTbFromDate"] = "05/07/2013";
+                //forms["mTbToDate"] = "05/07/2013";
 
 
-             s = System.Text.Encoding.UTF8.GetString(responseData );
-            __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+               // forms["mBtnGo.x"] = "130";
+               // forms["mBtnGo.y"] = "40";
 
-             forms = new NameValueCollection();
-            forms["__EVENTTARGET"] = "btnLink_Excel";
-            forms["__EVENTARGUMENT"] = "";
-            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
-            forms["mTbdate"] = "05/08/2013";
-            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
-           
+                // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+                           
+                webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                var responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\index.html", responseData);
 
 
-            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-             responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/BhavCopyDatewise.aspx", "POST", forms);
+                s = System.Text.Encoding.UTF8.GetString(responseData);
+                __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
 
-            System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\1305.csv", responseData);
+                forms = new NameValueCollection();
+                forms["__EVENTTARGET"] = "linkButton";
+                forms["__EVENTARGUMENT"] = "";
+                forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
 
+                forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+                forms["mDdlOtherIndex"] = "327";
+                forms["mRbtLstSpotFut_0"] = "0";
+                forms["mTbFromDate"] = "05/07/2013";
+                forms["mTbToDate"] = "05/07/2013";
+
+
+
+                webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+                responseData = webClient.UploadValues(@"http://www.mcxindia.com/sitepages/indexhistory.aspx", "POST", forms);
+
+                System.IO.File.WriteAllBytes(txtTargetFolder.Text + "\\Downloads\\index1.csv", responseData);
+
+              
+            
 
        }
 
@@ -1753,7 +2160,7 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
         {
             dtEndDate.Text = "";
             dtStartDate.Text = "";
-            mcx();
+           // mcx();
 
         }
 
@@ -1770,7 +2177,9 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
             BSE_Delivary_Data.IsChecked = false;
             BSE_Index.IsChecked = false;
             BSE_Bulk.IsChecked = false;
+            MCXSX_Currency.IsChecked = false;
 
+            
 
             Cb_BSE_CASH_MARKET.IsChecked = false;
             Cb_BSE_Equity_Futures.IsChecked = false;
@@ -1817,6 +2226,11 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
             Cb_Corporate_Events.IsChecked = false;
             Cb_Board_Message.IsChecked = false;
             Cb_Delete_all_events.IsChecked = false;
+            MCXSX_Block.IsChecked = false;
+            MCXSX_Bulk.IsChecked = false;
+
+            
+            
 
 
 
@@ -1847,7 +2261,12 @@ t.BSE_Bulk = BSE_Bulk.IsChecked.Value;
         public bool BSE_Delivary_Data;
         public bool BSE_Index;
         public bool BSE_Bulk;
+        public bool MCXSX_Currency;
+        public bool MCXSX_Block;
 
+
+        
+        
         
        public bool Cb_BSE_CASH_MARKET;
 public bool Cb_BSE_Equity_Futures;
@@ -1855,8 +2274,10 @@ public bool ChkBSEEquity;
 public bool ChkBseFo;
  public bool Cb_NSE_Delivary_Data_Download;
  public bool BSE_Block;
+ public bool MCXSX_Bulk;
 
 
+        
 public bool Cb_NSE_CASH_MARKET;
 public bool Cb_NSE_EOD_BhavCopy;
 public bool chkEquity;
