@@ -134,7 +134,7 @@
                                         <Label Content="Output" Height="28" HorizontalAlignment="Left" Margin="240,43,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
 
                                         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,9,16,0" Name="txtTargetFolder" VerticalAlignment="Top" Width="457" Grid.Column="1" />
-                                        <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75" Command="{Binding Path=UpdateTargetDirectory}"  CommandParameter="TargetFolderButton" Grid.ColumnSpan="2" Click="btnTarget_Click" />
+                                        <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75"  Grid.ColumnSpan="2" Click="btnTarget_Click" />
                                     </Grid>
                                 </GroupBox>
                                 
@@ -172,7 +172,7 @@
                                 <CheckBox Content="NSE Equity Options" Margin="0,96,333,0" Name="chkEquity" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="chkEquity" Visibility="Visible" IsEnabled="False" />
                                 <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="489,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" Visibility="Visible" IsEnabled="False" />
                                 <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="489,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseFO" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="489,52,0,0" Name="Cb_Reports" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_Reports" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="489,52,0,0" Name="Cb_Reports" VerticalAlignment="Top" Visibility="Visible" />
                                 <CheckBox Content="NSE Forex Future" Margin="490,76,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseForex" IsEnabled="False" Visibility="Visible" />
                             </Grid>
                         </l:AccordianItem>

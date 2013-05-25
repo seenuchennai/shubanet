@@ -39,7 +39,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -80,6 +80,12 @@
     <StartupObject>ShubhaRt.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zlib">
+      <HintPath>..\..\DotNetZipLib-DevKit-v1.9\zlib-v1.9\Debug\Ionic.Zlib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\Log4NetFrameworkSolution\Log4NetFrameworkSolution\Lib\log4net.dll</HintPath>
     </Reference>
@@ -362,6 +368,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\banner2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
