@@ -90,7 +90,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                  
+                   
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -113,7 +113,7 @@
 
 
                     <l:Accordian Margin="2,1,257,309" Grid.ColumnSpan="2" Background="#FFAFD0F8" Grid.Row="2">
-                        <l:AccordianItem Header="Select Output Folder Path And Output Format" Foreground="#FF00004B">
+                        <l:AccordianItem Header="Select Output Folder Path And Output Format" Foreground="#FF00004B" >
                             <Grid>
                                 <GroupBox  Height="105" HorizontalAlignment="Left" Margin="23,17,0,0" Name="groupBox5" VerticalAlignment="Top" Width="600" Background="#FF85B6F2">
 
@@ -146,52 +146,49 @@
                                 <CheckBox Content="BSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="269,20,0,0" Name="Cb_BSE_Equity_Futures" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
                                 <CheckBox Content="BSE INDEX" Height="16" Name="BSE_Index" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="11,22,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseEquity"/>
                                 <CheckBox Content="BSE Equity Options" Height="15" Name="ChkBseFo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="407,23,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" IsEnabled="False" />
-                                <CheckBox Content="BSE Delivary Data" Height="15" Name="BSE_Delivary_Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
-                                <CheckBox Content="BSE Block" Height="15" Name="BSE_Block" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
-                                <CheckBox Content="BSE Bulk" Height="15" Name="BSE_Bulk" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo"/>
+                                <CheckBox Content="BSE Delivary Data" Height="15" Name="BSE_Delivary_Data" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="269,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" Visibility="Hidden" />
+                                <CheckBox Content="BSE Block" Height="15" Name="BSE_Block" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" Visibility="Hidden" />
+                                <CheckBox Content="BSE Bulk" Height="15" Name="BSE_Bulk" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,60,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" Visibility="Hidden" />
 
                             </Grid>
                         </l:AccordianItem>
                         <l:AccordianItem Header="NSE">
                             <Grid >
-                                <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="358,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="6,74,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Visibility="Visible" />
-                                <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Left" Margin="215,52,0,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
-                                <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="215,74,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
-                                <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="358,7,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="358,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" Visibility="Visible" IsEnabled="True" />
+                                <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="215,52,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Visibility="Visible" />
+                                <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Right" Margin="0,74,221,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
+                                <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="215,74,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
+                                <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="6,96,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
                                 <CheckBox Content="NCDEX Futures" Margin="358,55,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" Visibility="Visible" IsEnabled="False" />
 
-                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="215,6,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" Visibility="Visible" />
-                                <CheckBox Content="NSE CASH MARKET" Height="16" HorizontalAlignment="Left" Margin="6,30,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125" Visibility="Visible" />
-                                <CheckBox Content="NSE Sec_List " Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="Cb_NSE_Sec_List" VerticalAlignment="Top" Visibility="Visible" />
-                                <CheckBox Content="NSE Delivary Data Download " Height="16" HorizontalAlignment="Left" Margin="6,52,0,0" Name="Cb_NSE_Delivary_Data_Download" VerticalAlignment="Top" Visibility="Visible" />
-                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="6,92,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
-                                <CheckBox Content="NSE PR" Height="16" HorizontalAlignment="Left" Margin="215,30,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
-                                <CheckBox Content="NSE  Vix" Height="16" HorizontalAlignment="Left" Margin="215,92,0,0" Name="Cb_NSE_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
-                                <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="358,74,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_SME" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="NSE Equity Options" Margin="0,96,333,0" Name="chkEquity" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="chkEquity" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="NSE CASH MARKET " Height="16" HorizontalAlignment="Left" Margin="489,7,0,0" Name="Cb_NSE_CASH_MARKET" VerticalAlignment="Top" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="489,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseFO" Visibility="Visible" IsEnabled="False" />
-                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="489,52,0,0" Name="Cb_Reports" VerticalAlignment="Top" Visibility="Visible" />
-                                <CheckBox Content="NSE Forex Future" Margin="490,76,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseForex" IsEnabled="False" Visibility="Visible" />
+                                <CheckBox Content="NSE Market Activity " Height="16" HorizontalAlignment="Left" Margin="215,96,0,0" Name="Cb_NSE_Market_Activity" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_SME" Visibility="Hidden" />
+                                <CheckBox Content="NSE CASH MARKET" Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125" Visibility="Visible" IsChecked="True" IsEnabled="False" />
+                                <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="489,30,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE Equity Future" Height="16" HorizontalAlignment="Left" Margin="215,7,0,0" Name="Cb_NSE_PR" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
+                                <CheckBox Content="NSE  Vix" Height="16" HorizontalAlignment="Left" Margin="6,76,0,0" Name="Cb_NSE_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
+                                <CheckBox Content="NSE SME" Height="16" HorizontalAlignment="Left" Margin="215,30,0,0" Name="Cb_NSE_SME" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_SME" Visibility="Visible" IsEnabled="True" />
+                                <CheckBox Content="NSE Equity Options" Margin="0,7,237,0" Name="chkEquity" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="chkEquity" Visibility="Visible" IsEnabled="True" />
+                                <CheckBox Content="NSE Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,30,0,0" Name="Cb_NSE_Forex_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseFO" Visibility="Visible" IsEnabled="True" />
+                                <CheckBox Content="Reports" Height="16" HorizontalAlignment="Left" Margin="6,52,0,0" Name="Cb_Reports" VerticalAlignment="Top" Visibility="Visible" Checked="Cb_Reports_Checked" />
+                                <CheckBox Content="NSE Forex Future" Margin="489,10,0,0" Name="chkNseForex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="ChkNseForex" IsEnabled="True" Visibility="Visible" />
                             </Grid>
                         </l:AccordianItem>
                         <l:AccordianItem Header="MCX">
                             <Grid >
 
-                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future"  />
-                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="481,38,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
+                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="481,40,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
                                 <CheckBox Content="MCX Commodity Futures" Height="16" HorizontalAlignment="Left" Margin="153,7,0,0" Name="MCXCommodity_Futures" VerticalAlignment="Top" Width="164" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXCommodity_Futures" />
-                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="320,38,167,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" />
-                                <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,38,0,0" Name="MCXSXForex_Options" VerticalAlignment="Top"  />
+                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="320,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" />
+                                <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,40,0,0" Name="MCXSXForex_Options" VerticalAlignment="Top" IsChecked="False" IsEnabled="False" />
                                 <CheckBox Content="National Spot Exchange" Height="16" HorizontalAlignment="Left" Margin="322,7,0,0" Name="National_Spot_Exchange" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="National_Spot_Exchange" />
-                                <CheckBox Content="MCX-SX Equity Indices  " Height="16" HorizontalAlignment="Left" Margin="153,38,0,0" Name="MCXSX_Equity_Indices" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" />
+                                <CheckBox Content="MCX-SX Equity Indices  " Height="16" HorizontalAlignment="Left" Margin="153,40,0,0" Name="MCXSX_Equity_Indices" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" IsChecked="False" IsEnabled="False" />
                                 <CheckBox Content="MCX Index" Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="MCX_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCX_Index" />
-                                <CheckBox Content="MCX-SX Currency  " Height="16" HorizontalAlignment="Left" Margin="400,60,0,0" Name="MCXSX_Currency" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" />
-                                <CheckBox Content="MCX-SX Block  " Height="16" HorizontalAlignment="Left" Margin="6,60,0,0" Name="MCXSX_Block" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" />
-                                <CheckBox Content="MCX-SX Bulk " Height="16" HorizontalAlignment="Left" Margin="153,60,0,0" Name="MCXSX_Bulk" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" />
+                                <CheckBox Content="MCX-SX Currency  " Height="16" HorizontalAlignment="Left" Margin="481,73,0,0" Name="MCXSX_Currency" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
+                                <CheckBox Content="MCX-SX Block  " Height="16" HorizontalAlignment="Left" Margin="6,73,0,0" Name="MCXSX_Block" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
+                                <CheckBox Content="MCX-SX Bulk " Height="16" HorizontalAlignment="Left" Margin="153,73,0,0" Name="MCXSX_Bulk" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
 
-                                <CheckBox Content="MCX-SX Spot Indices  " Height="16" HorizontalAlignment="Left" Margin="300,60,0,0" Name="MCXSX_Spot_Indices" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" />
+                                <CheckBox Content="MCX-SX Spot Indices  " Height="16" HorizontalAlignment="Right" Margin="0,73,262,0" Name="MCXSX_Spot_Indices" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
 
 
 
@@ -199,39 +196,39 @@
                         </l:AccordianItem>
 
                         <l:AccordianItem Header="YAHOO" Background="#FFD6E2F5">
+
                             <Grid>
-                                <CheckBox Content="Yahoo EOD" Height="16" Margin="10,10,0,0" Name="chkYahooEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooEOD"/>
-                                <CheckBox Content="Yahoo IEOD 1 Min" Margin="100,10,0,0" Name="ChkYahooIEOD1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                <CheckBox Content="Yahoo Fundamental" HorizontalAlignment="Left" Margin="250,10,0,0" Name="chkYahooFundamental" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooFundamental" />
-                                <CheckBox Content="Yahoo IEOD 5 Min" HorizontalAlignment="Left" Margin="400,10,0,0" Name="ChkYahooIEOD5" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooIEOD5"/>
+                                <CheckBox Content="Yahoo EOD" Height="16" Margin="175,29,0,0" Name="chkYahooEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooEOD"/>
+                                <CheckBox Content="Yahoo IEOD 1 Min" Margin="452,32,0,0" Name="ChkYahooIEOD1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <CheckBox Content="Yahoo Fundamental" HorizontalAlignment="Left" Margin="11,29,0,0" Name="chkYahooFundamental" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooFundamental" />
+                                <CheckBox Content="Yahoo IEOD 5 Min" HorizontalAlignment="Left" Margin="299,29,0,0" Name="ChkYahooIEOD5" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooIEOD5"/>
 
-                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="550,10,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" />
-                                <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="5,60,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" />
-                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="157,60,0,0" Name="lbl_Hours" VerticalAlignment="Top" />
+                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="11,65,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" />
+                                <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="11,107,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" />
+                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="163,107,0,0" Name="lbl_Hours" VerticalAlignment="Top" />
 
-                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="279,60,0,0" Name="lbl_Minutes" VerticalAlignment="Top" />
+                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="296,107,0,0" Name="lbl_Minutes" VerticalAlignment="Top" />
 
-                                <ComboBox Height="23" HorizontalAlignment="Left"  Margin="200,60,93,0" Name="HRS" VerticalAlignment="Top" Width="58" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="350,60,0,0" Name="MIN" VerticalAlignment="Top" Width="58" />
+                                <ComboBox Height="23" HorizontalAlignment="Left"  Margin="219,108,0,0" Name="HRS" VerticalAlignment="Top" Width="58" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="364,107,0,0" Name="MIN" VerticalAlignment="Top" Width="58" />
                             </Grid>
-
                         </l:AccordianItem>
 
 
 
                         <l:AccordianItem Header="Google" Background="#FFD6E2F5">
-                            <Grid>
-                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="6,58,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
-                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="193,63,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
-                                <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="-1,28,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="251,63,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" />
-                                <ComboBox Height="28" HorizontalAlignment="Left" Margin="129,28,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="49,63,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" />
-                                <CheckBox Content="Google EOD" Height="16" Margin="10,6,0,0" Name="ChkGoogleEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleEOD" Grid.Column="1" />
-                                <CheckBox Content="Google IEOD 1Min" Height="16" Margin="100,6,0,0" Name="ChkGoogleIEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleIEOD" Grid.Column="1" />
-                                <CheckBox Content="Google IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="200,6,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" />
-                            </Grid>
 
+                            <Grid>
+                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,92,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
+                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="220,92,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
+                                <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="15,58,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="286,92,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="136,58,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,92,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" />
+                                <CheckBox Content="Google EOD" Height="16" Margin="15,25,0,0" Name="ChkGoogleEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleEOD" />
+                                <CheckBox Content="Google IEOD 1Min" Height="16" Margin="135,25,0,0" Name="ChkGoogleIEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleIEOD" />
+                                <CheckBox Content="Google IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="298,25,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" />
+                            </Grid>
 
                         </l:AccordianItem>
 

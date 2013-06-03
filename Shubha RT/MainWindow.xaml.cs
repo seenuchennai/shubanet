@@ -120,7 +120,7 @@ namespace StockD
 
             string  dest_filename;
 
-            dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports";
+            dest_filename = txtTargetFolder.Text + "\\Reports";
             if (!Directory.Exists(dest_filename))
                 Directory.CreateDirectory(dest_filename);
 
@@ -165,14 +165,6 @@ namespace StockD
             if (!Directory.Exists(strYearDir))
                 Directory.CreateDirectory(strYearDir);
 
-            if (Cb_NSE_Sec_List.IsChecked == true)
-            {
-                prograss();
-
-                strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
-                baseurl="http://www.nseindia.com/content/equities/sec_list.csv";
-                downliaddata(strYearDir,baseurl);
-            }
             
             
 
@@ -193,7 +185,7 @@ namespace StockD
                     downliaddata(strYearDir, baseurl);
 
                    
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_combined_report_" +formatdate(day)+".zip";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_combined_report_" +formatdate(day)+".zip";
 
                     movefile(strYearDir, dest_filename);
 
@@ -202,38 +194,29 @@ namespace StockD
                
             }
 
-            if (Cb_NSE_Delivary_Data_Download.IsChecked == true)
-            {
-                prograss();
-
-
-                foreach (DateTime day in EachDay(StartDate, EndDate))
-                {
-                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
-
-               
-                    //baseurl = "http://www.nseindia.com/content/historical/EQUITIES/" + day.Year.ToString() + "/" + strMonthName.ToUpper() + "/cm" + day.Day + strMonthName.ToUpper() + day.Year + "bhav.csv.zip";
-
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\MTO_" + formatdate(day) + ".csv";
-
-                    baseurl = " http://nseindia.com/archives/equities/mto/MTO_" + formatdate(day)+".DAT" ;
-               
-
-
-
-                    downliaddata(strYearDir, baseurl);
-
-
-
-                }
-
-            }
-
+          
 
 
             if (Cb_NSE_EOD_BhavCopy.IsChecked == true)
             {
+
+
+
+              
+
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
+                baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
+               if(!System.IO.File.Exists(strYearDir))
+               {
+                   prograss();
+                downliaddata(strYearDir, baseurl);
+               }
+
+
+
+               
+
+
 
                 prograss();
 
@@ -243,6 +226,22 @@ namespace StockD
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                     string strMonthName = mfi.GetMonthName(day.Month).ToString();
                     string date1, date2;
+
+
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\MTO_" + formatdate(day) + ".csv";
+
+                    baseurl = " http://nseindia.com/archives/equities/mto/MTO_" + formatdate(day) + ".DAT";
+
+
+                    if(!System.IO.File.Exists(strYearDir))
+                    {
+
+                    downliaddata(strYearDir, baseurl);
+                    }
+
+
+
+
                     if (day.Day < 10)
                     {
                         date1 = "0" + (day.Day).ToString();
@@ -273,16 +272,40 @@ namespace StockD
                     {
                         using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
                         {
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\cm" + date1 + strMonthName + day.Year + "bhav"))
+                            {
                             zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\cm" + date1 + strMonthName + day.Year + "bhav");
+
+                            }
                         }
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\cm" + date1 + strMonthName + day.Year + "bhav\\cm" + date1 + strMonthName + day.Year + "bhav.csv";
                         string mtopath = txtTargetFolder.Text + "\\Downloads\\MTO_" + formatdate(day) + ".csv";
-                        string destfilepath = txtTargetFolder.Text + "\\NSE_Standerd\\NSE_Standard_" + date1 + strMonthName + day.Year + ".csv";
+                        string destfilepath = txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName + day.Year + ".csv";
                         string dateformtoprocessingsave = formatdate(day);
                         if(!System.IO.File.Exists(destfilepath))
                         {
 
                         NSE_Processing(strYearDir, mtopath,destfilepath ,dateformtoprocessingsave );
+
+                        
+                            //if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            //    Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                            //strYearDir = dest_filename;
+                            //destfilepath = txtTargetFolder.Text + "\\STD_CSV\\NSE_Standard_" + date1 + strMonthName + day.Year + ".csv";
+
+
+                            //if (!Directory.Exists(dest_filename))
+                            //{
+                            //    dest_filename = txtTargetFolder.Text + "\\STD_CSV";
+
+                            //    movefile(strYearDir, dest_filename);
+
+                            //}
+
+
+                        
+
+
 
                         }
                         if (Directory.Exists (txtTargetFolder.Text + "\\Downloads\\cm" + date1 + strMonthName + day.Year + "bhav"))
@@ -323,7 +346,7 @@ namespace StockD
                     if (System.IO.File.Exists(strYearDir))
                     {
 
-                        string destfilepath = txtTargetFolder.Text + "\\\\FUTURE_Standerd\\NSE_INDEX_STD" + formatdate(day) + ".csv";
+                        string destfilepath = txtTargetFolder.Text + "\\STD_CSV\\NSE_INDEX_STD" + formatdate(day) + ".csv";
                         string dateformtoprocessingsave = formatdate(day);
                         string nameoffile = "NSE_INDEX";
 
@@ -601,33 +624,71 @@ namespace StockD
 
                          using (var zip = Ionic.Zip.ZipFile.Read(strYearDir ))
                     {
-                        zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars  );
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars))
+                        {
+                            zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars);
+
+
+                        }
+
                     }
 
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_NEWHIGH_NEWLOW_" + date1 + lastTwoChars + ".csv";
+                        
+                        
+                        
+                        
+                        
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_NEWHIGH_NEWLOW_" + date1 + lastTwoChars + ".csv";
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars+"\\HL" + date1 + lastTwoChars+".csv";
                     movefile(strYearDir, dest_filename);
                    
                         //AN
-                        dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_CORPORATE_ANNOUCEMENT" + date1 + lastTwoChars + ".csv";
+                        dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_CORPORATE_ANNOUCEMENT" + date1 + lastTwoChars + ".csv";
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\AN" + date1 + lastTwoChars + ".csv";
                     movefile(strYearDir, dest_filename);
                        //BC
 
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_CORPORATE_ACTION" + date1 + lastTwoChars + ".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_CORPORATE_ACTION" + date1 + lastTwoChars + ".csv";
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\BC" + date1 + lastTwoChars + ".csv";
                     movefile(strYearDir, dest_filename);
                         //BH
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_BAND_HIT" + date1 + lastTwoChars + ".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_BAND_HIT" + date1 + lastTwoChars + ".csv";
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\BH" + date1 + lastTwoChars + ".csv";
                     movefile(strYearDir, dest_filename);
 //GL
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_TOP10_GAINER_LOSER" + date1 + lastTwoChars + ".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_TOP10_GAINER_LOSER" + date1 + lastTwoChars + ".csv";
                     strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\GL" + date1 + lastTwoChars + ".csv";
                     movefile(strYearDir, dest_filename);
+                   
+                         //fo
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\fo" + date1 + day.Year  + ".zip";
+                   
+                    using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
+                    {
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\FO" + date1 + lastTwoChars))
+                        {
+                            zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\FO" + date1 + lastTwoChars);
+                        }
+                    }
+                   
+
+                    strYearDir  = txtTargetFolder.Text +" \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\FO" + date1 + lastTwoChars +"\\FO" + date1 +day.Year +".csv";
+
+                    
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+
+                    //Directory.Delete(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars, true);
 
 
-                    Directory.Delete(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars, true);
+
                     }
                    
                     
@@ -636,6 +697,263 @@ namespace StockD
                 }
 
             }
+
+
+                if(chkEquity.IsChecked==true )
+                {
+
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
+                    {
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                        string date1, year;
+
+
+                        if (day.Day < 10)
+                        {
+                            date1 = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            date1 = day.Day.ToString();
+                        }
+
+                        if (day.Month < 10)
+                        {
+
+                            date1 = date1 + "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            date1 = date1 + day.Month.ToString();
+                        }
+                        year = day.Year.ToString();
+
+                        string lastTwoChars = year.Substring(year.Length - 2);
+                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\FO" + date1 + lastTwoChars + "\\op" + date1 + day.Year + ".csv";
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_OP" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename ))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+                        
+                    }
+                }
+
+                if (Cb_NSE_Forex_Options.IsChecked == true)
+                {
+
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
+                    {
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                        string date1, year;
+
+
+                        if (day.Day < 10)
+                        {
+                            date1 = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            date1 = day.Day.ToString();
+                        }
+
+                        if (day.Month < 10)
+                        {
+
+                            date1 = date1 + "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            date1 = date1 + day.Month.ToString();
+                        }
+                        year = day.Year.ToString();
+
+                        string lastTwoChars = year.Substring(year.Length - 2);
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\cd" + date1 + day.Year + ".zip";
+
+                        using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
+                        {
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars))
+                            {
+                                zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars);
+                            }
+                        }
+
+
+                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars + "\\co" + date1 + day.Year + ".csv";
+
+
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_Forex_Futures_co" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+                        
+                    }
+                }
+
+                if (chkNseForex.IsChecked == true)
+                {
+
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
+                    {
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                        string date1, year;
+
+
+                        if (day.Day < 10)
+                        {
+                            date1 = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            date1 = day.Day.ToString();
+                        }
+
+                        if (day.Month < 10)
+                        {
+
+                            date1 = date1 + "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            date1 = date1 + day.Month.ToString();
+                        }
+                        year = day.Year.ToString();
+
+                        string lastTwoChars = year.Substring(year.Length - 2);
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\cd" + date1 + day.Year + ".zip";
+                        if (!Directory.Exists(strYearDir ))
+                        {
+                            using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
+                            {
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars))
+                                {
+                                    zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars);
+                                }
+                            }
+
+                        }
+                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars + "\\cf" + date1 + day.Year + ".csv";
+
+
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_Forex_Futures_cf" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+
+                    }
+                }
+
+                
+                if (Cb_NSE_SME.IsChecked == true)
+                {
+
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
+                    {
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                        string date1, year;
+
+
+                        if (day.Day < 10)
+                        {
+                            date1 = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            date1 = day.Day.ToString();
+                        }
+
+                        if (day.Month < 10)
+                        {
+
+                            date1 = date1 + "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            date1 = date1 + day.Month.ToString();
+                        }
+                        year = day.Year.ToString();
+
+                        string lastTwoChars = year.Substring(year.Length - 2);
+                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\sme" + date1 + lastTwoChars + ".csv";
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_sme" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename ))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+                        
+                    }
+                }
+
+
+                if (Cb_NSE_ETF.IsChecked == true)
+                {
+
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
+                    {
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+                        string date1, year;
+
+
+                        if (day.Day < 10)
+                        {
+                            date1 = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            date1 = day.Day.ToString();
+                        }
+
+                        if (day.Month < 10)
+                        {
+
+                            date1 = date1 + "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            date1 = date1 + day.Month.ToString();
+                        }
+                        year = day.Year.ToString();
+
+                        string lastTwoChars = year.Substring(year.Length - 2);
+                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\etf" + date1 + lastTwoChars + ".csv";
+                        dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_ETF_etf" + date1 + lastTwoChars + ".csv";
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+
+                        if (!Directory.Exists(dest_filename ))
+                        {
+                            movefile(strYearDir, dest_filename);
+
+                        }
+                        
+                    }
+                }
+
+                
             if (Cb_NSE_Market_Activity.IsChecked == true)
             {
                 prograss();
@@ -675,7 +993,7 @@ namespace StockD
                 //http://www.nseindia.com/archives/equities/mkt/MA160513.csv
 
                     downliaddata(strYearDir, baseurl);
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_MARKET_ACTIVITY_"+date1+lastTwoChars+".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_MARKET_ACTIVITY_"+date1+lastTwoChars+".csv";
                     
                     movefile(strYearDir,dest_filename );
                     
@@ -734,7 +1052,7 @@ namespace StockD
 
 
 
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_Bulk_Deal" + date1  + ".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_Bulk_Deal" + date1  + ".csv";
 
                     movefile(strYearDir, dest_filename);
 
@@ -788,7 +1106,7 @@ namespace StockD
                     downliaddata(strYearDir, baseurl);
 
 
-                    dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\NSE_Block_Deal" + date1 + ".csv";
+                    dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal" + date1 + ".csv";
 
                     movefile(strYearDir, dest_filename);
 
@@ -901,6 +1219,8 @@ namespace StockD
 
          if (Cb_BSE_CASH_MARKET.IsChecked == true)
             {
+                BSE_Delivary_Data.IsChecked = true;
+
                 prograss();
             List<string> nameofdirtodelete = new List<String>();
 
@@ -975,13 +1295,32 @@ namespace StockD
                                     }
                                 }
 
-                                string destfilepath = txtTargetFolder.Text + "\\BSE_Standerd\\BSE_Standard_" + date1 + lastTwoChars + ".csv";
+                                string destfilepath = txtTargetFolder.Text + "\\STD_CSV\\BSE_Cash_Market_EQ" + date1 + lastTwoChars + ".csv";
                                 string dateformtoprocessingsave = formatdate(day);
 
                                 //If File Is Already Present Means It Process Befor this 
                                 if (!System.IO.File.Exists(destfilepath))
                                 {
                                BSE_Processing(strYearDir, SCBSEALL, destfilepath, dateformtoprocessingsave);
+
+                               //if (!System.IO.File.Exists(destfilepath))
+                               //{
+                               //    if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                               //        Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                               //    strYearDir = dest_filename;
+                               //    destfilepath = txtTargetFolder.Text + "\\STD_CSV\\BSE_Standard_" + date1 + lastTwoChars + ".csv";
+
+                               //    if (!Directory.Exists(dest_filename))
+                               //    {
+                               //        dest_filename = txtTargetFolder.Text + "\\STD_CSV";
+
+                               //        movefile(strYearDir, dest_filename);
+
+                               //    }
+
+
+                               //}
+
 
                                 }
                                 
@@ -1101,11 +1440,11 @@ namespace StockD
                  downliaddata(strYearDir, baseurl);
                  string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\BSEBlock", "*.csv");
 
-                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\Reports\\bseblockdeals.csv");
+                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Reports\\bseblockdeals.csv");
 
 
 
-                 dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\bseblockdeals.csv";
+                 dest_filename = txtTargetFolder.Text + "\\Reports\\bseblockdeals.csv";
 
                // movefile(strYearDir, dest_filename);
 
@@ -1158,9 +1497,9 @@ namespace StockD
 
                  string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\BSEBulk", "*.csv");
 
-                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\Reports\\bsebulkdeals.csv");
+                 JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Reports\\bsebulkdeals.csv");
 
-                 dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\bsebulkdeals.csv";
+                 dest_filename = txtTargetFolder.Text + "\\Reports\\bsebulkdeals.csv";
 
                 // movefile(strYearDir, dest_filename);
 
@@ -1441,7 +1780,7 @@ namespace StockD
                  downliaddata(strYearDir, baseurl);
 
 
-                 dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\MarketStatisticsReport" + day.Day + ".csv";
+                 dest_filename = txtTargetFolder.Text + "\\Reports\\MarketStatisticsReport" + day.Day + ".csv";
 
                  movefile(strYearDir, dest_filename);
 
@@ -1451,7 +1790,7 @@ namespace StockD
                  if (System.IO.File.Exists(strYearDir))
                  {
 
-                     string destfilepath = txtTargetFolder.Text + "\\\\FUTURE_Standerd\\MCX_Equity_FUTURE_STD"+day.Day +".csv";
+                     string destfilepath = txtTargetFolder.Text + "\\STD_CSV\\MCX_Equity_FUTURE_STD" + day.Day + ".csv";
                      string dateformtoprocessingsave = formatdate(day);
                      string nameoffile = "MCX_Equity";
 
@@ -1576,7 +1915,7 @@ namespace StockD
                  //http://www.mcx-sx.com/downloads/daily/EquityDownloads/MCX-SX-EQ_BLOCK_DEAL_20130213.csv.
                  downliaddata(strYearDir, baseurl);
 
-                 dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\MCX-SX-EQ_BLOCK_DEAL_" + datetoselect + ".csv";
+                 dest_filename = txtTargetFolder.Text + "\\Reports\\MCX-SX-EQ_BLOCK_DEAL_" + datetoselect + ".csv";
 
                  movefile(strYearDir, dest_filename);
 
@@ -1624,7 +1963,7 @@ namespace StockD
                  downliaddata(strYearDir, baseurl);
 
 
-                 dest_filename = txtTargetFolder.Text + "\\Downloads\\Reports\\MCX-SX-EQ_BULK_DEAL_" + datetoselect + ".csv";
+                 dest_filename = txtTargetFolder.Text + "\\Reports\\MCX-SX-EQ_BULK_DEAL_" + datetoselect + ".csv";
 
                  movefile(strYearDir, dest_filename);
              }
@@ -1710,8 +2049,8 @@ namespace StockD
                  strYearDir=txtTargetFolder.Text + "\\Downloads\\"+day.Day+day.Month+day.Year  +"ComodityBhavCopy.csv";
                  if (System.IO.File.Exists(strYearDir))
                  {
-                    
-                     string destfilepath = txtTargetFolder.Text + "\\Downloads\\Temp_FUTURE_STD.csv";
+
+                     string destfilepath = txtTargetFolder.Text + "\\STD_CSV\\Temp_FUTURE_STD.csv";
                      string dateformtoprocessingsave = formatdate(day);
                    string nameoffile="MCX_ComodityBhavCopy";
 
@@ -1734,6 +2073,7 @@ namespace StockD
 
          if (MCX_Index.IsChecked == true)
          {
+             MCXSX_Spot_Indices.IsChecked = true;
              WebClient webClient = new WebClient();
            string[] arrIndexValues =  new string[]{"323","324","325","326"};
            string []arrindexvaluesname = new string[] { "MCXCOMDEX","MCXMETAL","MCXENRGY","MCXAGRI"};
@@ -1994,10 +2334,10 @@ namespace StockD
             //var sourcePath = @"C:\MTO_03052013.csv";
             var delimiter = ",";
             var firstLineContainsHeaders = true;
-           var tempPath = txtTargetFolder.Text +"\\MTO\\MTO_std_"+dateforsave +".csv";
+           var tempPath = txtTargetFolder.Text +"\\Downloads\\MTO\\MTO_std_"+dateforsave +".csv";
 
-           if (!Directory.Exists(txtTargetFolder.Text + "\\MTO"))
-               Directory.CreateDirectory  (txtTargetFolder.Text + "\\MTO");
+           if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\MTO"))
+               Directory.CreateDirectory(txtTargetFolder.Text + "\\Downloads\\MTO");
             DateTime date1;
             var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
 
@@ -2097,9 +2437,9 @@ namespace StockD
 
             }
             MTO_Processing(mtopath,dateformtoprocess );
-
-            if (!Directory.Exists(txtTargetFolder.Text + "\\NSE_Standerd"))
-                Directory.CreateDirectory(txtTargetFolder.Text + "\\NSE_Standerd");
+          
+            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
 
 
             var delimiter = ",";
@@ -2146,7 +2486,7 @@ namespace StockD
                     headers[6] = "CLOSE";
                     headers[7] = "VOLUME";
                     headers[8] = "OPENINT";
-                    headers[9] = "";
+                    headers[9] = "AUX1";
                     headers[10] = "";
                     headers[11] = "";
                     headers[12] = "";
@@ -2260,7 +2600,6 @@ namespace StockD
                         columns[2] = datetostore;
                         columns[8] = "";
 
-                        columns[9] = "";
                         columns[10] = "";
                         columns[11] = "";
                         columns[12] = "";
@@ -2269,7 +2608,7 @@ namespace StockD
 
                         var reader1 = new StreamReader(txtTargetFolder.Text + "\\Downloads\\sec_list.csv");
                         string line1 = null;
-                        var reader2 = new StreamReader(txtTargetFolder.Text +"\\MTO\\MTO_std_"+dateformtoprocess +".csv");
+                        var reader2 = new StreamReader(txtTargetFolder.Text + "\\Downloads\\MTO\\MTO_std_" + dateformtoprocess + ".csv");
                         string line2 = null;
                         //Read sec_list file and copy data in to nse_std
                         while ((line1 = reader1.ReadLine()) != null)
@@ -2292,7 +2631,7 @@ namespace StockD
 
                             if (columns[0] == columns2[2])//match col of bhav copy symbol to mto sysmbol and copy Traded Quantity value to OPENINT
                             {
-                                columns[8] = columns2[6];
+                                columns[8] = columns2[5];
                                 break;
                             }
 
@@ -2308,6 +2647,7 @@ namespace StockD
 
 
 
+            
 
 
 
@@ -2325,8 +2665,8 @@ namespace StockD
             //}
             //MTO_Processing(mtopath, dateformtoprocess);
 
-            if (!Directory.Exists(txtTargetFolder.Text + "\\BSE_Standerd"))
-                Directory.CreateDirectory(txtTargetFolder.Text + "\\BSE_Standerd");
+            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
 
 
             var delimiter = ",";
@@ -2473,8 +2813,8 @@ namespace StockD
             var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
 
 
-            if (!Directory.Exists(txtTargetFolder.Text + "\\FUTURE_Standerd"))
-                Directory.CreateDirectory(txtTargetFolder.Text + "\\FUTURE_Standerd");
+            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
 
 
 
@@ -2772,7 +3112,7 @@ namespace StockD
             lmon = Convert.ToInt32(lmonth);
 
             sourcePath = tempPath ;//take file just save as lowest date 
-            tempPath = txtTargetFolder.Text + "\\FUTURE_Standerd\\"+nameoffile +"_FUTURE_STD"+dateformtoprocess +".csv";
+            tempPath = txtTargetFolder.Text + "\\Downloads\\"+nameoffile +"_FUTURE_STD"+dateformtoprocess +".csv";
             
 
             using (var writer = new StreamWriter(tempPath))
@@ -2912,6 +3252,9 @@ namespace StockD
                     if (date1 == lmon || date1 == lmonth1 || date1 == lmonth2)
                     {
 
+                       
+
+
                         var reader1 = new StreamReader(txtTargetFolder.Text +"\\Downloads\\sec_list.csv");
                         string line1 = null;
 
@@ -2922,7 +3265,22 @@ namespace StockD
 
                             if (columns[0] == columns1[0])
                             {
-                                columns[1] = columns1[2];
+                                if (date1 == lmon)
+                                {
+                                    columns[1] = columns1[2]+" -I";
+
+                                }
+
+                                if (date1 == lmonth1 )
+                                {
+                                    columns[1] = columns1[2] + " -II";
+
+                                }
+                                if (date1 == lmonth2 )
+                                {
+                                    columns[1] = columns1[2] + " -III";
+
+                                }
                                 break;
                             }
 
@@ -3074,7 +3432,7 @@ namespace StockD
             BinaryFormatter bf = new BinaryFormatter();
             //Use For Serialization Data Get Save In Fileio.txt file 
 
-
+            Cb_NSE_EOD_BhavCopy.IsChecked = true;//dont delete it is imp
             if (File.Exists(@"C:\Fileio.txt"))
             {
 
@@ -3131,8 +3489,7 @@ namespace StockD
                 ChkBseFo.IsChecked = t1.ChkBseFo;
 
 
-                Cb_NSE_CASH_MARKET.IsChecked = t1.Cb_NSE_CASH_MARKET;
-                Cb_NSE_EOD_BhavCopy.IsChecked = t1.Cb_NSE_EOD_BhavCopy;
+              //  Cb_NSE_EOD_BhavCopy.IsChecked = t1.Cb_NSE_EOD_BhavCopy;
                 chkEquity.IsChecked = t1.chkEquity;
                 Cb_NSE_Forex_Options.IsChecked = t1.Cb_NSE_Forex_Options;
                 Cb_NSE_SME.IsChecked = t1.Cb_NSE_SME;
@@ -3144,8 +3501,7 @@ namespace StockD
                 chkNseNcdex.IsChecked = t1.chkNseNcdex;
 
 
-                Cb_NSE_Sec_List.IsChecked = t1.Cb_NSE_Sec_List;
-                Cb_NSE_Delivary_Data_Download.IsChecked = t1.Cb_NSE_Delivary_Data_Download;
+              
 
                 Cb_NSE_Market_Activity.IsChecked = t1.Cb_NSE_Market_Activity;
 
@@ -3227,8 +3583,7 @@ t.Cb_BSE_Equity_Futures=Cb_BSE_Equity_Futures.IsChecked.Value;
 t.ChkBseFo=ChkBseFo.IsChecked.Value;
                 
 
-t.Cb_NSE_CASH_MARKET=Cb_NSE_CASH_MARKET.IsChecked.Value;
-t.Cb_NSE_EOD_BhavCopy=Cb_NSE_EOD_BhavCopy.IsChecked.Value;
+//t.Cb_NSE_EOD_BhavCopy=Cb_NSE_EOD_BhavCopy.IsChecked.Value;
 t.chkEquity=chkEquity.IsChecked.Value;
 t.Cb_NSE_Forex_Options=Cb_NSE_Forex_Options.IsChecked.Value;
 t.Cb_NSE_SME=Cb_NSE_SME.IsChecked.Value;
@@ -3269,8 +3624,7 @@ t.Cb_Delete_all_events= Cb_Delete_all_events.IsChecked.Value;
 
 
 
-t.Cb_NSE_Sec_List = Cb_NSE_Sec_List.IsChecked.Value;
-t.Cb_NSE_Delivary_Data_Download = Cb_NSE_Delivary_Data_Download.IsChecked.Value;
+
 
 t.Cb_NSE_Market_Activity = Cb_NSE_Market_Activity.IsChecked.Value;
 t.Cb_NSE_PR = Cb_NSE_PR.IsChecked.Value;
@@ -3428,13 +3782,12 @@ t.MCXSX_Bulk = MCXSX_Bulk.IsChecked.Value;
         {
             dtEndDate.Text = "";
             dtStartDate.Text = "";
-            mcx();
+           // mcx();
 
         }
 
         private void Btn_Setting_reset_Click(object sender, RoutedEventArgs e)
         {
-            Cb_NSE_Sec_List.IsChecked = false;
 
             Cb_NSE_Market_Activity.IsChecked = false;
             Cb_NSE_PR.IsChecked = false;
@@ -3452,12 +3805,10 @@ t.MCXSX_Bulk = MCXSX_Bulk.IsChecked.Value;
             Cb_BSE_CASH_MARKET.IsChecked = false;
             Cb_BSE_Equity_Futures.IsChecked = false;
             ChkBseFo.IsChecked = false;
-            Cb_NSE_Delivary_Data_Download.IsChecked = false;
             BSE_Block.IsChecked = false;
 
 
-            Cb_NSE_CASH_MARKET.IsChecked = false;
-            Cb_NSE_EOD_BhavCopy.IsChecked = false;
+           // Cb_NSE_EOD_BhavCopy.IsChecked = false;
             chkEquity.IsChecked = false;
             Cb_NSE_Forex_Options.IsChecked = false;
             Cb_NSE_SME.IsChecked = false;
@@ -3504,7 +3855,20 @@ t.MCXSX_Bulk = MCXSX_Bulk.IsChecked.Value;
 
         }
 
-     
+        private void Cb_Reports_Checked(object sender, RoutedEventArgs e)
+        {
+            Cb_NSE_Bulk_Deal.IsChecked = true;
+            Cb_NSE_Block_Deal.IsChecked = true;
+            Cb_NSE_Market_Activity.IsChecked = true;
+            BSE_Block.IsChecked = true;
+            BSE_Bulk.IsChecked = true;
+            MCXSX_Block.IsChecked = true;
+            MCXSX_Bulk.IsChecked = true;
+            //chkCombinedReport.IsChecked = true;
+        }
+
+        
+        
 
         
        
