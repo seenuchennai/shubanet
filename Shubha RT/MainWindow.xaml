@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        
          xmlns:l="clr-namespace:ShubhaRt.Controls"
-        Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="858" Height="580">
+        Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="858" Height="580" WindowStyle="ThreeDBorderWindow">
    
     <Grid Name="MyGrid" Background="#FFB9D4F5" Height="550" Width="861">
         <Image Height="68" HorizontalAlignment="Left" Margin="4,0,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="Images/logo.jpg" />
@@ -37,7 +37,7 @@
                         <GroupBox Height="85" HorizontalAlignment="Left" Margin="-1,24,0,0" Name="group" VerticalAlignment="Top" Width="683" Background="#FF85B6F2" Grid.ColumnSpan="2"></GroupBox>
 
                         <Label Content="Start Date" Height="28" HorizontalAlignment="Left" Margin="16,46,0,0" Name="label1" VerticalAlignment="Top" Grid.Column="1" />
-                        <DatePicker Height="25" HorizontalAlignment="Left" Margin="98,46,0,0" Name="dtStartDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=StartDate}" Grid.Column="1"  >
+                        <DatePicker Height="25" HorizontalAlignment="Left" Margin="98,46,0,0" Name="dtStartDate" VerticalAlignment="Top" Width="115" Grid.Column="1"  >
                             <DatePicker.Resources>
                                 <Style TargetType="{x:Type DatePickerTextBox}">
                                     <Setter Property="Control.Template">
@@ -52,7 +52,7 @@
                             </DatePicker.Resources>
                         </DatePicker>
                         <Label Content="End Date" Height="28" HorizontalAlignment="Left" Margin="244,44,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="1" />
-                        <DatePicker Height="25" HorizontalAlignment="Left" Margin="314,45,0,0" Name="dtEndDate" VerticalAlignment="Top" Width="115" SelectedDate="{Binding Path=EndDate}" Grid.Column="1" >
+                        <DatePicker Height="25" HorizontalAlignment="Left" Margin="314,45,0,0" Name="dtEndDate" VerticalAlignment="Top" Width="115" Grid.Column="1" SelectedDateChanged="dtEndDate_SelectedDateChanged">
                             <DatePicker.Resources>
                                 <Style TargetType="{x:Type DatePickerTextBox}">
                                     <Setter Property="Control.Template">
@@ -77,7 +77,7 @@
                         <Label Content="Please Wait File Is Downloading" Height="27" HorizontalAlignment="Left" Margin="0,107,0,0" Name="lbl_Download" VerticalAlignment="Top" Foreground="#FF302180" FontSize="10" Visibility="Hidden" Grid.ColumnSpan="2" />
                         <GridViewColumnHeader Name="gridViewColumnHeader3" Grid.ColumnSpan="2" Margin="-2,6,3,175" Background="#FF5999E8" BorderThickness="0" />
                         <Button Content="Stop" Height="22" Name="btnExit" Width="75" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" Margin="0,80,167,102" HorizontalAlignment="Right" />
-                        <Border BorderBrush="#FFA7A5A5" BorderThickness="2" Grid.ColumnSpan="2" Height="42" HorizontalAlignment="Left" Margin="10,35,0,0" Name="border1" VerticalAlignment="Top" Width="665" UseLayoutRounding="False" />
+                        <Border BorderBrush="#FFA7A5A5" BorderThickness="2" Height="42" HorizontalAlignment="Left" Margin="10,35,0,0" Name="border1" VerticalAlignment="Top" Width="665" UseLayoutRounding="False" Grid.ColumnSpan="2" />
                         <Label Content="Shubha Downloader" Grid.ColumnSpan="2" Height="26" HorizontalAlignment="Left" Margin="0,3,0,0" Name="label3" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White" />
                     </Grid>
                 </Grid>
@@ -142,7 +142,7 @@
                         </l:AccordianItem>
                         <l:AccordianItem Header="BSE">
                             <Grid>
-                                <CheckBox Content="BSE Cash Market  " Height="16" HorizontalAlignment="Left" Margin="136,20,0,0" Name="Cb_BSE_CASH_MARKET" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_BSE_CASH_MARKET" />
+                                <CheckBox Content="BSE Cash Market  " Height="16" HorizontalAlignment="Left" Margin="136,20,0,0" Name="Cb_BSE_CASH_MARKET" VerticalAlignment="Top" />
                                 <CheckBox Content="BSE Equity Futures" Height="16" HorizontalAlignment="Left" Margin="269,20,0,0" Name="Cb_BSE_Equity_Futures" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" IsEnabled="False" />
                                 <CheckBox Content="BSE INDEX" Height="16" Name="BSE_Index" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="11,22,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseEquity"/>
                                 <CheckBox Content="BSE Equity Options" Height="15" Name="ChkBseFo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="407,23,0,0" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="chkBseFo" IsEnabled="False" />
@@ -160,7 +160,7 @@
                                 <CheckBox Content="NSE Bulk Deal" Height="16" HorizontalAlignment="Right" Margin="0,74,221,0" Name="Cb_NSE_Bulk_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
                                 <CheckBox Content="NSE Block Deal" Height="16" HorizontalAlignment="Left" Margin="215,74,0,0" Name="Cb_NSE_Block_Deal" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
                                 <CheckBox Content="NSE India Vix" Height="16" HorizontalAlignment="Left" Margin="6,96,0,0" Name="Cb_NSE_India_Vix" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_Index" Visibility="Hidden" />
-                                <CheckBox Content="NCDEX Futures" Margin="358,55,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseNcdex" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="NCDEX Futures" Margin="358,55,0,0" Name="chkNseNcdex" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
                                 <CheckBox Content="NSE CASH MARKET" Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="Cb_NSE_EOD_BhavCopy" VerticalAlignment="Top" Width="125" Visibility="Visible"  />
                                 <CheckBox Content="NSE Index" Height="16" HorizontalAlignment="Left" Margin="489,30,0,0" Name="Cb_NSE_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}" CommandParameter="Cb_NSE_Index" Visibility="Visible" />
@@ -396,13 +396,6 @@
 
                             </Grid>
                         </l:AccordianItem>
-                        <l:AccordianItem Header="ODIN">
-                            <Grid >
-
-
-                            </Grid>
-                        </l:AccordianItem>
-
                         <l:AccordianItem Header="NEST">
                             <Grid>
 
