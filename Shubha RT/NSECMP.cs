@@ -41,6 +41,8 @@ namespace ShubhaRt
         public double Close;
         public int Volume;
         public int OpenInt;
+        public double Aux1;
+
 
     }
 }

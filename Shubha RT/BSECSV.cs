@@ -42,5 +42,7 @@ namespace ShubhaRt
         public int volume;
         [FieldNullValue(typeof(long), "0")]
         public Nullable<long> openint;
+        public long  AUX1;
+
     }
 }

@@ -40,7 +40,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -135,11 +135,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BSECSV.cs" />
+    <Compile Include="FO.cs" />
+    <Compile Include="Index.cs" />
     <Compile Include="NSECMP.cs" />
     <Compile Include="NSEMTO.cs" />
     <Compile Include="NSESEC.cs" />
+    <Compile Include="Option.cs" />
     <Compile Include="SCBTXT.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SMEETF.cs" />
     <Compile Include="Url.cs" />
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
@@ -202,6 +206,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Images\Logo.jpg_org" />
     <None Include="Images\Thumbs.db" />
     <None Include="Properties\Settings.settings">
