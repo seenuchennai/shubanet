@@ -93,16 +93,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FileHelpers">
-      <HintPath>..\..\My Documents\Downloads\sd-master\sd-master\StockD\bin\Debug\FileHelpers.dll</HintPath>
+      <HintPath>..\..\..\Downloads\sd-master\sd-master\StockD\bin\Debug\FileHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zip.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\DotNetZipLib-DevKit-v1.9\Tools\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zlib">
-      <HintPath>..\..\..\..\DotNetZipLib-DevKit-v1.9\zlib-v1.9\Debug\Ionic.Zlib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\DotNetZipLib-DevKit-v1.9\zlib-v1.9\Debug\Ionic.Zlib.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\Shantesh\Log4NetFrameworkSolution\Log4NetFrameworkSolution\Lib\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Shantesh\Log4NetFrameworkSolution\Log4NetFrameworkSolution\Lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
@@ -136,7 +136,13 @@
     </ApplicationDefinition>
     <Compile Include="BSECSV.cs" />
     <Compile Include="FO.cs" />
+    <Compile Include="Google.cs" />
     <Compile Include="Index.cs" />
+    <Compile Include="MCXBHAV.cs" />
+    <Compile Include="MCXINDEX.cs" />
+    <Compile Include="MCXSPOTINDEX.cs" />
+    <Compile Include="MCXSX.cs" />
+    <Compile Include="MCXSXFOREX.cs" />
     <Compile Include="NSECMP.cs" />
     <Compile Include="NSEMTO.cs" />
     <Compile Include="NSESEC.cs" />
@@ -145,6 +151,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="SMEETF.cs" />
     <Compile Include="Url.cs" />
+    <Compile Include="YAHOO.cs" />
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

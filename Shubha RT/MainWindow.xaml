@@ -90,7 +90,6 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -154,6 +153,7 @@
                         </l:AccordianItem>
                         <l:AccordianItem Header="NSE">
                             <Grid >
+                                <CheckBox Content="NSE EVENTS  " Height="16" HorizontalAlignment="Left" Margin="489,55,0,0" Name="Cb_NSE_events" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" Visibility="Visible" IsEnabled="True" Checked="Cb_NSE_ETF_Checked" />
 
                                 <CheckBox Content="NSE ETF  " Height="16" HorizontalAlignment="Left" Margin="358,30,0,0" Name="Cb_NSE_ETF" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="Cb_NSE_ETF" Visibility="Visible" IsEnabled="True" Checked="Cb_NSE_ETF_Checked" />
                                 <CheckBox Content="NSE Combine Report" Height="16" HorizontalAlignment="Left" Margin="215,52,0,0" Name="chkCombinedReport" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkNseCombinedReport" Visibility="Visible" />
@@ -178,7 +178,7 @@
                         <l:AccordianItem Header="MCX">
                             <Grid >
 
-                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Visible" IsEnabled="False" />
+                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Visible"  />
                                 <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="481,40,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
                                 <CheckBox Content="MCX Commodity Futures" Height="16" HorizontalAlignment="Left" Margin="153,7,0,0" Name="MCXCommodity_Futures" VerticalAlignment="Top" Width="164" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXCommodity_Futures" />
                                 <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="320,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" />
@@ -265,7 +265,7 @@
                         <ColumnDefinition Width="107*" />
                         <ColumnDefinition Width="597*" />
                     </Grid.ColumnDefinitions>
-                    <DataGrid AutoGenerateColumns="True" Height="368" HorizontalAlignment="Left" Margin="10,28,0,0" Name="dataGrid3" VerticalAlignment="Top" Width="334" Grid.ColumnSpan="2">
+                    <DataGrid AutoGenerateColumns="True" Height="270" HorizontalAlignment="Left" Margin="10,126,0,0" Name="dataGrid3" VerticalAlignment="Top" Width="334" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn FontSize="15" FontWeight="Bold" MinWidth="50" Width="40" />
                             <DataGridTextColumn FontSize="15" FontWeight="Bold" />
@@ -274,7 +274,7 @@
                             <DataGridTextColumn Header="Exchange" FontSize="15" FontWeight="Bold" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid AutoGenerateColumns="True" Height="368" HorizontalAlignment="Left" Margin="247,28,0,0" Name="dataGrid2" VerticalAlignment="Top" Width="331" Grid.Column="1">
+                    <DataGrid AutoGenerateColumns="True" Height="270" HorizontalAlignment="Left" Margin="247,126,0,0" Name="dataGrid2" VerticalAlignment="Top" Width="331" Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn FontSize="15" FontWeight="Bold" MinWidth="50" Width="40" >
                             </DataGridTextColumn>
@@ -284,8 +284,8 @@
                             <DataGridTextColumn Header="Exchange" FontSize="15" FontWeight="Bold" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <GridViewColumnHeader Content="Yahoo Symbol LookUp" Height="21" HorizontalAlignment="Left" Margin="10,9,0,0" Name="gridViewColumnHeader1" VerticalAlignment="Top" Width="334" Background="#FFB9D4F5" Grid.ColumnSpan="2" />
-                    <GridViewColumnHeader Background="#FFB9D4F5" Content="Saved Symbol List" Height="21" HorizontalAlignment="Left" Margin="245,9,0,0" Name="gridViewColumnHeader2" VerticalAlignment="Top" Width="334" Grid.Column="1" />
+                    <GridViewColumnHeader Content="Yahoo Symbol LookUp" Height="21" HorizontalAlignment="Left" Margin="10,107,0,0" Name="gridViewColumnHeader1" VerticalAlignment="Top" Width="334" Background="#FFB9D4F5" Grid.ColumnSpan="2" />
+                    <GridViewColumnHeader Background="#FFB9D4F5" Content="Saved Symbol List" Height="21" HorizontalAlignment="Left" Margin="247,107,0,0" Name="gridViewColumnHeader2" VerticalAlignment="Top" Width="334" Grid.Column="1" />
                 </Grid>
             </TabItem>
             <TabItem  Name="Tab_Market_Analysis" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">

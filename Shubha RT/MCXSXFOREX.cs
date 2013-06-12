@@ -4,23 +4,31 @@ using System.Linq;
 using System.Text;
 using FileHelpers;
 
-
 namespace ShubhaRt
 {
-    
-
-
-
+   
         [DelimitedRecord(","), IgnoreFirst(1), IgnoreEmptyLines(true)]
-        public class Index
+        public class MCXSXFOREX
         {
-            public string Name;
+            public string date;
             [FieldOptional()]
-            public string  Date1;
+            public string instrument;
+            [FieldOptional()]
+            public string product;
+            [FieldOptional()]
 
+            public string EXP_DATE;
+            [FieldOptional()]
+            [FieldNullValue(typeof(string ), "0")]
 
+            public string  strike;
+            [FieldNullValue(typeof(string ), "0")]
+            [FieldOptional()]
+            public string  optiontype;
+            
+            [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
-            [FieldOptional()]
+
             public string OPEN_PRICE;
             [FieldNullValue(typeof(string), "0")]
             [FieldOptional()]
@@ -37,49 +45,41 @@ namespace ShubhaRt
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
-            public string Points_Change;
+            public string Settlement;
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
-            public string Change;
+            public string Previous_Close;
             [FieldNullValue(typeof(string), "0")]
             [FieldOptional()]
 
-            public string  Volume;
+            public string volume;
             [FieldOptional()]
-            [FieldNullValue(typeof(string), "0")]
+            [FieldNullValue(typeof(string ), "0")]
 
-            public string security;
+            public string  NO_OF_trad;
             [FieldOptional()]
-            [FieldNullValue(typeof(string), "0")]
+            [FieldNullValue(typeof(string ), "0")]
 
-            public string NO_OF_TRADE;
+            public string  value;
+
             [FieldOptional()]
-            [FieldNullValue(typeof(string), "0")]
+            [FieldNullValue(typeof(string ), "0")]
 
-            public string NOTION_VAL;
-            
+            public string  open_interest;
+
+            [FieldOptional()]
+            [FieldNullValue(typeof(string ), "0")]
+
+            public string  pre_value;
+
+
 
 
         }
 
         [DelimitedRecord(","), IgnoreFirst(1)]
-        public class IndexFINAL
-        {
-            public string ticker;
-            public string name;
-            public string date;
-            public string open;
-            public string high;
-            public string low;
-            public string close;
-            public string  volume;
-            [FieldNullValue(typeof(long), "0")]
-            public Nullable<long> openint;
-        }
-
-        [DelimitedRecord(","), IgnoreFirst(1)]
-        public class PEBEFINAL
+        public class MCXSXFOREXFINAL
         {
             public string ticker;
             public string name;
@@ -91,11 +91,10 @@ namespace ShubhaRt
             public string volume;
             [FieldNullValue(typeof(long), "0")]
             public Nullable<long> openint;
-            public string PE;
-            public string BE;
+            public string AUX1;
 
         }
 
-    
+
     
 }

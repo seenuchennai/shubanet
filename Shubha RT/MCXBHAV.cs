@@ -6,12 +6,14 @@ using FileHelpers;
 
 namespace ShubhaRt
 {
+    
 
 
 
-
+        
+    
   [DelimitedRecord(","), IgnoreFirst(1), IgnoreEmptyLines(true)]
-  public class FO
+  public class MCXBHAV
         {
             public string SECURITY;
       [FieldOptional()]
@@ -42,10 +44,10 @@ namespace ShubhaRt
       [FieldNullValue(typeof(string ), "0")]
 
             public string  TRD_VAL;
-            [FieldNullValue(typeof(string ), "0")]
+            [FieldNullValue(typeof(int), "0")]
             [FieldOptional()]
 
-            public string  NET_TRDQTY;
+            public int NET_TRDQTY;
             [FieldOptional()]
             [FieldNullValue(typeof(double), "0")]
 
@@ -60,7 +62,7 @@ namespace ShubhaRt
         }
 
         [DelimitedRecord(","), IgnoreFirst(1)]
-        public class FOFINAL
+        public class MCXBHAVFINAL
         {
             public string ticker;
             public string name;
@@ -69,14 +71,10 @@ namespace ShubhaRt
             public double high;
             public double low;
             public double close;
-            public string  volume;
+            public int volume;
             [FieldNullValue(typeof(long), "0")]
             public Nullable<long> openint;
-            public string AUX1;
-
         }
-
-
 
     
 }

@@ -4,27 +4,35 @@ using System.Linq;
 using System.Text;
 using FileHelpers;
 
-
 namespace ShubhaRt
 {
     
 
-
-
         [DelimitedRecord(","), IgnoreFirst(1), IgnoreEmptyLines(true)]
-        public class Index
+        public class MCXSX
         {
-            public string Name;
+            public string Date;
             [FieldOptional()]
-            public string  Date1;
+            public string Instrument;
+            [FieldOptional()]
+            public string Symbol;
+            [FieldOptional()]
+            [FieldNullValue(typeof(string), "0")]
 
+            public string Series;
+            [FieldNullValue(typeof(string), "0")]
+            [FieldOptional()]
+
+            public string Currency;
+
+            [FieldNullValue(typeof(string), "0")]
+            [FieldOptional()]
+            public string HIGH_PRICE;
 
             [FieldNullValue(typeof(string), "0")]
             [FieldOptional()]
             public string OPEN_PRICE;
-            [FieldNullValue(typeof(string), "0")]
-            [FieldOptional()]
-            public string HIGH_PRICE;
+
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
@@ -37,19 +45,21 @@ namespace ShubhaRt
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
-            public string Points_Change;
+            public string pre_close;
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
-            public string Change;
+            public string week_high;
             [FieldNullValue(typeof(string), "0")]
             [FieldOptional()]
 
-            public string  Volume;
-            [FieldOptional()]
-            [FieldNullValue(typeof(string), "0")]
+            public string week_low;
 
-            public string security;
+            [FieldNullValue(typeof(string), "0")]
+            [FieldOptional()]
+
+            public string volume;
+
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
@@ -57,29 +67,14 @@ namespace ShubhaRt
             [FieldOptional()]
             [FieldNullValue(typeof(string), "0")]
 
-            public string NOTION_VAL;
-            
+            public string NO_OF_value;
+
 
 
         }
 
         [DelimitedRecord(","), IgnoreFirst(1)]
-        public class IndexFINAL
-        {
-            public string ticker;
-            public string name;
-            public string date;
-            public string open;
-            public string high;
-            public string low;
-            public string close;
-            public string  volume;
-            [FieldNullValue(typeof(long), "0")]
-            public Nullable<long> openint;
-        }
-
-        [DelimitedRecord(","), IgnoreFirst(1)]
-        public class PEBEFINAL
+        public class MCXSXFINAL
         {
             public string ticker;
             public string name;
@@ -89,13 +84,9 @@ namespace ShubhaRt
             public string low;
             public string close;
             public string volume;
-            [FieldNullValue(typeof(long), "0")]
-            public Nullable<long> openint;
-            public string PE;
-            public string BE;
+            [FieldNullValue(typeof(int ), "0")]
+            public Nullable<int > openint;
 
         }
-
-    
     
 }
