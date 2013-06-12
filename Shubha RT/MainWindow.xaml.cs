@@ -50,7 +50,10 @@ namespace StockD
     public partial class MainWindow : Window
     {
 
+        List<string> YahooSymbolsave = new List<string>();
+        List<string> YahooNamesave = new List<string>();
 
+        List<string> YahooExchangesave = new List<string>();
    
 
         string url1 = "http://www.goog";
@@ -617,7 +620,7 @@ namespace StockD
                 {
 
 
-                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\YahooIEOD1Min.txt"))
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
                     {
                         string line = null;
                         int i = 0;
@@ -666,8 +669,9 @@ namespace StockD
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
                             }
-
-                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\Yahoo1min" + yahooieod1[i] + datetostore + ".csv");
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo1min"))
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo1min");
+                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo1min\\Yahoo1min" + yahooieod1[i] + datetostore + ".csv");
                         }
                         catch
                         {
@@ -694,7 +698,7 @@ namespace StockD
 
                 try
                 {
-                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\YahooRT.txt"))
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
                     {
                         string line = null;
                         int i = 0;
@@ -719,7 +723,7 @@ namespace StockD
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                     string strMonthName = mfi.GetMonthName(day.Month).ToString();
 
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooRT\\" + day.Day +"yahoort.csv";
+                    strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooRT\\yahoort.csv";
 
                     baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s=^" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
 
@@ -730,7 +734,12 @@ namespace StockD
                     string datetostrore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
                     string[] namert = new string[1] {"" };
                     namert [0]= strYearDir;
-                    ExecuteYAHOOProcessing(namert, datetostrore, "YAHOORT");
+                   ExecuteYAHOOProcessing(namert, datetostrore, "YAHOORT");
+                   if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT"))
+                       Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT");
+                    string []csvFileNames=new string[1]{""};
+                    csvFileNames[0] = strYearDir;
+                   System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT\\YAHOORT.csv");
 
 
                 }
@@ -751,7 +760,7 @@ namespace StockD
 
                 try
                 {
-                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\YahooIEOD5Min.txt"))
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
                     {
                         string line = null;
                         int i = 0;
@@ -802,7 +811,10 @@ namespace StockD
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
                             }
 
-                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\Yahoo5min" + yahooieod5[i] + datetostore + ".csv");
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo5min"))
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo5min");
+
+                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo5min\\Yahoo5min" + yahooieod5[i] + datetostore + ".csv");
                         }
                         catch
                         {
@@ -831,7 +843,7 @@ namespace StockD
 
             try
             {
-                using (var reader = new StreamReader(txtTargetFolder.Text + "\\YahooFundamental.txt"))
+                using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
                 {
                     string line = null;
                     int i = 0;
@@ -928,8 +940,11 @@ namespace StockD
                            
                         }
 
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\FUNDAMENTAL"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\FUNDAMENTAL");
+
                         string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\Yahoofun1", "*.csv");
-                        Joinbseindex(csvFileNames, txtTargetFolder.Text + "\\Downloads\\Yahoo_Fundamental.csv");
+                        Joinbseindex(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\FUNDAMENTAL\\Yahoo_Fundamental.csv");
 
                     //     if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\Yahoofun1"))
                     //Directory.CreateDirectory(txtTargetFolder.Text + "\\Downloads\\Yahoofun1");
@@ -988,7 +1003,7 @@ namespace StockD
                 //System.Windows.Forms.MessageBox.Show(path );
                 try
                 {
-                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\YahooEOD.txt"))
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
                     {
                         string line = null;
                         int i = 0;
@@ -1062,7 +1077,14 @@ namespace StockD
                     {
                         Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
                     }
-
+                    if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO"))
+                    {
+                        Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO");
+                    }
+                    if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD"))
+                    {
+                        Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD");
+                    }
                     string []nameformove=new string[1]{""};
                     nameformove[0] = csvFileNames[0];
 
@@ -1070,9 +1092,9 @@ namespace StockD
 
                     //movefile(nameformove[0], txtTargetFolder.Text + "\\Downloads\\STD_CSV\\YahooEod.csv");
 
-                    JoinCsvFiles(csvFileNames , txtTargetFolder.Text + "\\STD_CSV\\YahooEod.csv");
+                    JoinCsvFiles(csvFileNames , txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv");
 
-                    if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\YahooEod"))
+                    if (Directory.Exists(txtTargetFolder.Text + "\\Downloads\\YahooEod"))
                     {
                         Directory.Delete (txtTargetFolder.Text + "\\Downloads\\YahooEod",true );
                     }
@@ -1147,8 +1169,11 @@ namespace StockD
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
                             }
-
-                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\GoogleEod"))
+                            {
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\GoogleEod");
+                            }
+                            JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
                         }
                         catch
                         {
@@ -1227,6 +1252,10 @@ namespace StockD
                             datetostore = DateTime.Today.ToString ("yyyyMMdd");
                             ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            {
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                            }
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\Google"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
                             }
@@ -4542,6 +4571,10 @@ namespace StockD
 
 
 
+
+           
+
+
             if(name=="YAHOOEOD")
             {
                 FileHelperEngine engineBSECSV1 = new FileHelperEngine(typeof(YAHOOEOD));
@@ -4589,7 +4622,18 @@ namespace StockD
                     {
                         finalarr[icntr] = new YAHOOEODFINAL();
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
-                        finalarr[icntr].name = "";
+                        string nameofcompany = "";
+                        for (int i = 0; i < YahooSymbolsave.Count;i++ )
+                        {
+                            if (finalarr[icntr].ticker == YahooSymbolsave[i]) 
+                            {
+                                nameofcompany = YahooNamesave[i];
+                            }
+                        }
+                        
+                        
+                        
+                        finalarr[icntr].name = nameofcompany ;
 
                         //myDate = Convert.ToDateTime(dt);
                         //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
@@ -4622,6 +4666,91 @@ namespace StockD
 
 
             }
+
+
+
+            if (name == "YAHOORT")
+            {
+                FileHelperEngine engineBSECSV1 = new FileHelperEngine(typeof(YAHOORT));
+
+                DelimitedClassBuilder cb1 = BuildNSECMPFile();
+
+
+                foreach (string obj in strBSECSVArr)
+                {
+
+                    //Get BSE Equity Filename day, month, year
+                    string[] words = obj.Split('\\');
+
+                    string strbseequityfilename = words[words.Length - 1];
+
+
+
+
+
+
+
+
+
+
+                    YAHOORT[] resbsecsv1 = engineBSECSV1.ReadFile(obj) as YAHOORT[];
+
+
+
+
+
+
+
+
+
+                    int totrows = 0;
+
+                    int itmp = 0;
+                    int cnt = 0;
+
+                    YAHOORTFINAL[] finalarr = new YAHOORTFINAL[resbsecsv1.Length];
+                    DateTime myDate;
+                    itmp = 0;
+                    int icntr = 0;
+                    while (icntr < resbsecsv1.Length)
+                    {
+                        finalarr[icntr] = new YAHOORTFINAL();
+                        finalarr[icntr].ticker = resbsecsv1[icntr].Tiker;
+                        finalarr[icntr].name = resbsecsv1[icntr].Name ;
+
+                        finalarr[icntr].time = resbsecsv1[icntr].time; // String.Format("{0:yyyyMMdd}", myDate);
+                       
+
+
+                        finalarr[icntr].date = resbsecsv1[icntr].date; // String.Format("{0:yyyyMMdd}", myDate);
+                        finalarr[icntr].open = resbsecsv1[icntr].PRICE;
+                        finalarr[icntr].high = resbsecsv1[icntr].PRICE;
+                        finalarr[icntr].low = resbsecsv1[icntr].PRICE;
+                        finalarr[icntr].close = resbsecsv1[icntr].PRICE;
+                        finalarr[icntr].volume = resbsecsv1[icntr].volume;
+
+                        finalarr[icntr].openint = 0;  //enint;
+
+
+                        icntr++;
+                    }
+
+                    FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(YAHOORTFINAL));
+                    engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
+                    engineBSECSVFINAL.WriteFile(obj, finalarr);
+
+
+
+
+
+                }
+                return;
+
+
+            }
+
+
+
             if (name == "YAHOO5MIN")
             {
                 FileHelperEngine engineBSECSV1 = new FileHelperEngine(typeof(YAHOO5MIN));
@@ -4640,7 +4769,7 @@ namespace StockD
 
 
 
-
+                 
 
 
 
@@ -4669,7 +4798,19 @@ namespace StockD
                     {
                         finalarr[icntr] = new YAHOOFINAL();
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
-                        finalarr[icntr].name = "";
+
+
+
+                        string nameofcompany = "";
+                        for (int i = 0; i < YahooSymbolsave.Count; i++)
+                        {
+                            if (finalarr[icntr].ticker == YahooSymbolsave[i])
+                            {
+                                nameofcompany = YahooNamesave[i];
+                            }
+                        }
+
+                        finalarr[icntr].name = nameofcompany;
 
                         //myDate = Convert.ToDateTime(dt);
                         //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
@@ -4749,8 +4890,16 @@ namespace StockD
                 {
                     finalarr[icntr] = new YAHOOFINAL();
                     finalarr[icntr].ticker = strbseequityfilename.Substring(2,strbseequityfilename.Length-6);
-                    finalarr[icntr].name = "";
+                    string nameofcompany = "";
+                    for (int i = 0; i < YahooSymbolsave.Count; i++)
+                    {
+                        if (finalarr[icntr].ticker == YahooSymbolsave[i])
+                        {
+                            nameofcompany = YahooNamesave[i];
+                        }
+                    }
 
+                    finalarr[icntr].name = nameofcompany;
                     //myDate = Convert.ToDateTime(dt);
                     //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
 
@@ -7809,12 +7958,122 @@ namespace StockD
             
            
         }
-       
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+        //     var row = GetDataGridRows(dataGrid3 ); 
+        //    DataGridRow=
+
+        //if (((System.Windows.Controls. CheckBox)sender).IsChecked == true)  
+        //{
+        //   SetCheckbox(row, true);  
+
+        //}  
+        //else  
+        //{  
+        // SetCheckbox(row, false);  
+        //}  
+            
+        }
+        //individual checking of checkbox  
+        private void chkDiscontinue_Click(object sender, RoutedEventArgs e)
+        {
+            object a = e.Source;
+            System.Windows.Controls.CheckBox chk = (System.Windows.Controls.CheckBox)sender; 
+            if(chk.IsChecked==true )
+            {
+                //DataGridColumn column in dataGr
+
+
+             dataGrid3.SelectedItem.ToString();
+
+             DataItem row = (DataItem)dataGrid3.SelectedItems[0];
+             var a1 = dataGrid3.Columns[3];
+
+
+                 
+
+            YahooSymbolsave.Add(row.Column1 );
+            YahooNamesave.Add(row.Column2);
+            YahooExchangesave.Add(row.Column3);
+
+            //for (int i = 1; i < YahooSymbol.Count+1; i++)
+            //{
+            //    // Your programmatically created DataGrid is attached to MainGrid here
+
+
+            //    // create four columns here with same names as the DataItem's properties
+            //    string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
+
+                
+            //    var column = new DataGridTextColumn();
+            //    for (int j = 0; j < 3; j++)
+            //    {
+            //        column.Header = nameofcol[j];
+
+
+            //    }
+              
+            //        column.Binding = new System.Windows.Data.Binding("Column" + i);
+               
+            //    dataGrid5.Columns.Add(column);
+            //    // create and add two lines of fake data to be displayed, here
+            //    dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = row.Column1 , Column2 = row.Column2 , Column3 = row.Column3  });
+            //    //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
+            //}
+
+               
+            }
+        
+        }
+        //loop through each row and change the checkbox value  
+        private void SetCheckbox(IEnumerable<DataGridRow> row, bool value)
+        {
+            foreach (DataGridRow r in row)  
+           {  
+         DataRowView rv = (DataRowView)r.Item;  
+         foreach (DataGridColumn column in dataGrid3 .Columns)  
+         {  
+           if (column.GetType().Equals(typeof(DataGridTemplateColumn)))             {  
+             rv.Row["Discontinue"] = value;        
+              
+               
+           }  
+         }  
+       }  
+        }  
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+
+            // Your programmatically created DataGrid is attached to MainGrid here
+
+
+            // create four columns here with same names as the DataItem's properties
+            //string[] nameofcol = new string[3] { "Symbol", "Company Name", "Exchange" };
+
+            //for (int i = 0; i <= 2; ++i)
+            //{
+            //    var column = new DataGridTextColumn();
+            //    column.Header = nameofcol[i];
+            //    column.Binding = new System.Windows.Data.Binding("Column" + i);
+            //    dataGrid3.Columns.Add(column);
+            //}
+
+            //// create and add two lines of fake data to be displayed, here
+            //dataGrid3.Items.Add(new DataItem { Column0 = "a.1", Column1 = "a.2", Column2 = "a.3" });
+            //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
             
-
-
+            
+            
+            
+            for (int i = 1; i < 12;i ++ )
+            {
+                HRS .Items.Add(i );
+            }
+            for (int i = 1; i < 60; i++)
+            {
+                MIN.Items.Add(i);
+            }
             btnExit.IsEnabled = false;
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
@@ -8776,9 +9035,158 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             }
         }
 
-        
-        
+        private void checkBox4_Checked(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            string strYearDir, baseurl;
+            strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
+
+
+
+
+
+
+
+            baseurl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + yahoosearch .Text + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+            var delimiter = ",";
+           
+            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+
+
+            List<string> YahooSymbol = new List<string>();
+            List<string> YahooName = new List<string>();
+
+            List<string> YahooExchange = new List<string>();
+
+                downliaddata(strYearDir, baseurl);
+
+                //try
+                //{
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Downloads\\yahoosy.txt"))
+                    {
+                        string line = null;
+                        string[] headers = null;
+                        int i = 0;
+                        string name = "";
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
+
+                            i = 1;
+
+                            for (i = 1; i < headers.Count() - 1;i=i+6 )
+                            {
+                                char []delimiterChars = { '\"' ,':'};
+                                name = headers[i] + headers[i + 1] + headers[i + 2] ;
+                                string[] words = name.Split(delimiterChars); //+ headers[i + 1].Split(delimiterChars) + headers[i + 2].Split(delimiterChars);
+                                YahooSymbol.Add(words[4]);
+                                YahooName.Add(words[9]);
+                                YahooExchange.Add(words[14]);
+
+                               
+                                //"{\"symbol\":\"INFY.NS\"\"name\": \"INFOSYS LIMITED\"\"exch\": \"NSI\""
+                                
+                            }
+
+
+
+                            for (i = 1; i < YahooSymbol.Count;i++ )
+                            {
+                                // Your programmatically created DataGrid is attached to MainGrid here
+
+
+                                // create four columns here with same names as the DataItem's properties
+                                string[] nameofcol = new string[4] { "","Symbol", "Company Name", "Exchange" };
+
+                                
+                                    var column = new DataGridTextColumn();
+                                if(i<4)
+                                {
+                                column.Header = nameofcol[i];
+                                }
+                                    column.Binding = new System.Windows.Data.Binding("Column" + i);
+                                    dataGrid3.Columns.Add(column);
+                            
+
+                                // create and add two lines of fake data to be displayed, here
+                                    dataGrid3.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbol[i], Column2 = YahooName[i], Column3 = YahooExchange[i] });
+                                //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
+                            }
+
+
+
+                        }
+                    }
+                //}
+                //catch
+                //{
+                //}
+
+            
+            //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Forms.MessageBox.Show("dsadsa");
+
+        }
+
+        private void button2_Click_1(object sender, RoutedEventArgs e)
+        {
+            dataGrid5.ItemsSource = null;
+            for (int i = 0; i < YahooSymbolsave.Count; i++)
+            {
+                // Your programmatically created DataGrid is attached to MainGrid here
+
+
+                // create four columns here with same names as the DataItem's properties
+                string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
+
+
+                var column = new DataGridTextColumn();
+                if (i < 4)
+                {
+                    //column.Header = nameofcol[i];
+                }
+                column.Binding = new System.Windows.Data.Binding("Column" + i);
+                dataGrid5.Columns.Add(column);
+
+
+                // create and add two lines of fake data to be displayed, here
+                dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbolsave[i], Column2 = YahooNamesave[i], Column3 = YahooExchangesave[i] });
+                //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
+
+
+
+            }
+            string line = "";
+
+            for (int i = 0; i < YahooSymbolsave.Count;i++ )
+            {
+               // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
+
+                line = line + YahooSymbolsave[i] + "\n";
+
+
+               
+            }
+            System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\test.txt");
+            file.WriteLine(line);
+
+            System.IO.File.WriteAllText(txtTargetFolder.Text + "\\Yahoo.txt", line);
+
+        }
+
+        private void yahoosearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
         
        
 
