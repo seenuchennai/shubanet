@@ -1147,7 +1147,7 @@ namespace StockD
                     for (int i = 0; i < GoogleEod.Count(); i++)
                     {
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod\\" + day.Day + GoogleEod[i] + ".csv";
-                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod [i] +"&x="+GoogleEod [i]+"&i=d&p=15d&f=d,o,h,l,c,v";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod [i] +"&x="+GoogleEod [i]+"&i=5&p=15d&f=d,o,h,l,c,v";
                         // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=d&p=15d&f=d,o,h,l,c,v"
 
 
@@ -1164,7 +1164,7 @@ namespace StockD
 
                             string datetostore = "";
                             datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
-                          //  ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1174,6 +1174,92 @@ namespace StockD
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\GoogleEod");
                             }
                             JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                        }
+                        catch
+                        {
+
+                        }
+
+
+
+
+
+                    }
+
+                }
+
+
+            }
+
+            if (Cb_MCX_Google_IEOD_5min.IsChecked == true)
+            {
+                prograss();
+                strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN";
+
+                if (!Directory.Exists(strYearDir))
+                    Directory.CreateDirectory(strYearDir);
+                string[] GoogleIEod = new string[20];
+                //{ "LICHSGFIN.nse", "ADANIENT.nse", "ADANIPOWE.nse", "ADFFOODS.nse", "ADHUNIK.nse", "ADORWELD.nse", "ADSL.nse", "ADVANIHOT.nse", "ADVANTA.nse", "AEGISCHEM.nse", "AFL.nse", "AFTEK.nse", "AREVAT&D.nse", "M&M.nse", ".AEX,indexeuro", ".AORD,indexasx", ".HSI,indexhangseng", ",.N225,indexnikkei", ".NSEI,nse", ".NZ50,nze", ".TWII,tpe", "000001,sha", "CNX100,nse", "CNX500,nse", "CNXENERGY,nse", "CNXFMCG,nse", "CNXINFRA,nse", "CNXIT,nse" };
+
+                try
+                {
+                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\GoogleIEOD.txt"))
+                    {
+                        string line = null;
+                        int i = 0;
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+
+                            GoogleIEod[i] = line;
+                            i++;
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+
+                foreach (DateTime day in EachDay(StartDate, EndDate))
+                {
+                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
+
+                    for (int i = 0; i < 14; i++)
+                    {
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + day.Day + GoogleIEod[i] + ".csv";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&i=60&p=15d&f=d,o,h,l,c,v";
+                        // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=60&p=15d&f=d,o,h,l,c,v"
+
+
+                        downliaddata(strYearDir, baseurl);
+
+
+
+                        try
+                        {
+                            string[] csvFileNames = new string[1] { "" };
+                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + day.Day + GoogleIEod[i] + ".csv";
+
+
+
+                            string datetostore = "";
+                            datetostore = DateTime.Today.ToString ("yyyyMMdd");
+                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                            {
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                            }
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\Google"))
+                            {
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                            }
+                            System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\GoogleIeod5MIN" + GoogleIEod[i] + ".csv");
+                          //// JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleIeod" + GoogleIEod[i] + datetostore + ".csv");
                         }
                         catch
                         {
@@ -4475,7 +4561,7 @@ namespace StockD
                 engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT,AUX1";
                 engineBSECSVFINAL.WriteFile(obj, finalarr);
 
-
+              
 
                 
 
@@ -4534,7 +4620,7 @@ namespace StockD
                     {
                         finalarr[icntr] = new GOOGLEFINAL();
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
-                        finalarr[icntr].name = "";
+                        finalarr[icntr].name = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6); ;
 
                         //myDate = Convert.ToDateTime(dt);
                         //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
@@ -4556,7 +4642,7 @@ namespace StockD
                     }
 
                     FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(GOOGLEFINAL));
-                    engineBSECSVFINAL.HeaderText = "Ticker,Name,Time,Date,Open,High,Low,Close,Volume,OPENINT";
+                    engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
 
 

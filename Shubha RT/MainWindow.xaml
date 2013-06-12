@@ -90,7 +90,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                 
+                    <WebBrowser Source="http://shubhalabha.in/products/"/>
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -411,8 +411,12 @@
                         <TextBlock VerticalAlignment="Center" Margin="5, 0" >Help</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid Height="565">
-                    <TextBox Height="539" HorizontalAlignment="Left" Margin="17,19,0,0" Name="txtLog" VerticalAlignment="Top" Width="638" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Text="{Binding AppendText}" />
+                <Grid Height="565" Width="Auto">
+                  
+
+                        <WebBrowser Source="http://shubhalabha.in/downloader-deluxe/" />
+
+                   
                 </Grid>
             </TabItem>
             <TabItem  Name="Tab_RT" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
