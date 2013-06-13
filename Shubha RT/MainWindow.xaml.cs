@@ -54,7 +54,7 @@ namespace StockD
         List<string> YahooNamesave = new List<string>();
 
         List<string> YahooExchangesave = new List<string>();
-   
+   List<Int32> yahoosymbolindextoremove=new List<int>();
 
         string url1 = "http://www.goog";
         int flag = 0;
@@ -8062,6 +8062,21 @@ namespace StockD
             
         }
         //individual checking of checkbox  
+
+        private void chebox_Click(object sender, RoutedEventArgs e)
+        {
+            object a = e.Source;
+            System.Windows.Controls.CheckBox chk = (System.Windows.Controls.CheckBox)sender; 
+            if(chk.IsChecked==true )
+            {
+          
+             yahoosymbolindextoremove.Add(dataGrid5.SelectedIndex );
+
+            }
+            
+        
+        }
+
         private void chkDiscontinue_Click(object sender, RoutedEventArgs e)
         {
             object a = e.Source;
@@ -8083,31 +8098,7 @@ namespace StockD
             YahooNamesave.Add(row.Column2);
             YahooExchangesave.Add(row.Column3);
 
-            //for (int i = 1; i < YahooSymbol.Count+1; i++)
-            //{
-            //    // Your programmatically created DataGrid is attached to MainGrid here
-
-
-            //    // create four columns here with same names as the DataItem's properties
-            //    string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
-
-                
-            //    var column = new DataGridTextColumn();
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        column.Header = nameofcol[j];
-
-
-            //    }
-              
-            //        column.Binding = new System.Windows.Data.Binding("Column" + i);
-               
-            //    dataGrid5.Columns.Add(column);
-            //    // create and add two lines of fake data to be displayed, here
-            //    dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = row.Column1 , Column2 = row.Column2 , Column3 = row.Column3  });
-            //    //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
-            //}
-
+          
                
             }
         
@@ -8130,6 +8121,98 @@ namespace StockD
         }  
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
+
+
+                var column = new DataGridTextColumn();
+                //if (i < 4)
+                //{
+                column.Header = nameofcol[i];
+                //}
+                column.Binding = new System.Windows.Data.Binding("Column" + i);
+                dataGrid5.Columns.Add(column);
+
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
+
+
+                var column = new DataGridTextColumn();
+                //if (i < 4)
+                //{
+                column.Header = nameofcol[i];
+                //}
+                column.Binding = new System.Windows.Data.Binding("Column" + i);
+                dataGrid3.Columns.Add(column);
+
+            }
+
+
+            List<string> YahooSymbol = new List<string>();
+            List<string> YahooName = new List<string>();
+
+            List<string> YahooExchange = new List<string>();
+
+            YahooSymbol.Clear();
+
+            dataGrid3.Items.Clear();
+
+            var delimiter = ",";
+
+            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+
+            try
+            {
+                using (var reader = new StreamReader(txtTargetFolder.Text + "\\Downloads\\yahoo.txt"))
+                {
+                    string line = null;
+                    string[] headers = null;
+                    int i = 0;
+                    string name = "";
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
+
+                        i = 1;
+
+                        for (i = 1; i < headers.Count() - 1; i = i + 6)
+                        {
+                            char[] delimiterChars = { '\"', ':' };
+                            name = headers[i] + headers[i + 1] + headers[i + 2];
+                            string[] words = name.Split(delimiterChars); //+ headers[i + 1].Split(delimiterChars) + headers[i + 2].Split(delimiterChars);
+                            YahooSymbol.Add(words[4]);
+                            YahooName.Add(words[9]);
+                            YahooExchange.Add(words[14]);
+
+
+                            //"{\"symbol\":\"INFY.NS\"\"name\": \"INFOSYS LIMITED\"\"exch\": \"NSI\""
+
+                        }
+
+
+
+                        for (i = 1; i < YahooSymbol.Count; i++)
+                        {
+
+                            dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbol[i], Column2 = YahooName[i], Column3 = YahooExchange[i] });
+                        }
+
+
+
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+
 
             // Your programmatically created DataGrid is attached to MainGrid here
 
@@ -9126,95 +9209,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            string strYearDir, baseurl;
-            strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
-
-
-
-
-
-
-
-            baseurl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + yahoosearch .Text + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
-            var delimiter = ",";
-           
-            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
-
-
-            List<string> YahooSymbol = new List<string>();
-            List<string> YahooName = new List<string>();
-
-            List<string> YahooExchange = new List<string>();
-
-                downliaddata(strYearDir, baseurl);
-
-                //try
-                //{
-                    using (var reader = new StreamReader(txtTargetFolder.Text + "\\Downloads\\yahoosy.txt"))
-                    {
-                        string line = null;
-                        string[] headers = null;
-                        int i = 0;
-                        string name = "";
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
-
-                            i = 1;
-
-                            for (i = 1; i < headers.Count() - 1;i=i+6 )
-                            {
-                                char []delimiterChars = { '\"' ,':'};
-                                name = headers[i] + headers[i + 1] + headers[i + 2] ;
-                                string[] words = name.Split(delimiterChars); //+ headers[i + 1].Split(delimiterChars) + headers[i + 2].Split(delimiterChars);
-                                YahooSymbol.Add(words[4]);
-                                YahooName.Add(words[9]);
-                                YahooExchange.Add(words[14]);
-
-                               
-                                //"{\"symbol\":\"INFY.NS\"\"name\": \"INFOSYS LIMITED\"\"exch\": \"NSI\""
-                                
-                            }
-
-
-
-                            for (i = 1; i < YahooSymbol.Count;i++ )
-                            {
-                                // Your programmatically created DataGrid is attached to MainGrid here
-
-
-                                // create four columns here with same names as the DataItem's properties
-                                string[] nameofcol = new string[4] { "","Symbol", "Company Name", "Exchange" };
-
-                                
-                                    var column = new DataGridTextColumn();
-                                if(i<4)
-                                {
-                                column.Header = nameofcol[i];
-                                }
-                                    column.Binding = new System.Windows.Data.Binding("Column" + i);
-                                    dataGrid3.Columns.Add(column);
-                            
-
-                                // create and add two lines of fake data to be displayed, here
-                                    dataGrid3.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbol[i], Column2 = YahooName[i], Column3 = YahooExchange[i] });
-                                //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
-                            }
-
-
-
-                        }
-                    }
-                //}
-                //catch
-                //{
-                //}
-
-            
-            //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
-        }
+     
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -9225,35 +9220,25 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void button2_Click_1(object sender, RoutedEventArgs e)
         {
-            dataGrid5.ItemsSource = null;
-            for (int i = 0; i < YahooSymbolsave.Count; i++)
+            dataGrid5.Items.Clear();
+
+            int i;
+
+           
+
+            for (i = 0; i < YahooSymbolsave.Count; i++)
             {
-                // Your programmatically created DataGrid is attached to MainGrid here
 
-
-                // create four columns here with same names as the DataItem's properties
-                string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
-
-
-                var column = new DataGridTextColumn();
-                if (i < 4)
-                {
-                    //column.Header = nameofcol[i];
-                }
-                column.Binding = new System.Windows.Data.Binding("Column" + i);
-                dataGrid5.Columns.Add(column);
-
-
-                // create and add two lines of fake data to be displayed, here
                 dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbolsave[i], Column2 = YahooNamesave[i], Column3 = YahooExchangesave[i] });
-                //dataGrid3.Items.Add(new DataItem { Column0 = "b.1", Column1 = "b.2", Column2 = "b.3" });
-
-
-
             }
+
+
+
+
+            
             string line = "";
 
-            for (int i = 0; i < YahooSymbolsave.Count;i++ )
+            for ( i = 0; i < YahooSymbolsave.Count;i++ )
             {
                // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
 
@@ -9262,15 +9247,145 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
                
             }
-            System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\test.txt");
-            file.WriteLine(line);
 
+            if (System.IO.File.Exists(txtTargetFolder.Text + "\\Yahoo.txt"))
+            {
+                System.IO.File.Delete (txtTargetFolder.Text + "\\Yahoo.txt");
+
+            }
             System.IO.File.WriteAllText(txtTargetFolder.Text + "\\Yahoo.txt", line);
 
         }
 
         private void yahoosearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string strYearDir, baseurl;
+            strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
+
+
+
+
+
+
+            baseurl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + yahoosearch.Text + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+            var delimiter = ",";
+
+            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+
+
+            List<string> YahooSymbol = new List<string>();
+            List<string> YahooName = new List<string>();
+
+            List<string> YahooExchange = new List<string>();
+
+            YahooSymbol.Clear();
+
+            dataGrid3.Items.Clear();
+
+            downliaddata(strYearDir, baseurl);
+
+            try
+            {
+            using (var reader = new StreamReader(txtTargetFolder.Text + "\\Downloads\\yahoosy.txt"))
+            {
+                string line = null;
+                string[] headers = null;
+                int i = 0;
+                string name = "";
+                while ((line = reader.ReadLine()) != null)
+                {
+                    headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
+
+                    i = 1;
+
+                    for (i = 1; i < headers.Count() - 1; i = i + 6)
+                    {
+                        char[] delimiterChars = { '\"', ':' };
+                        name = headers[i] + headers[i + 1] + headers[i + 2];
+                        string[] words = name.Split(delimiterChars); //+ headers[i + 1].Split(delimiterChars) + headers[i + 2].Split(delimiterChars);
+                        YahooSymbol.Add(words[4]);
+                        YahooName.Add(words[9]);
+                        YahooExchange.Add(words[14]);
+
+                       
+                        //"{\"symbol\":\"INFY.NS\"\"name\": \"INFOSYS LIMITED\"\"exch\": \"NSI\""
+
+
+                      
+                        
+
+
+
+                    }
+
+                    
+
+                    for (i = 1; i < YahooSymbol.Count; i++)
+                    {
+                        
+                        
+
+                        dataGrid3.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbol[i], Column2 = YahooName[i], Column3 = YahooExchange[i] });
+                    }
+
+
+
+                }
+
+
+               
+
+
+                
+            }
+            }
+            catch
+            {
+            }
+
+
+            //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+           int count=yahoosymbolindextoremove.Count;
+           try
+           {
+               for (int i = yahoosymbolindextoremove.Count - 1; i >= 0; i--)
+               {
+                   dataGrid5.Items.RemoveAt(yahoosymbolindextoremove[i]);
+                   yahoosymbolindextoremove.RemoveAt(i);
+                   YahooSymbolsave.RemoveAt(i);
+
+               }
+           }
+           catch 
+           {
+           
+           }
+
+
+
+           string line = "";
+
+           for (int i = 0; i < YahooSymbolsave.Count; i++)
+           {
+               // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
+
+               line = line + YahooSymbolsave[i] + "\n";
+
+
+
+           }
+
+           if (System.IO.File.Exists(txtTargetFolder.Text + "\\Yahoo.txt"))
+           {
+               System.IO.File.Delete(txtTargetFolder.Text + "\\Yahoo.txt");
+
+           }
+           System.IO.File.WriteAllText(txtTargetFolder.Text + "\\Yahoo.txt", line);
+
 
         }
         
