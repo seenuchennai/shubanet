@@ -41,7 +41,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>56</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -135,8 +135,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdvanceGet.cs" />
+    <Compile Include="amibriker.cs" />
     <Compile Include="BSECSV.cs" />
     <Compile Include="Dataitem.cs" />
+    <Compile Include="Fchart.cs" />
     <Compile Include="FO.cs" />
     <Compile Include="Google.cs" />
     <Compile Include="Index.cs" />
@@ -450,6 +453,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ChangeLog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="contactus.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="GoogleEOD.txt">

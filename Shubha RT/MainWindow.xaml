@@ -68,14 +68,17 @@
                         <Button Content="DownLoad"  Height="22" Name="btnStart" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" Margin="507,80,11,0" Width="148" VerticalAlignment="Top" />
                         <Button Content="Reset" Height="22" HorizontalAlignment="Right" Margin="0,80,252,0" Name="Lbl_reset" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="Lbl_reset_Click" />
                         <Image Height="135" HorizontalAlignment="Left" Margin="0,132,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="683" Source="Images/home_banner1.jpg" ImageFailed="image2_ImageFailed" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-                        <Image Height="120" HorizontalAlignment="Left" Margin="0,69,0,0" Name="imag" Stretch="Fill" VerticalAlignment="Top" Width="683" Source="Images/home_banner1.jpg" ImageFailed="image2_ImageFailed" Grid.ColumnSpan="2" Grid.Row="1" />
-
                         <ProgressBar Height="21" HorizontalAlignment="Right" Margin="0,110,4,0" Name="ProgressBar1" VerticalAlignment="Top" Width="502" Grid.Column="1" Visibility="Hidden" />
                         <Label Content="Please Wait File Is Downloading" Height="27" HorizontalAlignment="Left" Margin="0,107,0,0" Name="lbl_Download" VerticalAlignment="Top" Foreground="#FF302180" FontSize="10" Visibility="Hidden" Grid.ColumnSpan="2" />
                         <GridViewColumnHeader Name="gridViewColumnHeader3" Grid.ColumnSpan="2" Margin="-2,6,3,178" Background="#FF5999E8" BorderThickness="0" />
                         <Button Content="Stop" Height="22" Name="btnExit" Width="75" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" Margin="0,80,167,102" HorizontalAlignment="Right" />
                         <Border BorderBrush="#FFA7A5A5" BorderThickness="2" Height="0" HorizontalAlignment="Left" Margin="10,35,0,0" Name="border1" VerticalAlignment="Top" Width="665" UseLayoutRounding="False" Grid.ColumnSpan="2" />
                         <Label Content="Shubha Downloader" Grid.ColumnSpan="2" Height="26" HorizontalAlignment="Left" Margin="0,3,0,0" Name="label3" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White" />
+                        <TextBlock Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Left" Margin="10,87,0,0" Name="textBlock1" Text="Shubha Downloader downloads end of day pricing data from publicly availablesites and converts it different formats." VerticalAlignment="Top" Grid.Row="1" Width="672" />
+                        <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,108,0,0" Name="textBlock2" Text="This program comes with ABSOLUTELY NO WARRANTY; for details please see notice.txt in installed folder. " VerticalAlignment="Top" Grid.Row="1" />
+                        <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,129,0,0" Name="textBlock3" Text="This is free software, and you are welcome to redistribute it under certain conditions as per notice.txt " VerticalAlignment="Top" Grid.Row="1" />
+                        <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" />
+                        <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,147,0,0" Name="textBlock4" Text="Copyright © 2013 Shubhalabha.in" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -87,7 +90,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                 
+                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label5" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -190,24 +193,27 @@
                         </l:AccordianItem>
 
                         <l:AccordianItem Header="YAHOO" Background="#FFD6E2F5">
+                            
+                            <Grid >
+                                <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="la" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
 
-                            <Grid>
-                                <CheckBox Content="Yahoo EOD" Height="16" Margin="175,29,0,0" Name="chkYahooEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooEOD"/>
-                                <CheckBox Content="Yahoo IEOD 1 Min" Margin="452,32,0,0" Name="ChkYahooIEOD1" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                <CheckBox Content="Yahoo Fundamental" HorizontalAlignment="Left" Margin="11,29,0,0" Name="chkYahooFundamental" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooFundamental" />
-                                <CheckBox Content="Yahoo IEOD 5 Min" HorizontalAlignment="Left" Margin="299,29,0,0" Name="ChkYahooIEOD5" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooIEOD5"/>
+                                <CheckBox Content="Yahoo EOD" Height="16" Margin="175,29,0,0" Name="chkYahooEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooEOD" Visibility="Hidden"  />
+                                <CheckBox Content="Yahoo IEOD 1 Min" Margin="452,32,0,0" Name="ChkYahooIEOD1" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden" />
+                                <CheckBox Content="Yahoo Fundamental" HorizontalAlignment="Left" Margin="11,29,0,0" Name="chkYahooFundamental" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooFundamental" Visibility="Hidden"/>
+                                <CheckBox Content="Yahoo IEOD 5 Min" HorizontalAlignment="Left" Margin="299,29,0,0" Name="ChkYahooIEOD5" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooIEOD5" Visibility="Hidden"/>
 
-                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="11,65,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" />
-                                <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="11,107,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" />
-                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="163,107,0,0" Name="lbl_Hours" VerticalAlignment="Top" />
+                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="11,65,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" Visibility="Hidden"/>
+                                <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="11,107,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="163,107,0,0" Name="lbl_Hours" VerticalAlignment="Top" Visibility="Hidden"/>
 
-                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="296,107,0,0" Name="lbl_Minutes" VerticalAlignment="Top" />
+                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="296,107,0,0" Name="lbl_Minutes" VerticalAlignment="Top" Visibility="Hidden"/>
 
-                                <ComboBox Height="23" HorizontalAlignment="Left"  Margin="219,108,0,0" Name="HRS" VerticalAlignment="Top" Width="58" SelectedIndex="4">
+                                <ComboBox Height="23" HorizontalAlignment="Left"  Margin="219,108,0,0" Name="HRS" VerticalAlignment="Top" Width="58" SelectedIndex="4" Visibility="Hidden">
 
                                 </ComboBox>
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="364,107,0,0" Name="MIN" VerticalAlignment="Top" Width="58" SelectedIndex="29" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="364,107,0,0" Name="MIN" VerticalAlignment="Top" Width="58" SelectedIndex="29" Visibility="Hidden"/>
                             </Grid>
+                            
                         </l:AccordianItem>
 
 
@@ -215,15 +221,17 @@
                         <l:AccordianItem Header="Google" Background="#FFD6E2F5">
 
                             <Grid>
-                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,92,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
-                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="220,92,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
-                                <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="15,58,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="286,92,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="136,58,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,92,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" />
-                                <CheckBox Content="Google EOD" Height="16" Margin="15,25,0,0" Name="ChkGoogleEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleEOD" />
-                                <CheckBox Content="Google IEOD 1Min" Height="16" Margin="135,25,0,0" Name="ChkGoogleIEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleIEOD" />
-                                <CheckBox Content="Google IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="298,25,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" />
+                                <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjgh" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
+
+                                <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,92,0,0" Name="lbl_GHours" VerticalAlignment="Top" Visibility="Hidden" />
+                                <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="220,92,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="15,58,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="286,92,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="136,58,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" Visibility="Hidden"/>
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,92,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+                                <CheckBox Content="Google EOD" Height="16" Margin="15,25,0,0" Name="ChkGoogleEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleEOD" Visibility="Hidden"/>
+                                <CheckBox Content="Google IEOD 1Min" Height="16" Margin="135,25,0,0" Name="ChkGoogleIEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleIEOD" Visibility="Hidden" />
+                                <CheckBox Content="Google IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="298,25,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" Visibility="Hidden"/>
                             </Grid>
 
                         </l:AccordianItem>
@@ -232,10 +240,12 @@
                         <l:AccordianItem Header="Calender Events" Background="#FFD6E2F5">
 
                             <Grid>
-                                <Label Content="Show Events :" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl_Show_All_Events" VerticalAlignment="Top" />
-                                <CheckBox Content="Corporate Events " Height="16" HorizontalAlignment="Left" Margin="93,10,0,0" Name="Cb_Corporate_Events" VerticalAlignment="Top" />
-                                <CheckBox Content="Board Message" Height="16" HorizontalAlignment="Left" Margin="259,11,0,0" Name="Cb_Board_Message" VerticalAlignment="Top" />
-                                <CheckBox Content="Delete All Avents" Height="16" HorizontalAlignment="Left" Margin="93,45,0,0" Name="Cb_Delete_all_events" VerticalAlignment="Top" Width="125" />
+                                <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjg" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
+
+                                <Label Content="Show Events :" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbl_Show_All_Events" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <CheckBox Content="Corporate Events " Height="16" HorizontalAlignment="Left" Margin="93,10,0,0" Name="Cb_Corporate_Events" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <CheckBox Content="Board Message" Height="16" HorizontalAlignment="Left" Margin="259,11,0,0" Name="Cb_Board_Message" VerticalAlignment="Top" Visibility="Hidden"/>
+                                <CheckBox Content="Delete All Avents" Height="16" HorizontalAlignment="Left" Margin="93,45,0,0" Name="Cb_Delete_all_events" VerticalAlignment="Top" Width="125" Visibility="Hidden"/>
                                 
                             </Grid>
 
@@ -333,16 +343,18 @@
                 </TabItem.Header>
                 <GroupBox Header="Market Analysis" Height="390" HorizontalAlignment="Left" Margin="13,6,0,0" Name="groupBox4" VerticalAlignment="Top" Width="772">
                     <Grid Width="775" Background="#FFD6E2F5">
-                        <Label Content="Select File " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label13" VerticalAlignment="Top" />
-                        <Label Content="Search" Height="28" HorizontalAlignment="Left" Margin="10,48,0,0" Name="label14" VerticalAlignment="Top" />
-                        <ComboBox Height="23" HorizontalAlignment="Left" Margin="98,15,0,0" Name="comboBo" VerticalAlignment="Top" Width="138">
+                        <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjh" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
+
+                        <Label Content="Select File " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label13" VerticalAlignment="Top" Visibility="Hidden" />
+                        <Label Content="Search" Height="28" HorizontalAlignment="Left" Margin="10,48,0,0" Name="label14" VerticalAlignment="Top" Visibility="Hidden"/>
+                        <ComboBox Height="23" HorizontalAlignment="Left" Margin="98,15,0,0" Name="comboBo" VerticalAlignment="Top" Width="138" Visibility="Hidden">
                             <ComboBoxItem Content="Block Deals" />
                             <ComboBoxItem Content="Bluk Deals" />
                         </ComboBox>
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="98,53,0,0" Name="textBox8" VerticalAlignment="Top" Width="223" />
-                        <CheckBox Content="Case Sensitive" Height="16" HorizontalAlignment="Left" Margin="358,56,0,0" Name="checkBox2" VerticalAlignment="Top" Width="104" />
-                        <CheckBox Content="Regular Expression " Height="16" HorizontalAlignment="Left" Margin="481,56,0,0" Name="checkBox3" VerticalAlignment="Top" />
-                        <DataGrid AutoGenerateColumns="True" Height="231" HorizontalAlignment="Left" Margin="10,101,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="731">
+                        <TextBox Height="23" HorizontalAlignment="Left" Margin="98,53,0,0" Name="textBox8" VerticalAlignment="Top" Width="223" Visibility="Hidden"/>
+                        <CheckBox Content="Case Sensitive" Height="16" HorizontalAlignment="Left" Margin="358,56,0,0" Name="checkBox2" VerticalAlignment="Top" Width="104" Visibility="Hidden"/>
+                        <CheckBox Content="Regular Expression " Height="16" HorizontalAlignment="Left" Margin="481,56,0,0" Name="checkBox3" VerticalAlignment="Top" Visibility="Hidden" />
+                        <DataGrid AutoGenerateColumns="True" Height="231" HorizontalAlignment="Left" Margin="10,101,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="731" Visibility="Hidden">
                             <DataGrid.Columns>
                                 <DataGridTextColumn />
                                 <DataGridTextColumn Header="Date" />
@@ -364,7 +376,12 @@
                         <Image VerticalAlignment="Center"  Width="15" Source="Images/Calendar.jpeg" />
                         <TextBlock VerticalAlignment="Center" Margin="5, 0" >Calender</TextBlock>
                     </StackPanel>
+                    
                 </TabItem.Header>
+                <Grid>
+                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajg" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
+
+                </Grid>
             </TabItem>
             <TabItem Name="Tab_ContactUs" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
                 <TabItem.Header>
@@ -373,26 +390,9 @@
                         <TextBlock VerticalAlignment="Center" Margin="5, 0" >Contact Us</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-                <GroupBox Header="Contact Us " Height="350" HorizontalAlignment="Left" Margin="10,10,0,0" Name="groupBox3" VerticalAlignment="Top" Width="677">
-                    <Grid Background="#FF85B6F2">
-                        <Label Content="Title " Height="28" HorizontalAlignment="Left" Margin="61,33,0,0" Name="label6" VerticalAlignment="Top" />
-                        <Label Content="First Name" Height="28" HorizontalAlignment="Left" Margin="24,66,0,0" Name="label17" VerticalAlignment="Top" />
-                        <Label Content="Last Name" Height="28" HorizontalAlignment="Left" Margin="24,97,0,0" Name="label8" VerticalAlignment="Top" />
-                        <Label Content="Mobile " Height="28" HorizontalAlignment="Left" Margin="30,130,0,0" Name="label9" VerticalAlignment="Top" />
-                        <Label Content="City" Height="28" HorizontalAlignment="Left" Margin="61,160,0,0" Name="label10" VerticalAlignment="Top" />
-                        <Label Content="Email Address" Height="28" HorizontalAlignment="Left" Margin="30,193,0,0" Name="label11" VerticalAlignment="Top" />
-                        <Label Content="Comment " Height="28" HorizontalAlignment="Left" Margin="47,226,0,0" Name="label12" VerticalAlignment="Top" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,31,0,0" Name="textBox1" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,64,0,0" Name="textBox2" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,97,0,0" Name="textBox3" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,130,0,0" Name="textBox4" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,163,0,0" Name="textBox5" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="127,196,0,0" Name="textBox6" VerticalAlignment="Top" Width="400" />
-                        <TextBox Height="49" HorizontalAlignment="Left" Margin="127,229,0,0" Name="textBox7" VerticalAlignment="Top" Width="400" />
-                        <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="301,299,0,0" Name="button5" VerticalAlignment="Top" Width="75" />
-                        <Button Content="Submit" Height="23" HorizontalAlignment="Left" Margin="419,299,0,0" Name="button6" VerticalAlignment="Top" Width="95" />
-                    </Grid>
-                </GroupBox>
+                <Grid>
+                  
+                </Grid>
             </TabItem>
             <TabItem  Name="Tab_Help" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
 
@@ -419,32 +419,8 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <l:Accordian Margin="-4,-1,0,232">
-                        <l:AccordianItem Header="Amibroker">
-                            <Grid>
+                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajgh" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
 
-
-                            </Grid>
-                        </l:AccordianItem>
-                        <l:AccordianItem Header="MetaStock">
-                            <Grid >
-
-                            </Grid>
-                        </l:AccordianItem>
-                        <l:AccordianItem Header="FCharts">
-                            <Grid Height="84" Width="611">
-
-                            </Grid>
-                        </l:AccordianItem>
-                        <l:AccordianItem Header="NEST">
-                            <Grid>
-
-                            </Grid>
-
-                        </l:AccordianItem>
-
-
-                    </l:Accordian>
                 </Grid>
             </TabItem>
         </TabControl>
