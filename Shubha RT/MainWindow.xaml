@@ -391,7 +391,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                  
+                    <WebBrowser Source="http://shubhalabha.in/contact-us/" />
                 </Grid>
             </TabItem>
             <TabItem  Name="Tab_Help" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
