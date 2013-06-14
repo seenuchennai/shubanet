@@ -19,12 +19,12 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>C:\source forge\</PublishUrl>
+    <PublishUrl>ftp://shubhalabha.in/dev1/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -32,15 +32,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://sourceforge.net/projects/shubhanet/files/beta/</UpdateUrl>
+    <InstallUrl>http://localhost/ShubhaRt/</InstallUrl>
+    <UpdateUrl>http://shubhalabha.in/dev1/</UpdateUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
     <ProductName>ShubhaDownloader</ProductName>
     <PublisherName>ShubhaDownloader</PublisherName>
     <SuiteName>Shubhalabha net</SuiteName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -144,6 +145,7 @@
     <Compile Include="MCXSPOTINDEX.cs" />
     <Compile Include="MCXSX.cs" />
     <Compile Include="MCXSXFOREX.cs" />
+    <Compile Include="NCDX.cs" />
     <Compile Include="NSECMP.cs" />
     <Compile Include="NSEMTO.cs" />
     <Compile Include="NSESEC.cs" />

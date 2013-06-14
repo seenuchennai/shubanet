@@ -7,7 +7,6 @@
    
     <Grid Name="MyGrid" Background="#FFB9D4F5" Height="550" Width="861">
         <Image Height="68" HorizontalAlignment="Left" Margin="4,0,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="Images/logo.jpg" />
-        <Label Content="Welcome" Height="28" HorizontalAlignment="Left" Margin="691,12,0,0" Name="labe" VerticalAlignment="Top" ClipToBounds="False" FontWeight="Bold" Grid.Column="1" />
         <Ellipse Height="14" Margin="498,16,344,0" Name="Net_Connection" Stroke="Black" VerticalAlignment="Top" Fill="#FFF21C1C" Visibility="Hidden" />
         <Label Content="Internet Connection" Height="28" HorizontalAlignment="Left" Margin="394,12,0,0" Name="Lbl_internet" VerticalAlignment="Top" Visibility="Hidden" />
 
@@ -88,7 +87,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <WebBrowser Source="http://shubhalabha.in/products/"/>
+                 
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -122,12 +121,7 @@
                                         </Grid.ColumnDefinitions>
                                        
                                         <ComboBox Height="23" HorizontalAlignment="Left" Margin="298,43,0,0" Name="comboBox1" VerticalAlignment="Top" Width="97" SelectedIndex="0" Grid.Column="1">
-                                            <ComboBoxItem>CSV</ComboBoxItem>
-                                            <ComboBoxItem>FCharts</ComboBoxItem>
-                                            <ComboBoxItem>Amibroker</ComboBoxItem>
-                                            <ComboBoxItem>Metastock</ComboBoxItem>
-                                            <ComboBoxItem>MetaTrader</ComboBoxItem>
-                                            <ComboBoxItem>Ninja Trader></ComboBoxItem>
+                                           
                                         </ComboBox>
                                         <Label Content="Output" Height="28" HorizontalAlignment="Left" Margin="240,43,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
 
@@ -178,12 +172,11 @@
                             <Grid >
 
                                 <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Visible"  />
-                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="481,40,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
+                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="322,40,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
                                 <CheckBox Content="MCX Commodity Futures" Height="16" HorizontalAlignment="Left" Margin="153,7,0,0" Name="MCXCommodity_Futures" VerticalAlignment="Top" Width="164" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXCommodity_Futures" />
-                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="320,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" />
+                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="153,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" />
                                 <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,40,0,0" Name="MCXSXForex_Options" VerticalAlignment="Top" IsChecked="False" IsEnabled="False" />
                                 <CheckBox Content="National Spot Exchange" Height="16" HorizontalAlignment="Left" Margin="322,7,0,0" Name="National_Spot_Exchange" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="National_Spot_Exchange" />
-                                <CheckBox Content="MCX-SX Equity Indices  " Height="16" HorizontalAlignment="Left" Margin="153,40,0,0" Name="MCXSX_Equity_Indices" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" IsChecked="False" IsEnabled="False" />
                                 <CheckBox Content="MCX Index" Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="MCX_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCX_Index" />
                                 <CheckBox Content="MCX-SX Currency  " Height="16" HorizontalAlignment="Left" Margin="481,73,0,0" Name="MCXSX_Currency" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
                                 <CheckBox Content="MCX-SX Block  " Height="16" HorizontalAlignment="Left" Margin="6,73,0,0" Name="MCXSX_Block" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
@@ -267,7 +260,7 @@
                         <ColumnDefinition Width="597*" />
                     </Grid.ColumnDefinitions>
 
-                    <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserAddRows="False" Margin="0,53,358,0">
+                    <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserAddRows="False" Margin="0,53,358,0" SelectionChanged="dataGrid3_SelectionChanged">
                         
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>

@@ -7,7 +7,7 @@ using FileHelpers;
 namespace ShubhaRt
 {
    
-        [DelimitedRecord(","), IgnoreFirst(1), IgnoreEmptyLines(true)]
+        [DelimitedRecord("|"), IgnoreFirst(1), IgnoreEmptyLines(true)]
         public class MCXSXFOREX
         {
             public string date;

@@ -361,10 +361,14 @@ namespace StockD
 
                         }
                         string datetostore1 = day.Year + date1;
-
-                        ExecuteFUTUREProcessing(PRFO, "FO", datetostore1 , sec);
-                        filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
-
+                        try
+                        {
+                            ExecuteFUTUREProcessing(PRFO, "FO", datetostore1, sec);
+                            filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                        }
+                        catch
+                        {
+                        }
                     }
                     catch
                     {
@@ -720,27 +724,35 @@ namespace StockD
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
-                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
-
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooRT\\yahoort.csv";
-
-                    baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s=^" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
 
 
-                    // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
-                    //http://download.finance.yahoo.com/d/quotes.csv?s=^DJI+TCS+AA+AXP+BA+C+CAT+DD+DIS+EK+GE+HD+HON+HPQ+IBM+INTC+IP+JNJ+JPM+KO+MCD+MMM+MO+MRK+MSFT+PG+T+UTX+WMT+XOM&f=snl1d1t1c1ohgv&e=.csv%20[^]
-                    downliaddata(strYearDir, baseurl);
-                    string datetostrore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
-                    string[] namert = new string[1] {"" };
-                    namert [0]= strYearDir;
-                   ExecuteYAHOOProcessing(namert, datetostrore, "YAHOORT");
-                   if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT"))
-                       Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT");
-                    string []csvFileNames=new string[1]{""};
-                    csvFileNames[0] = strYearDir;
-                   System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT\\YAHOORT.csv");
+                    try
+                    {
 
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
+
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooRT\\yahoort.csv";
+
+                        baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s=^" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
+
+
+                        // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
+                        //http://download.finance.yahoo.com/d/quotes.csv?s=^DJI+TCS+AA+AXP+BA+C+CAT+DD+DIS+EK+GE+HD+HON+HPQ+IBM+INTC+IP+JNJ+JPM+KO+MCD+MMM+MO+MRK+MSFT+PG+T+UTX+WMT+XOM&f=snl1d1t1c1ohgv&e=.csv%20[^]
+                        downliaddata(strYearDir, baseurl);
+                        string datetostrore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
+                        string[] namert = new string[1] { "" };
+                        namert[0] = strYearDir;
+                        ExecuteYAHOOProcessing(namert, datetostrore, "YAHOORT");
+                        if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT"))
+                            Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT");
+                        string[] csvFileNames = new string[1] { "" };
+                        csvFileNames[0] = strYearDir;
+                        System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\RT\\YAHOORT.csv");
+                    }
+                    catch
+                    {
+                    }
 
                 }
 
@@ -1521,68 +1533,73 @@ namespace StockD
                         baseurl = "http://www.nseindia.com/archives/equities/bhavcopy/pr/PR" + date1 + lastTwoChars + ".zip";
 
                         //http://www.nseindia.com/archives/equities/bhavcopy/pr/PR160513.zip
-
-                        if (!Directory.Exists(strYearDir))
+                        try
                         {
-                            downliaddata(strYearDir, baseurl);
-
-                        }
-
-
-
-                        if (System.IO.File.Exists(strYearDir))
-                        {
-
-
-                            using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
+                            if (!Directory.Exists(strYearDir))
                             {
-                                if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars))
-                                {
-                                    zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars);
+                                downliaddata(strYearDir, baseurl);
 
+                            }
+
+
+
+                            if (System.IO.File.Exists(strYearDir))
+                            {
+
+
+                                using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
+                                {
+                                    if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars))
+                                    {
+                                        zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars);
+
+
+                                    }
 
                                 }
 
                             }
 
-                        }
+
+                            strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\cd" + date1 + day.Year + ".zip";
 
 
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\cd" + date1 + day.Year + ".zip";
 
 
-                       
-                        
-                        using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
-                        {
-                            if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars))
+                            using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
                             {
-                                zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars);
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars))
+                                {
+                                    zip.ExtractAll(txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars);
+                                }
                             }
-                        }
+
+
+                            strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars + "\\CO" + date1 + day.Year + ".csv";
+
+                            string[] PRFO = new string[1] { "" };
+                            PRFO[0] = strYearDir;
+
+                            strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
+                            baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
+
+                            string sec = strYearDir;
+                            if (!System.IO.File.Exists(strYearDir))
+                            {
+                                prograss();
+                                downliaddata(strYearDir, baseurl);
+
+
+                            }
 
                         
-                        strYearDir = txtTargetFolder.Text + " \\Downloads\\PR" + date1 + lastTwoChars + "\\Unzip1\\CD" + date1 + lastTwoChars + "\\CO" + date1 + day.Year + ".csv";
 
-                        string[] PRFO = new string[1] { "" };
-                        PRFO[0] = strYearDir;
-
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
-                        baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
-
-                        string sec = strYearDir;
-                        if (!System.IO.File.Exists(strYearDir))
-                        {
-                            prograss();
-                            downliaddata(strYearDir, baseurl);
-
-
+                            ExecuteOPTIONProcessing(PRFO, "FO", txtTargetFolder.Text + "\\STD_CSV", sec);
+                            filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                         }
-
-
-                        ExecuteOPTIONProcessing(PRFO, "FO", txtTargetFolder.Text + "\\STD_CSV", sec);
-                        filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
-                       
+                        catch
+                        {
+                        }
                     }
                 }
 
@@ -1654,8 +1671,8 @@ namespace StockD
 
 
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\PR" + date1 + lastTwoChars + "\\cd" + date1 + day.Year + ".zip";
-                        //try
-                        //{
+                        try
+                        {
 
                             using (var zip = Ionic.Zip.ZipFile.Read(strYearDir))
                             {
@@ -1683,13 +1700,19 @@ namespace StockD
                             }
 
                             string datetostorre = day.Year + date1;
-                            ExecuteFUTUREProcessing(PRFO, "CF", datetostorre , sec);
-                            filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                            try
+                            {
 
-                        //}
-                        //catch
-                        //{
-                        //}
+                                ExecuteFUTUREProcessing(PRFO, "CF", datetostorre, sec);
+                                filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        catch
+                        {
+                        }
                     
 
 
@@ -2127,7 +2150,6 @@ namespace StockD
             if (MCXSX_Forex_Future.IsChecked == true)
             {
                 prograss();
-
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
@@ -2158,9 +2180,14 @@ namespace StockD
                        
                             string[] name1 = new string[1] {"" };
                             name1[0] = strYearDir;
-                        ExecuteMCSSXFOREXProcessing(name1 , day.Year + date1.ToString(), txtTargetFolder.Text);
-                        
+                            try
+                            {
+                                ExecuteMCSSXFOREXProcessing(name1, day.Year + date1.ToString(), txtTargetFolder.Text);
 
+                            }
+                            catch
+                            {
+                            }
                     }
                 }
 
@@ -2331,8 +2358,8 @@ namespace StockD
 
 
 
-                   try
-                    {
+                   //try
+                   // {
 
                         if (!Directory.Exists(strYearDir))
                         {
@@ -2358,10 +2385,10 @@ namespace StockD
                                 filetransfer(strbse[0], txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market"+ date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                         
-                    }
-                    catch
-                    {
-                    }
+                    //}
+                    //catch
+                    //{
+                    //}
 
 
 
@@ -2903,7 +2930,45 @@ namespace StockD
                  //http://www.nationalspotexchange.com//NSELBhavCopyFiles///25052013//hdy2zs5511tyhiunba5ybyjt//NSEL_05242013.csv
                  if (!Directory.Exists(strYearDir))
                  {
-                     downliaddata(strYearDir, baseurl);
+                     //downliaddata(strYearDir, baseurl);
+
+
+
+
+
+                     //try
+                     //{
+                     //    prograss();
+                     //    //If Data is Not Present For Date Then  Exception Occure And It Get Added Into List Box  
+                     //    // Client.DownloadFile("http://www.mcx-sx.com/downloads/daily/EquityDownloads/Market%20Statistics%20Report_" + date1 + ".csv.", File_path);
+
+                     //    log4net.Config.XmlConfigurator.Configure();
+                     //    ILog log = LogManager.GetLogger(typeof(MainWindow));
+                     //    log.Debug(baseurl + "Download Started at " + DateTime.Now.ToString("HH:mm:ss tt"));
+
+                     //    Client.Headers.Add("Accept", "application/zip");
+                     //    Client.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+                     //    Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
+                     //    Client.DownloadFile(baseurl, strYearDir);
+
+
+                     //    log.Debug(baseurl + "Download Completed at " + DateTime.Now.ToString("HH:mm:ss tt"));
+
+                     //    //string clientHeader = "DATE" + "," + "TICKER" + " " + "," + "NAME" + "," + " " + "," + " " + "," + "OPEN" + "," + "HIGH" + "," + "LOW" + "," + "CLOSE" + "," + "VOLUME" + "," + "OPENINT" + Environment.NewLine;
+
+                     //    //Format_Header(File_path, clientHeader);
+                     //}
+                     //catch (Exception ex)
+                     //{
+                     //    if ((ex.ToString().Contains("404")) || (ex.ToString().Contains("400")))
+                     //    {
+                     //        log4net.Config.XmlConfigurator.Configure();
+                     //        ILog log = LogManager.GetLogger(typeof(MainWindow));
+                     //        log.Warn("Data Not Found For " + url);
+
+                     //    }
+                     //}
+
                  }
              }
 
@@ -2950,9 +3015,18 @@ namespace StockD
                  if (!Directory.Exists(strYearDir))
                  {
                      downliaddata(strYearDir, baseurl);
-                    
-                       // NCDEX_Processing(strYearDir, dest, date2 + date1 + day.Year);
-                     
+
+                     string[] strbse = new string[1] { "" };
+                     strbse[0] = strYearDir;
+                     string datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
+
+                     try
+                     {
+                         NCDEX_Processing(strbse, datetostore, txtTargetFolder.Text + "\\");
+                     }
+                     catch
+                     {
+                     }
                  }
 
                  
@@ -3021,10 +3095,16 @@ namespace StockD
 
                      string[] mcxsx = new string[1] { ""};
                      mcxsx[0] = strYearDir;
-
-                     ExecuteMCSSXProcessing(mcxsx, day.Year + date2 + date1.ToString(), txtTargetFolder.Text);
-                     filetransfer(mcxsx[0], txtTargetFolder.Text + "\\STD_CSV\\MCX_Equity_FUTURE_" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-
+                     try
+                     {
+                         ExecuteMCSSXProcessing(mcxsx, day.Year + date2 + date1.ToString(), txtTargetFolder.Text);
+                         filetransfer(mcxsx[0], txtTargetFolder.Text + "\\STD_CSV\\MCX_Equity_FUTURE_" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+                     }
+                     catch
+                     
+                     { 
+                     
+                     }
 
                     // FUTURE_Processing(strYearDir, destfilepath, dateformtoprocessingsave, nameoffile);
 
@@ -3294,8 +3374,8 @@ namespace StockD
                      string destfilepath = txtTargetFolder.Text + "\\Downloads\\Temp_FUTURE_STD.csv";
                      string dateformtoprocessingsave = formatdate(day);
                    string nameoffile="MCX_ComodityBhavCopy";
-                   //try
-                   //{
+                   try
+                   {
 
                        string[] mcxbhavname = new string[1] { ""};
                        mcxbhavname [0]= strYearDir;
@@ -3318,11 +3398,11 @@ namespace StockD
 
 //
                       
-                   //}
-                   //catch
-                   //{
+                   }
+                   catch
+                   {
 
-                   //}
+                   }
                      
                    
 
@@ -4561,11 +4641,93 @@ namespace StockD
                 engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT,AUX1";
                 engineBSECSVFINAL.WriteFile(obj, finalarr);
 
-              
 
-                
+                if (comboBox1.SelectedItem == "Amibroker")
+                {
+                   
+                    if(!Directory.Exists(txtTargetFolder.Text+"\\Amibroker"))
+                    {
+                        Directory.CreateDirectory(txtTargetFolder.Text+"\\Amibroker");
+                    }
+                    Amibroker(obj);
+                }
 
             }
+
+
+           
+           
+        }
+
+
+
+        public void Amibroker(string  strBSECSVArr)
+        {
+            FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(BSECSV));
+
+            DelimitedClassBuilder cb = BuildNSECMPFile();
+
+
+
+
+
+
+
+
+            BSECSV[] resbsecsv = engineBSECSV.ReadFile(strBSECSVArr) as BSECSV[];
+
+            engineBSECSV.WriteFile(txtTargetFolder.Text + "\\abc.csv", resbsecsv);
+
+
+
+
+
+
+                //int iTotalRows = resbsecsv.Length;
+
+
+                //int totrows = 0;
+
+                //int itmp = 0;
+                //int cnt = 0;
+
+                //BSECSVFINAL[] finalarr = new BSECSVFINAL[resbsecsv.Length];
+                //DateTime myDate;
+                //itmp = 0;
+                //int icntr = 0;
+                //while (icntr < resbsecsv.Length)
+                //{
+                //    finalarr[icntr] = new BSECSVFINAL();
+                //    finalarr[icntr].ticker = resbsecsv[icntr].sc_code;
+                //    finalarr[icntr].name = resbsecsv[icntr].sc_name;
+
+                //    //myDate = Convert.ToDateTime(dt);
+                //    //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
+
+                //    //myDate=Convert.ToDateTime(strday + "-"+ strmon + "-20" + stryear);
+                //    //finalarr[itmp].date = myDate.ToString("yyyyMMdd"); //String.Format("{0:yyyyMMdd}", dt);
+                //    finalarr[icntr].date =  // String.Format("{0:yyyyMMdd}", myDate);
+                //    finalarr[icntr].open = resbsecsv[icntr].open;
+                //    finalarr[icntr].high = resbsecsv[icntr].high;
+                //    finalarr[icntr].low = resbsecsv[icntr].low;
+                //    finalarr[icntr].close = resbsecsv[icntr].close;
+                //    finalarr[icntr].volume = resbsecsv[icntr].no_of_shrs;
+                //    if ((resbsecsv[icntr].openint) == null)
+                //        resbsecsv[icntr].openint = 0;
+                //    finalarr[icntr].openint = resbsecsv[icntr].openint;  //enint;
+                //    finalarr[icntr].AUX1 = resbsecsv[icntr].net_turnov;
+
+
+                //    icntr++;
+                //}
+
+                //FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(BSECSVFINAL));
+                //engineBSECSVFINAL.WriteFile(strBSECSVArr, finalarr);
+
+
+            
+
+
 
 
         }
@@ -5590,7 +5752,7 @@ namespace StockD
 
                         }
 
-                        finalarr[itmp].openint = 0; //enint;
+                        finalarr[itmp].openint =Convert.ToInt32  ( resbsecsv[icntr].OPEN_INT); //enint;
 
                         if (name == "CF")
                         {
@@ -6235,7 +6397,7 @@ namespace StockD
                     finalarr[icntr] = new SMEETFFINAL();
 
 
-                    finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL;
+                    finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL + resbsecsv[icntr].STR_PRICE + resbsecsv[icntr].OPT_TYPE ;
 
 
                     //myDate = Convert.ToDateTime(dt);
@@ -6250,8 +6412,8 @@ namespace StockD
                     finalarr[icntr].high = resbsecsv[icntr].HIGH_PRICE;
                     finalarr[icntr].low = resbsecsv[icntr].LOW_PRICE;
                     finalarr[icntr].close = resbsecsv[icntr].CLOSE_PRICE;
-                    finalarr[icntr].volume = resbsecsv[icntr].NET_TRDQTY;
-                    finalarr[icntr].openint = 0; //enint;
+                    finalarr[icntr].volume = Convert.ToInt32( resbsecsv[icntr].TRD_VAL);
+                    finalarr[icntr].openint =Convert.ToInt32( resbsecsv[icntr].OPEN_INT); //enint;
 
 
                     icntr++;
@@ -6428,296 +6590,232 @@ namespace StockD
 
 
 
-        private void NCDEX_Processing(string sourcePath, string tempPath, string dateformtoprocess)
+        private void NCDEX_Processing(string[] strBSECSVArr, string datetostore, string strOutputFolder)
         {
 
 
-            var delimiter = ",";
-            var firstLineContainsHeaders = true;
-            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+            FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(NCDX ));
 
-            string dateformcx = "";
-
-            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
-                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+            DelimitedClassBuilder cb = BuildNSECMPFile();
 
 
-
-            List<Int32> lowvalue = new List<int> { };
-
-
-
-
-
-            using (var writer = new StreamWriter(tempPath))
-
-
-            //this for taking lowest date 
-            using (var reader = new StreamReader(sourcePath))
+            foreach (string obj in strBSECSVArr)
             {
-                string line = null;
-                string[] headers = null;
+
+                //Get BSE Equity Filename day, month, year
+                string[] words = obj.Split('\\');
+
+                string strbseequityfilename = words[words.Length - 1];
+                string strday = strbseequityfilename.Substring(2, 2);
+                string strmon = strbseequityfilename.Substring(4, 2);
+                string stryear = strbseequityfilename.Substring(6, 2);
 
 
 
 
-                //Read Header and write into new file 
-                if (firstLineContainsHeaders)
+
+                NCDX[] resbsecsv = engineBSECSV.ReadFile(obj) as NCDX[];
+
+
+
+
+            
+
+
+
+
+                int iTotalRows = resbsecsv.Length;
+
+                List<Int32> lowvalue = new List<int> { };
+
+
+                for (int i = 0; i < resbsecsv.Length; i++)
                 {
-                    line = reader.ReadLine();
-
-                    if (string.IsNullOrEmpty(line)) return;
-
-                    headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
-
-                    headers[0] = "TICKER";
-                    headers[1] = "NAME";
-                    headers[2] = "DATE";
-                    headers[3] = "OPEN";
-                    headers[4] = "HIGH";
-                    headers[5] = "LOW";
-                    headers[6] = "CLOSE";
-                    headers[7] = "VOLUME";
-                    headers[8] = "OPENINT";
-                    headers[9] = "";
-                    headers[10] = "";
-                    headers[11] = "";
-                    headers[12] = "";
-                    headers[13] = "";
-                    headers[14] = "";
-                    headers[15] = "";
-                   
-                    writer.WriteLine(string.Join(delimiter, headers));
-
-                }
-                int i = 0;
-                while ((line = reader.ReadLine()) != null)
-                {
-
-                    var columns = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
-
-                    //convert date to YYYYMMDD  format
-
-                    string date = "";
-                    int len = columns[1].Length;
-                    if (columns[1].Length > 11)
+                    if (resbsecsv[i].EXP_DATE.Substring(2, 1) == "/")
                     {
-                         date = columns[1].Substring(7,4)+ columns[1].Substring(4, 2)+  columns[1].Substring(1, 2);  //take date
-                         lowvalue.Add(Convert.ToInt32(date));
+                        lowvalue.Add(Convert.ToInt32(resbsecsv[i].EXP_DATE.Substring(1, 1)));
+                    }
+                    else
+                    {
+                        lowvalue.Add(Convert.ToInt32(resbsecsv[i].EXP_DATE.Substring(1, 2)));
 
                     }
-                    else if (columns[1].Length == 10)
-                    {
-                        date = columns[1].Substring(5, 4) + "0" + columns[1].Substring(3, 1) + "0" + columns[1].Substring(1, 1);  //take date
-                        //take date
+                }
 
-                        lowvalue.Add(Convert.ToInt32(date));
+                int totrows = 0;
+                int lowmonth = lowvalue.Min();
+                int itmp = 0;
+                int cnt = 0;
+
+                NCDXFINAL[] finalarr = new NCDXFINAL[resbsecsv.Length];
+                DateTime myDate;
+                itmp = 0;
+                int icntr = 0;
+                char[] delimiterChars = { '\"', ':' };
+
+                while (icntr < resbsecsv.Length)
+                {
+                    finalarr[icntr] = new NCDXFINAL();
+                    finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL.Trim();
+                    string name=resbsecsv[icntr].Exbasis.Substring(1, resbsecsv[icntr].Exbasis.Length-2 );
+                    finalarr[icntr].name = resbsecsv[icntr].Commodity.Trim() + name.Trim();
+
+
+                    if (resbsecsv[icntr].EXP_DATE.Substring(2, 1) == "/")
+                    {
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-I";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 1)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-II";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 2)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-III";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 3)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-IV";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 4)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-V";
+                        }
+
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 5)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 6)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 7)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VIII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 8)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-IX";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 9)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-X";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 10)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-XI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 1)) == lowmonth + 11)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-XII";
+                        }
+
+
 
                     }
                     else
                     {
-                        date = columns[1].Substring(6, 4) + "0" + columns[1].Substring(3, 1) + "0" + columns[1].Substring(1, 1);  //take date
-                        //take date
-
-                        lowvalue.Add(Convert.ToInt32(date));
-                    }
-                   
-                    
-
-
-
-
-                   
-                      
-
-                   
-
-                   
-                    columns[0] = columns[0].Trim();
-                    columns[1] = columns[2].Trim() + columns[3].Trim();
-                    columns[3] = columns[6].Trim();
-                    columns[4] = columns[7].Trim();
-                    columns[5] = columns[8].Trim();
-                    columns[6] = columns[9].Trim();
-                    columns[7] = columns[10].Trim();
-                    columns[8] = columns[14].Trim();
-                    headers[9] = "";
-                    headers[10] = "";
-                    headers[11] = "";
-                    headers[12] = "";
-                    headers[13] = "";
-                    headers[14] = "";
-                    headers[15] = "";
-                    columns[2] = dateformtoprocess;
-                   
-
-
-
-                   
-
-
-
-
-
-                    writer.WriteLine(string.Join(delimiter, columns));
-
-
-
-
-                }
-            }
-            
-
-            string l, lmonth;
-            int lmon;
-            l = lowvalue.Min().ToString();
-            lmonth = l.Substring(4, 2);
-            lmon = Convert.ToInt32(lmonth);
-
-            sourcePath = tempPath;//take file just save as lowest date 
-            tempPath = txtTargetFolder.Text + "\\STD_CSV\\NCDEX_Market_NCDEXfno" + dateformtoprocess + ".csv";
-            using (var writer = new StreamWriter(tempPath))
-
-            using (var reader = new StreamReader(sourcePath))
-            {
-                string line = null;
-                string[] headers = null;
-
-
-
-
-                //Read Header and write into new file 
-                if (firstLineContainsHeaders)
-                {
-                    line = reader.ReadLine();
-
-                    if (string.IsNullOrEmpty(line)) return;
-
-                    headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
-
-                    headers[0] = "TICKER";
-                    headers[1] = "NAME";
-                    headers[2] = "DATE";
-                    headers[3] = "OPEN";
-                    headers[4] = "HIGH";
-                    headers[5] = "LOW";
-                    headers[6] = "CLOSE";
-                    headers[7] = "VOLUME";
-                    headers[8] = "OPENINT";
-                    headers[9] = "";
-                    headers[10] = "";
-                    headers[11] = "";
-                    headers[12] = "";
-                    headers[13] = "";
-                    headers[14] = "";
-                    headers[15] = "";
-
-                    writer.WriteLine(string.Join(delimiter, headers));
-
-                }
-                int i = 0;
-                while ((line = reader.ReadLine()) != null)
-                {
-
-                    var columns = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
-
-                    //convert date to YYYYMMDD  format
-
-
-
-                    int lmonth1, lmonth2, lmonth3, lmonth4, lmonth5;
-                    lmonth1 = lmon + 1;
-                    lmonth2 = lmon + 2;
-                    lmonth3 = lmon + 3;
-                    lmonth4 = lmon + 4;
-                    lmonth5 = lmon + 5;
-
-                    string date;
-              
-
-
-                    int date1 = Convert.ToInt32(columns[2].Substring(0,2));
-                    if (date1 == lmon || date1 == lmonth1 || date1 == lmonth2 || date1 == lmonth3 || date1 == lmonth4 || date1 == lmonth5)
-                    {
-
-                        string strYearDir, baseurl;
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
-                        baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
-                        downliaddata(strYearDir, baseurl);
-
-
-                        var reader1 = new StreamReader(txtTargetFolder.Text + "\\Downloads\\sec_list.csv");
-                        string line1 = null;
-
-
-
-
-                        while ((line1 = reader1.ReadLine()) != null)
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth)
                         {
-                            var columns1 = splitExpression.Split(line1).Where(s => s != delimiter).ToArray();
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-I";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 1)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-II";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 2)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-III";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 3)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-IV";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 4)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-V";
+                        }
 
-                            if (columns[0] == columns1[0])
-                            {
-                                if (date1 == lmon)
-                                {
-                                    columns[0] = columns1[0] + "-I";
-                                    columns[1] = columns[1] + "20132";
-
-                                }
-
-                                if (date1 == lmonth1)
-                                {
-                                    columns[0] = columns1[0] + "-II";
-                                    columns[1] = columns[1] + "20133";
-
-                                }
-                                if (date1 == lmonth2)
-                                {
-                                    columns[0] = columns1[0] + "-III";
-                                    columns[1] = columns[1] + "20134";
-
-                                }
-                                if (date1 == lmonth3)
-                                {
-                                    columns[0] = columns1[0] + "-III";
-                                    columns[1] = columns[1] + "20135";
-
-                                }
-
-                                if (date1 == lmonth4)
-                                {
-                                    columns[0] = columns1[0] + "-IV";
-                                    columns[1] = columns[1] + "20136";
-
-                                }
-                                if (date1 == lmonth5)
-                                {
-                                    columns[0] = columns1[0] + "-V";
-                                    columns[1] = columns[1] + "20137";
-
-
-                                }
-                                break;
-                            }
-
-
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 5)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 6)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 7)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-VIII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 8)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-IX";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 9)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-X";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 10)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-XI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].EXP_DATE.Substring(1, 2)) == lowmonth + 11)
+                        {
+                            finalarr[icntr].ticker = finalarr[icntr].ticker.Trim() + "-XII";
                         }
 
 
 
                     }
 
-                    writer.WriteLine(string.Join(delimiter, columns));
+                   
 
 
 
 
+
+                    finalarr[icntr].date = datetostore;// String.Format("{0:yyyyMMdd}", myDate);
+                    finalarr[icntr].open = resbsecsv[icntr].OPEN_PRICE ;
+                    finalarr[icntr].high = resbsecsv[icntr].HIGH_PRICE;
+                    finalarr[icntr].low = resbsecsv[icntr].LOW_PRICE;
+                    finalarr[icntr].close = resbsecsv[icntr].CLOSE_PRICE ;
+
+                    finalarr[icntr].volume = resbsecsv[icntr].TRD_VAL ;
+
+                   string na = resbsecsv[icntr].openint;
+                   //string[] s = new string[1] {"" };
+                 //   s[0]=na.Split(delimiterChars).ToString();
+                 
+
+                    finalarr[icntr].openint = resbsecsv[icntr].openint;  //enint;
+                    try
+                    {
+                        na = resbsecsv[icntr].openint.Substring(2, 2);
+                        if (na == "NA")
+                        {
+                            finalarr[icntr].openint = "0"; //Convert.ToInt32(resbsecsv[icntr].openint);  //enint;
+                        }
+
+                    }
+                    catch{}
+                    
+
+                    icntr++;
                 }
+
+                FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(NCDXFINAL));
+                engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT";
+                engineBSECSVFINAL.WriteFile(obj, finalarr);
+
+
+
+
+
             }
-            
-
-
-
 
 
 
@@ -8121,6 +8219,22 @@ namespace StockD
         }  
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+           comboBox1.Items.Add("CSV");
+           comboBox1.Items.Add("FCharts");
+           comboBox1.Items.Add("Amibroker");
+           comboBox1.Items.Add("Metastock");
+           comboBox1.Items.Add("Ninja Trader");
+
+
+
+
+
+                                            
+                                            
+                                            
+                                            
+                                      
+
 
 
             for (int i = 0; i < 4; i++)
@@ -8489,11 +8603,7 @@ namespace StockD
                     btemp = bool.Parse(chktmp);
                 this.National_Spot_Exchange.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Equity_Indices"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Equity_Indices.IsChecked = btemp;
+               
 
                 chktmp = ConfigurationManager.AppSettings["MCX_Index"];
                 btemp = false;
@@ -8731,10 +8841,7 @@ config.AppSettings.Settings.Add("National_Spot_Exchange", National_Spot_Exchange
 config.Save(ConfigurationSaveMode.Full);
 ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSX_Equity_Indices");
-config.AppSettings.Settings.Add("MCXSX_Equity_Indices", MCXSX_Equity_Indices.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+
 
 
 config.AppSettings.Settings.Remove("MCX_Index");
@@ -8938,8 +9045,13 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
           
             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
-                        System.IO.File.Move(srs, dest);  //if file already not present 
 
+            try
+            {
+                System.IO.File.Move(srs, dest);  //if file already not present 
+            }
+            catch { 
+            }
                    
 
                 
@@ -9113,7 +9225,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             MCXSX_Equity_Options.IsChecked = false;
             MCXSXForex_Options.IsChecked = false;
             National_Spot_Exchange.IsChecked = false;
-            MCXSX_Equity_Indices.IsChecked = false;
+         
             MCX_Index.IsChecked = false;
 
 
@@ -9259,6 +9371,10 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void yahoosearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+            try
+            {
+
             string strYearDir, baseurl;
             strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
 
@@ -9266,6 +9382,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
 
 
+            //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
 
             baseurl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + yahoosearch.Text + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
             var delimiter = ",";
@@ -9284,8 +9401,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
             downliaddata(strYearDir, baseurl);
 
-            try
-            {
+           
             using (var reader = new StreamReader(txtTargetFolder.Text + "\\Downloads\\yahoosy.txt"))
             {
                 string line = null;
@@ -9344,7 +9460,6 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             }
 
 
-            //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -9388,7 +9503,13 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
 
         }
-        
+
+        private void dataGrid3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+       
        
 
      }
