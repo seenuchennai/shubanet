@@ -10,7 +10,7 @@ namespace ShubhaRt
 
 
 
-        [DelimitedRecord(","), IgnoreFirst(1), IgnoreEmptyLines(true)]
+        [DelimitedRecord(","), IgnoreFirst(1), IgnoreLast(1),IgnoreEmptyLines(true)]
         public class Option
         {
             public string SECURITY;
