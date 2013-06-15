@@ -74,9 +74,9 @@
                         <Button Content="Stop" Height="22" Name="btnExit" Width="75" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" Margin="0,80,167,102" HorizontalAlignment="Right" />
                         <Border BorderBrush="#FFA7A5A5" BorderThickness="2" Height="0" HorizontalAlignment="Left" Margin="10,35,0,0" Name="border1" VerticalAlignment="Top" Width="665" UseLayoutRounding="False" Grid.ColumnSpan="2" />
                         <Label Content="Shubha Downloader" Grid.ColumnSpan="2" Height="26" HorizontalAlignment="Left" Margin="0,3,0,0" Name="label3" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White" />
-                        <TextBlock Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Left" Margin="10,87,0,0" Name="textBlock1" Text="Shubha Downloader  enable you to download  pricing data from publicly available sites and convert in different formats." VerticalAlignment="Top" Grid.Row="1" Width="672" />
+                        <TextBlock Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Left" Margin="10,87,0,0" Name="textBlock1" Text="Shubha Downloader  enables you to download  pricing data from publicly available sites and convert in different formats." VerticalAlignment="Top" Grid.Row="1" Width="672" />
                         <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,108,0,0" Name="textBlock2" Text="This program comes with ABSOLUTELY NO WARRANTY, for details please see notice.txt in installed folder. " VerticalAlignment="Top" Grid.Row="1" />
-                        <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,129,0,0" Name="textBlock3" Text="This is free software(released under GNU GPL V3) and you are welcome to redistribute it under certain conditions as per notice.txt " VerticalAlignment="Top" Grid.Row="1" />
+                        <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,129,0,0" Name="textBlock3" Text="This is free software (released under GNU GPL V3) and you are welcome to redistribute it under certain conditions as per notice.txt " VerticalAlignment="Top" Grid.Row="1" />
                         <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" />
                         <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,147,0,0" Name="textBlock4" Text="Copyright © 2013 Shubhalabha.in" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" />
                     </Grid>
@@ -90,7 +90,8 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label5" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
+                    <WebBrowser Source="http://shubhalabha.in/products/" />
+
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
