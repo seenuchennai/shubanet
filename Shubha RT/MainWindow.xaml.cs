@@ -11,7 +11,9 @@ using System.IO;
 using System.Globalization;
 using FileHelpers.RunTime;
 using System.Data;
-
+using Microsoft.Office.Interop.Excel;
+using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -47,8 +49,15 @@ namespace StockD
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow :System.Windows. Window
     {
+        List<string> yahoortname = new List<String>();
+        List<string> yahoortdata = new List<String>();
+        System.Windows.Threading.DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
+        Type ExcelType;
+        object ExcelInst;
+
+        object[] args = new object[3];
 
         List<string> YahooSymbolsave = new List<string>();
         List<string> YahooNamesave = new List<string>();
@@ -4502,10 +4511,6 @@ namespace StockD
                     engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
 
-
-
-
-
                 }
                 return;
 
@@ -4529,40 +4534,14 @@ namespace StockD
 
                     string strbseequityfilename = words[words.Length - 1];
 
-
-
-
-                 
-
-
-
-
-
                     YAHOO5MIN[] resbsecsv1 = engineBSECSV1.ReadFile(obj) as YAHOO5MIN[];
 
-
-
-
-
-
-
-
-
-                    int totrows = 0;
-
-                    int itmp = 0;
-                    int cnt = 0;
-
                     YAHOOFINAL[] finalarr = new YAHOOFINAL[resbsecsv1.Length];
-                    DateTime myDate;
-                    itmp = 0;
                     int icntr = 0;
                     while (icntr < resbsecsv1.Length)
                     {
                         finalarr[icntr] = new YAHOOFINAL();
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
-
-
 
                         string nameofcompany = "";
                         for (int i = 0; i < YahooSymbolsave.Count; i++)
@@ -4574,12 +4553,6 @@ namespace StockD
                         }
 
                         finalarr[icntr].name = nameofcompany;
-
-                        //myDate = Convert.ToDateTime(dt);
-                        //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
-
-                        //myDate=Convert.ToDateTime(strday + "-"+ strmon + "-20" + stryear);
-                        //finalarr[itmp].date = myDate.ToString("yyyyMMdd"); //String.Format("{0:yyyyMMdd}", dt);
                         finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
                         finalarr[icntr].open = resbsecsv1[icntr].OPEN_PRICE;
                         finalarr[icntr].high = resbsecsv1[icntr].HIGH_PRICE;
@@ -4596,9 +4569,6 @@ namespace StockD
                     FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(YAHOOFINAL));
                     engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,TIME,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
-
-
-
 
                     return;
 
@@ -4620,34 +4590,10 @@ namespace StockD
                 string[] words = obj.Split('\\');
 
                 string strbseequityfilename = words[words.Length - 1];
-                
-
-               
-           
-
-
-
-
-
-
                 YAHOO[] resbsecsv = engineBSECSV.ReadFile(obj) as YAHOO[];
-
-
-
-
-
-
-
-
-               
-                int totrows = 0;
-
-                int itmp = 0;
-                int cnt = 0;
-
+ 
+              
                 YAHOOFINAL[] finalarr = new YAHOOFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -4663,11 +4609,7 @@ namespace StockD
                     }
 
                     finalarr[icntr].name = nameofcompany;
-                    //myDate = Convert.ToDateTime(dt);
-                    //myDate = DateTime.ParseExact(dt, "ddMMyyyy", CultureInfo.InvariantCulture);
-
-                    //myDate=Convert.ToDateTime(strday + "-"+ strmon + "-20" + stryear);
-                    //finalarr[itmp].date = myDate.ToString("yyyyMMdd"); //String.Format("{0:yyyyMMdd}", dt);
+                    
                     finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
                     finalarr[icntr].open = resbsecsv[icntr].OPEN_PRICE;
                     finalarr[icntr].high = resbsecsv[icntr].HIGH_PRICE;
@@ -4720,26 +4662,12 @@ namespace StockD
 
                 MCXSX[] resbsecsv = engineBSECSV.ReadFile(obj) as MCXSX[];
 
-
-
-
-
-
-
-
                 int iTotalRows = resbsecsv.Length;
 
 
-                
-
-                int totrows = 0;
-
-                int itmp = 0;
-                int cnt = 0;
 
                 MCXSXFINAL[] finalarr = new MCXSXFINAL[resbsecsv.Length];
                 DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -6537,7 +6465,170 @@ namespace StockD
 
 
 
-        
+        private void dispatcherTimerForRT_Tick(object sender, EventArgs e)
+        {
+            CommandManager.InvalidateRequerySuggested();
+            rtddata();
+            RtdataRecall();
+
+        }
+
+        private void RtdataRecall()
+        {
+            DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForRT_Tick);
+            DispatcherTimer1.Interval = new TimeSpan(0, 0, 5);
+            DispatcherTimer1.Start();
+
+        }
+
+
+        public void rtddata()
+        {
+
+            try
+            {
+
+            yahoortdata.Clear();
+
+            using (var reader = new StreamReader("c:\\YahooRT.txt"))
+            {
+                string line = null;
+                int RTtopiccount = 0;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+
+                    yahoortname.Add(line);
+                    Array retval;
+                    MethodInfo method;
+                    Type type = Type.GetTypeFromProgID("nest.scriprtd");
+
+
+                    IRtdServer m_server = (IRtdServer)Activator.CreateInstance(type);
+
+                    int j = m_server.Heartbeat();
+
+                    bool bolGetNewValue = true;
+                    object[] arrayForSymbol = new object[2];
+
+
+                    arrayForSymbol[0] = line;
+                    arrayForSymbol[1] = "Symbol";
+
+
+                    Array sysArrParams = (Array)arrayForSymbol;
+                    m_server.ConnectData(RTtopiccount, sysArrParams, bolGetNewValue);
+
+                    RTtopiccount++;    //imp it change topic id 
+
+                    object[] arrayForLTT = new object[2];
+
+
+                    arrayForLTT[0] = line;
+                    arrayForLTT[1] = "LTT";
+
+                    Array sysArrParams1 = (Array)arrayForLTT;
+                    m_server.ConnectData(RTtopiccount, sysArrParams1, bolGetNewValue);
+
+                    RTtopiccount++;    //imp it change topic id 
+
+                    object[] arrayForLTP = new object[2];
+
+
+                    arrayForLTP[0] = line;
+                    arrayForLTP[1] = "LTP";
+
+                    Array sysArrParams2 = (Array)arrayForLTP;
+                    m_server.ConnectData(RTtopiccount, sysArrParams2, bolGetNewValue);
+
+
+                    RTtopiccount++;    //imp it change topic id 
+
+
+
+                    object[] arrayForVolume = new object[2];
+
+                    arrayForVolume[0] = line;
+                    arrayForVolume[1] = "Volume Traded Today";
+
+                    Array sysArrParams3 = (Array)arrayForVolume;
+                    m_server.ConnectData(RTtopiccount, sysArrParams3, bolGetNewValue);
+
+
+                    RTtopiccount++;    //imp it change topic id 
+
+
+                    retval = m_server.RefreshData(10);
+
+                    foreach (var item in retval)
+                    {
+
+                        yahoortdata.Add(item.ToString());
+
+                    }
+
+
+
+                }
+                string tempfilepath = "C:\\YahooRealTimeData.txt";
+                log4net.Config.XmlConfigurator.Configure();
+                ILog log = LogManager.GetLogger(typeof(MainWindow));
+                log.Debug("Data Capturing At" + DateTime.Now.TimeOfDay);
+                string storeinfile1 = "";
+
+                //c=c+2 we not want 1st 3rd 5th and so on values.
+                int value = 4;
+                int OHLC = 6;
+
+                for (int j = 4; j < yahoortdata.Count - 1; j = j + 8)
+                {
+                    int c;
+                    value = j + 4;
+
+                    for (c = j; c <= value - 1; c = c + 1)
+                    {
+                        if (c == 6 || c == 14 || c == 22 || c == 30 || c == 38 || c == 46)
+                        {
+                            storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString(); //+ "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString();
+
+                        }
+                        else
+                        {
+                            storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString();
+                        }
+                    }
+                    storeinfile1 = DateTime.Today.Date.ToShortDateString() + storeinfile1 + "\r\n";
+
+                }
+
+
+
+
+
+                using (var writer = new StreamWriter(tempfilepath))
+
+                    writer.WriteLine(storeinfile1);
+
+                ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                     ExcelInst, args);
+
+
+
+                //ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                //       ExcelInst, new object[1] { "" });
+
+
+            }
+            }
+            catch
+            {
+                log4net.Config.XmlConfigurator.Configure();
+                ILog log = LogManager.GetLogger(typeof(MainWindow));
+                log.Debug("Server Not Found...." );
+
+
+            }
+        }
 
        
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -7661,21 +7752,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            //dtEndDate.Text = "";
-            //dtStartDate.Text = "";
-           // mcx();
-            //MailMessage mail = new MailMessage("webmaster@shubhalabha.in", "shanteshpaigude1988@gmail.com");
-            //SmtpClient client = new SmtpClient();
-            //client.Port = 587;
-            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //client.UseDefaultCredentials = false;
-            //client.Host = "smtp.google.com";
-            //mail.Subject = "this is a test email.";
-            //mail.Body = "this is my test email body";
-            //client.Send(mail);
-
-
-          // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
+                      // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
 
         }
         private void linkclick()
@@ -7820,8 +7897,6 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         }
 
-     
-
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -7844,9 +7919,6 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             }
 
 
-
-
-            
             string line = "";
 
             for ( i = 0; i < YahooSymbolsave.Count;i++ )
@@ -7876,10 +7948,6 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
             string strYearDir, baseurl;
             strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
-
-
-
-
 
             //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
 
@@ -7923,14 +7991,7 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
                         YahooExchange.Add(words[14]);
 
                        
-                        //"{\"symbol\":\"INFY.NS\"\"name\": \"INFOSYS LIMITED\"\"exch\": \"NSI\""
-
-
-                      
-                        
-
-
-
+ 
                     }
 
                     
@@ -7947,11 +8008,6 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
                 }
 
-
-               
-
-
-                
             }
             }
             catch
@@ -8017,6 +8073,33 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
         {
             System.Diagnostics.Process.Start("https://github.com/webshub/shubanet/issues");
         }
+
+        private void StartRT_Click(object sender, RoutedEventArgs e)
+        {
+            ExcelType = Type.GetTypeFromProgID("Broker.Application");
+            ExcelInst = Activator.CreateInstance(ExcelType);
+            args[0] = Convert.ToInt16(0);
+            args[1] = "C:\\YahooRealTimeData.txt";
+            args[2] = "custom3.format";
+
+            ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
+                ExcelInst, new object[1] { true });
+            ExcelType.InvokeMember("LoadDatabase", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                 ExcelInst, new string[1] { "c://RTDATA//amirtdatabase" });
+            ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                      ExcelInst, args);
+            RtdataRecall();
+        }
+
+        private void EndRT_Click(object sender, RoutedEventArgs e)
+        {
+            DispatcherTimer1.Stop();
+            log4net.Config.XmlConfigurator.Configure();
+            ILog log = LogManager.GetLogger(typeof(MainWindow));
+            log.Debug("Data Capturing Stop... ");
+        }
+
+       
         
        
 
