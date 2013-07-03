@@ -445,6 +445,8 @@
                     <Button Content="Save Symbol in text file" Height="23" HorizontalAlignment="Left" Margin="191,58,0,0" Name="SaveSymbol" VerticalAlignment="Top" Width="142" Click="SaveSymbol_Click" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="529,131,0,0" Name="timetoRT" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
                     <Label Content="Select Time To Capture Data " Height="28" HorizontalAlignment="Left" Margin="370,126,0,0" Name="label5" VerticalAlignment="Top" />
+                    <Label Content="Enter Formatfile Name" Height="28" HorizontalAlignment="Left" Margin="376,173,0,0" Name="label6" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="529,173,0,0" Name="formatfilename" VerticalAlignment="Top" Width="120" />
                 </Grid>
             </TabItem>
         </TabControl>

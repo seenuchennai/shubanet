@@ -6508,11 +6508,12 @@ namespace StockD
             {
 
             yahoortdata.Clear();
-           
-            using (var reader = new StreamReader("c:\\YahooRT.txt"))
+            int flagfortotaldatacount = 0;
+            using (var reader = new StreamReader("c:\\NESTRt.txt"))
             {
                 string line = null;
                 int RTtopiccount = 0;
+                yahoortdata.Clear();
                
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -6530,7 +6531,7 @@ namespace StockD
                    // RTtopiccount++;    //imp it change topic id 
 
                     arrayForSymbol[0] = line;
-                    arrayForSymbol[1] = "Symbol";
+                    arrayForSymbol[1] = "Trading Symbol";
 
 
                     Array sysArrParams = (Array)arrayForSymbol;
@@ -6572,12 +6573,22 @@ namespace StockD
 
 
                     RTtopiccount++;    //imp it change topic id 
+                    object[] arrayForopenint = new object[2];
+
+                    arrayForopenint[0] = line;
+                    arrayForopenint[1] = "Open Interest";
+
+                    Array sysArrParams4 = (Array)arrayForopenint;
+                    m_server.ConnectData(RTtopiccount, sysArrParams4, bolGetNewValue);
+
+
+                    RTtopiccount++;    //imp it change topic id 
 
 
                     retval = m_server.RefreshData(10);
 
 
-                    for (int count = 0; count  <= 3;count++ )
+                    for (int count = 0; count  <= 4;count++ )
                     {
                         m_server.DisconnectData(count );
                     }
@@ -6589,7 +6600,7 @@ namespace StockD
                     }
 
                     m_server.ServerTerminate();
-
+                    flagfortotaldatacount++;
 
                 }
                 string tempfilepath = "C:\\YahooRealTimeData.txt";
@@ -6599,13 +6610,13 @@ namespace StockD
                 string storeinfile1 = "";
 
                 //c=c+2 we not want 1st 3rd 5th and so on values.
-                int value = 4;
+                int value = 5;
                 int flagtocheckfirstvaluefordate = 0;
 
-                for (int j = 4; j < yahoortdata.Count - 1; j = j + 8)
+                for (int j = 5; j < yahoortdata.Count - 1; j = j + 10)
                 {
                     int c;
-                    value = j + 4;
+                    value = j + 5;
                     if (flagtocheckfirstvaluefordate == 0)
                     {
                         storeinfile1 = DateTime.Today.Date.ToShortDateString() + storeinfile1;
@@ -6621,17 +6632,12 @@ namespace StockD
                     }
                     for (c = j; c <= value - 1; c = c + 1)
                     {
-                        //not neede delete on monday 
-                        if (c == 6 || c == 14 || c == 22 || c == 30 || c == 38 || c == 46 || c == 54 || c == 62 || c == 70 || c == 78 || c == 86 || c == 94 || c == 102 || c == 110 || c == 118 || c == 126 || c == 134 || c == 142 || c == 150 || c == 158 || c == 164 || c == 172 || c == 180 || c == 188)
-                        {
-                            storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString(); //+ "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString();
-
-                        }
-                        else
-                        {
+                        
                             storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString();
-                        }
+                        
                     }
+
+                    
 
                     storeinfile1 = storeinfile1 + "\r\n";
 
@@ -6640,12 +6646,14 @@ namespace StockD
 
 
 
+                //if count is greater than data required then dont write it in file
+                if (yahoortdata.Count <= flagfortotaldatacount * 10)
+                {
 
+                    using (var writer = new StreamWriter(tempfilepath))
 
-                using (var writer = new StreamWriter(tempfilepath))
-
-                    writer.WriteLine(storeinfile1);
-
+                        writer.WriteLine(storeinfile1);
+                }
                 ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                      ExcelInst, args);
 
@@ -8247,9 +8255,14 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
         private void StartRT_Click(object sender, RoutedEventArgs e)
         {
             string symboltowriteinfile = "";
-
-            //try
-            //{
+            if(formatfilename.Text=="")
+            {
+                System.Windows.MessageBox.Show("Please Enter Format File Name");
+                formatfilename.Focus();
+                return;
+            }
+            try
+            {
             
 
                 type = Type.GetTypeFromProgID("nest.scriprtd");
@@ -8257,40 +8270,24 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
                 m_server = (IRtdServer)Activator.CreateInstance(type);
 
-                Process[] processlist = Process.GetProcesses();
-
-                foreach (Process process in processlist)
-                {
-                    if (process.ProcessName == "NestTrader")
-                    {
-                        string searchWithinThis = process.MainWindowTitle;
-                        string searchForThis = "[";
-                        string searchForThis1 = "]";
-
-                        int firstCharacter = searchWithinThis.IndexOf(searchForThis);
-                        int firstCharacter1 = searchWithinThis.IndexOf(searchForThis1);
-                        Marketwatchname = searchWithinThis.Substring(firstCharacter + 1, firstCharacter1 - firstCharacter - 1);
-
-
-                    }
-                }
+                
                 //SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
                // LoadTree(sao);
-            //}
-            //catch
-            //{
-            //    log4net.Config.XmlConfigurator.Configure();
-            //    ILog log = LogManager.GetLogger(typeof(MainWindow));
-            //    log.Debug("Server Not Found ....");
+            }
+            catch
+            {
+                log4net.Config.XmlConfigurator.Configure();
+                ILog log = LogManager.GetLogger(typeof(MainWindow));
+                log.Debug("Server Not Found ....");
 
-            //}
+            }
 
 
             ExcelType = Type.GetTypeFromProgID("Broker.Application");
             ExcelInst = Activator.CreateInstance(ExcelType);
             args[0] = Convert.ToInt16(0);
             args[1] = "C:\\YahooRealTimeData.txt";
-            args[2] = "custom4.format";
+            args[2] = formatfilename.Text ;
 
             ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
                 ExcelInst, new object[1] { true });
@@ -8336,7 +8333,11 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
             }
 
-            System.IO.File.WriteAllText("c://YahooRt.txt", saveintxt.Trim());
+            System.IO.File.WriteAllText("c://NESTRt.txt", saveintxt.Trim());
+
+            System.Windows.MessageBox.Show("symbol File Save Successfuly ");
+
+
 
         }
 
