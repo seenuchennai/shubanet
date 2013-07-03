@@ -11,7 +11,7 @@
           </SoftwareWatermark>
         </NineRays.ILOMD.Options.Options>
       </ObfuscationOptions>
-      <Name>..\..\..\..\datan\ShubhaRt.exe</Name>
+      <Name>bin\Debug\ShubhaRt.exe</Name>
     </NineRays.ILOMD.Options.AssemblyFileName>
   </AssemblyList>
   <SaveToDirectory>.\Spices_output</SaveToDirectory>

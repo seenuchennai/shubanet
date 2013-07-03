@@ -422,7 +422,7 @@
                 </TabItem.Header>
                 <Grid>
                     <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="183,94,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
-                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="372,94,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
+                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="299,94,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
                 </Grid>
             </TabItem>
         </TabControl>

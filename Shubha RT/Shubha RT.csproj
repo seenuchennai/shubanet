@@ -19,12 +19,12 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>C:\source forge\</PublishUrl>
+    <PublishUrl>ftp://www.shubhalabha.in/dev1/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -32,7 +32,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://sourceforge.net/projects/shubhanet/files/b1/</UpdateUrl>
+    <InstallUrl>http://shubhalabha.in/dev1/</InstallUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
     <ProductName>ShubhaDownloader</ProductName>
@@ -40,7 +40,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>63</ApplicationRevision>
+    <ApplicationRevision>64</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -87,10 +87,13 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Shubha RT_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FileHelpers">
@@ -105,6 +108,10 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\Shantesh\Log4NetFrameworkSolution\Log4NetFrameworkSolution\Lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="ManagedWinapi">
+      <HintPath>..\..\..\Downloads\managedwinapi-src-0.3\Tools\AOExplorer\bin\Debug\ManagedWinapi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />

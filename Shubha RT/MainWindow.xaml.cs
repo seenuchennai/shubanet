@@ -32,11 +32,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Specialized ;
 using System.Collections;
 using System.IO.Compression;
+using System.Diagnostics;
+using System.Diagnostics;
+
 using System.IO.Packaging;
 using Ionic.Zlib;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Data.OleDb;
+using System.Runtime.InteropServices;
+using ManagedWinapi.Windows;
+using ManagedWinapi.Accessibility;
+
 
 
 namespace StockD
@@ -56,6 +63,11 @@ namespace StockD
         System.Windows.Threading.DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
         Type ExcelType;
         object ExcelInst;
+        Type type;
+        List<string> symbolname = new List<String>();
+        string Marketwatchname = "";
+
+        IRtdServer m_server;
 
         object[] args = new object[3];
 
@@ -6476,7 +6488,7 @@ namespace StockD
         private void RtdataRecall()
         {
             DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForRT_Tick);
-            DispatcherTimer1.Interval = new TimeSpan(0, 0, 5);
+            DispatcherTimer1.Interval = new TimeSpan(0, 0, 3);
             DispatcherTimer1.Start();
 
         }
@@ -6489,28 +6501,26 @@ namespace StockD
             {
 
             yahoortdata.Clear();
-
+           
             using (var reader = new StreamReader("c:\\YahooRT.txt"))
             {
                 string line = null;
                 int RTtopiccount = 0;
-
+               
                 while ((line = reader.ReadLine()) != null)
                 {
 
                     yahoortname.Add(line);
                     Array retval;
                     MethodInfo method;
-                    Type type = Type.GetTypeFromProgID("nest.scriprtd");
-
-
-                    IRtdServer m_server = (IRtdServer)Activator.CreateInstance(type);
+                     
 
                     int j = m_server.Heartbeat();
 
                     bool bolGetNewValue = true;
                     object[] arrayForSymbol = new object[2];
 
+                   // RTtopiccount++;    //imp it change topic id 
 
                     arrayForSymbol[0] = line;
                     arrayForSymbol[1] = "Symbol";
@@ -6520,7 +6530,6 @@ namespace StockD
                     m_server.ConnectData(RTtopiccount, sysArrParams, bolGetNewValue);
 
                     RTtopiccount++;    //imp it change topic id 
-
                     object[] arrayForLTT = new object[2];
 
 
@@ -6560,6 +6569,11 @@ namespace StockD
 
                     retval = m_server.RefreshData(10);
 
+
+                    for (int count = 0; count  <= 3;count++ )
+                    {
+                        m_server.DisconnectData(count );
+                    }
                     foreach (var item in retval)
                     {
 
@@ -6567,6 +6581,7 @@ namespace StockD
 
                     }
 
+                    m_server.ServerTerminate();
 
 
                 }
@@ -6578,16 +6593,29 @@ namespace StockD
 
                 //c=c+2 we not want 1st 3rd 5th and so on values.
                 int value = 4;
-                int OHLC = 6;
+                int flagtocheckfirstvaluefordate = 0;
 
                 for (int j = 4; j < yahoortdata.Count - 1; j = j + 8)
                 {
                     int c;
                     value = j + 4;
+                    if (flagtocheckfirstvaluefordate == 0)
+                    {
+                        storeinfile1 = DateTime.Today.Date.ToShortDateString() + storeinfile1;
+                        flagtocheckfirstvaluefordate = 1;
 
+                    }
+                    else
+                    {
+                        storeinfile1 =  storeinfile1+" "+DateTime.Today.Date.ToShortDateString()   ;
+
+                        flagtocheckfirstvaluefordate = 1;
+
+                    }
                     for (c = j; c <= value - 1; c = c + 1)
                     {
-                        if (c == 6 || c == 14 || c == 22 || c == 30 || c == 38 || c == 46)
+                        //not neede delete on monday 
+                        if (c == 6 || c == 14 || c == 22 || c == 30 || c == 38 || c == 46 || c == 54 || c == 62 || c == 70 || c == 78 || c == 86 || c == 94 || c == 102 || c == 110 || c == 118 || c == 126 || c == 134 || c == 142 || c == 150 || c == 158 || c == 164 || c == 172 || c == 180 || c == 188)
                         {
                             storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString(); //+ "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString() + "  " + yahoortdata[c].ToString();
 
@@ -6597,8 +6625,10 @@ namespace StockD
                             storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString();
                         }
                     }
-                    storeinfile1 = DateTime.Today.Date.ToShortDateString() + storeinfile1 + "\r\n";
 
+                    storeinfile1 = storeinfile1 + "\r\n";
+
+                    
                 }
 
 
@@ -6616,20 +6646,75 @@ namespace StockD
 
                 //ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                 //       ExcelInst, new object[1] { "" });
-
-
+               
             }
             }
             catch
             {
                 log4net.Config.XmlConfigurator.Configure();
                 ILog log = LogManager.GetLogger(typeof(MainWindow));
-                log.Debug("Server Not Found...." );
+                log.Debug("Error While Data Capture ...." );
 
 
             }
         }
 
+        private void LoadTree(SystemAccessibleObject sao)
+        {
+            if (sao == null) return;
+            IntPtr hwnd = sao.Window.HWnd;
+            List<SystemAccessibleObject> parents = new List<SystemAccessibleObject>();
+            parents.Add(sao);
+            while (true)
+            {
+                sao = sao.Parent;
+                if (sao == null) break;
+                if (sao.Window.HWnd != hwnd) break;
+                parents.Add(sao);
+            }
+            sao = parents[parents.Count - 1];
+            parents.RemoveAt(parents.Count - 1);
+            TreeViewItem curr = new TreeViewItem();
+            int i = 0;
+            sao = parents[parents.Count - 1];
+
+           // List<string> symbolname = new List<String>();
+
+
+
+
+            for (i = 0; i < sao.Children.Count() - 1; i++)
+            {
+                symbolname.Add(sao.Children.GetValue(i).ToString());
+
+            }
+
+            string symboltowriteinfile="";
+            for (i = 0; i < sao.Children.Count() - 1; i++)
+            {
+
+                string searchWithinThis = symbolname[i];
+                string searchForThis = "[";
+                int firstCharacter = searchWithinThis.IndexOf(searchForThis);
+
+                symbolname[i] = "mcx_fo|" + symbolname[i].Substring(0, firstCharacter);
+
+
+                symboltowriteinfile = symboltowriteinfile+symbolname[i].Trim() + "\r\n";
+
+
+            }
+
+         System.IO.File.WriteAllText("c://YahooRt.txt", symboltowriteinfile.Trim());
+
+
+
+            
+
+
+
+
+        }
        
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -8076,11 +8161,48 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void StartRT_Click(object sender, RoutedEventArgs e)
         {
+
+            //try
+            //{
+                type = Type.GetTypeFromProgID("nest.scriprtd");
+
+
+                m_server = (IRtdServer)Activator.CreateInstance(type);
+
+                Process[] processlist = Process.GetProcesses();
+
+                foreach (Process process in processlist)
+                {
+                    if (process.ProcessName == "NestTrader")
+                    {
+                        string searchWithinThis = process.MainWindowTitle;
+                        string searchForThis = "[";
+                        string searchForThis1 = "]";
+
+                        int firstCharacter = searchWithinThis.IndexOf(searchForThis);
+                        int firstCharacter1 = searchWithinThis.IndexOf(searchForThis1);
+                        Marketwatchname = searchWithinThis.Substring(firstCharacter + 1, firstCharacter1 - firstCharacter - 1);
+
+
+                    }
+                }
+                SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
+                LoadTree(sao);
+            //}
+            //catch
+            //{
+            //    log4net.Config.XmlConfigurator.Configure();
+            //    ILog log = LogManager.GetLogger(typeof(MainWindow));
+            //    log.Debug("Server Not Found ....");
+
+            //}
+
+
             ExcelType = Type.GetTypeFromProgID("Broker.Application");
             ExcelInst = Activator.CreateInstance(ExcelType);
             args[0] = Convert.ToInt16(0);
             args[1] = "C:\\YahooRealTimeData.txt";
-            args[2] = "custom3.format";
+            args[2] = "custom4.format";
 
             ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
                 ExcelInst, new object[1] { true });
