@@ -112,6 +112,7 @@
       <HintPath>..\..\..\Downloads\managedwinapi-src-0.3\Tools\AOExplorer\bin\Debug\ManagedWinapi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
@@ -146,6 +147,7 @@
     <Compile Include="amibriker.cs" />
     <Compile Include="BSECSV.cs" />
     <Compile Include="Dataitem.cs" />
+    <Compile Include="Dataitemforsymbol.cs" />
     <Compile Include="Fchart.cs" />
     <Compile Include="FO.cs" />
     <Compile Include="Google.cs" />

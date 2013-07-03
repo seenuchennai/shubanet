@@ -272,7 +272,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" Name="labe" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" Grid.ColumnSpan="2" Width="134" />
 
-                    <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserAddRows="False" Margin="0,53,358,0" SelectionChanged="dataGrid3_SelectionChanged" Visibility="Hidden" >
+                    <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserAddRows="False" Margin="0,56,358,-3" SelectionChanged="dataGrid3_SelectionChanged" Visibility="Hidden" >
                         
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
@@ -421,8 +421,30 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="183,94,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
-                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="299,94,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
+                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="393,218,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
+                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="539,218,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
+                    <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Margin="23,99,360,44" Name="dataGridforsymbol" >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Click="symbolsave_Click" Margin="45 2 0 0" Name="chkDiscontinue" />
+
+                                    </DataTemplate>
+                                    
+                                </DataGridTemplateColumn.CellTemplate>
+                                
+                                <DataGridTemplateColumn.Header>
+                                    <CheckBox Checked="CheckBox_Checked" />
+                                </DataGridTemplateColumn.Header>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                    <Button Content="Find Symbol" Height="23" HorizontalAlignment="Right" Margin="0,58,573,0" Name="FindSymbol" VerticalAlignment="Top" Width="97" Click="FindSymbol_Click" />
+                    <Button Content="Save Symbol in text file" Height="23" HorizontalAlignment="Left" Margin="191,58,0,0" Name="SaveSymbol" VerticalAlignment="Top" Width="142" Click="SaveSymbol_Click" />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="529,131,0,0" Name="timetoRT" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
+                    <Label Content="Select Time To Capture Data " Height="28" HorizontalAlignment="Left" Margin="370,126,0,0" Name="label5" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
         </TabControl>

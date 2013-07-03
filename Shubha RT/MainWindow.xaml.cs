@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using FileHelpers;
 using System.IO;
+using Microsoft.VisualBasic;
 using System.Globalization;
 using FileHelpers.RunTime;
 using System.Data;
@@ -70,6 +71,12 @@ namespace StockD
         IRtdServer m_server;
 
         object[] args = new object[3];
+        List<string> marketsymbol = new List<string>();
+        List<string> Exchangename = new List<string>();
+
+        List<int > marketsymboltoremove = new List<int >();
+
+        
 
         List<string> YahooSymbolsave = new List<string>();
         List<string> YahooNamesave = new List<string>();
@@ -6488,7 +6495,7 @@ namespace StockD
         private void RtdataRecall()
         {
             DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForRT_Tick);
-            DispatcherTimer1.Interval = new TimeSpan(0, 0, 3);
+            DispatcherTimer1.Interval = new TimeSpan(0, 0,Convert.ToInt32( timetoRT.SelectedItem) );
             DispatcherTimer1.Start();
 
         }
@@ -6681,7 +6688,8 @@ namespace StockD
            // List<string> symbolname = new List<String>();
 
 
-
+            symbolname.Clear();
+            dataGridforsymbol.Items.Clear();
 
             for (i = 0; i < sao.Children.Count() - 1; i++)
             {
@@ -6697,13 +6705,15 @@ namespace StockD
                 string searchForThis = "[";
                 int firstCharacter = searchWithinThis.IndexOf(searchForThis);
 
-                symbolname[i] = "mcx_fo|" + symbolname[i].Substring(0, firstCharacter);
+                symbolname[i] = symbolname[i].Substring(0, firstCharacter);
 
 
                 symboltowriteinfile = symboltowriteinfile+symbolname[i].Trim() + "\r\n";
+                dataGridforsymbol.Items.Add(new Dataitemforsymbol { Column0="",Column1 =symbolname[i] });
 
 
             }
+            
 
          System.IO.File.WriteAllText("c://YahooRt.txt", symboltowriteinfile.Trim());
 
@@ -6790,7 +6800,21 @@ namespace StockD
             
         
         }
+        private void marketsymbolremove_Click(object sender, RoutedEventArgs e)
+        {
+            object a = e.Source;
+            System.Windows.Controls.CheckBox chk = (System.Windows.Controls.CheckBox)sender;
+            if (chk.IsChecked == true)
+            {
 
+             //  marketsymboltoremove.Add(savesymbol .SelectedIndex);
+
+            }
+
+
+        }
+
+        
         private void chkDiscontinue_Click(object sender, RoutedEventArgs e)
         {
             object a = e.Source;
@@ -6816,6 +6840,32 @@ namespace StockD
                
             }
         
+        }
+        private void symbolsave_Click(object sender, RoutedEventArgs e)
+        {
+            object a = e.Source;
+            System.Windows.Controls.CheckBox chk = (System.Windows.Controls.CheckBox)sender;
+            if (chk.IsChecked == true)
+            {
+                //DataGridColumn column in dataGr
+
+                string exchagenameenterbyuser;
+                dataGridforsymbol .SelectedItem.ToString();
+
+
+                exchagenameenterbyuser = Interaction.InputBox("Enter Exchange Name For Selected Symbol", "Exchang name", "", -1, -1);
+
+                Dataitemforsymbol row = (Dataitemforsymbol)dataGridforsymbol.SelectedItems[0];
+                var a1 = dataGridforsymbol.Columns[1];
+
+
+
+                marketsymbol.Add(row.Column1 );
+
+                Exchangename.Add(exchagenameenterbyuser);
+
+            }
+
         }
         //loop through each row and change the checkbox value  
         private void SetCheckbox(IEnumerable<DataGridRow> row, bool value)
@@ -6874,17 +6924,51 @@ namespace StockD
            comboBox1.Items.Add("Ninja Trader");
 
 
+           for (int i = 3; i < 60;i++ )
+           {
+               timetoRT.Items.Add(i);
+           }
 
 
 
-                                            
-                                            
-                                            
-                                            
-                                      
 
 
 
+
+
+           for (int i = 0; i < 2; i++)
+           {
+               string[] nameofcol = new string[2] { "", "Symbol"};
+
+
+               var column = new DataGridTextColumn();
+               //if (i < 4)
+               //{
+               column.Header = nameofcol[i];
+               //}
+               column.Binding = new System.Windows.Data.Binding("Column" + i);
+               dataGridforsymbol .Columns.Add(column);
+              // savesymbol.Columns.Add(column);
+
+
+           }
+
+           for (int i = 0; i < 2; i++)
+           {
+               string[] nameofcol = new string[2] { "", "Symbol" };
+
+
+               var column = new DataGridTextColumn();
+               //if (i < 4)
+               //{
+               column.Header = nameofcol[i];
+               //}
+               column.Binding = new System.Windows.Data.Binding("Column" + i);
+              // dataGridforsymbol.Columns.Add(column);
+              //  savesymbol.Columns.Add(column);
+
+
+           }
             for (int i = 0; i < 4; i++)
             {
                 string[] nameofcol = new string[4] { "", "Symbol", "Company Name", "Exchange" };
@@ -8104,7 +8188,8 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-           int count=yahoosymbolindextoremove.Count;
+          
+            int count=yahoosymbolindextoremove.Count;
            try
            {
                for (int i = yahoosymbolindextoremove.Count - 1; i >= 0; i--)
@@ -8161,9 +8246,12 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
         private void StartRT_Click(object sender, RoutedEventArgs e)
         {
+            string symboltowriteinfile = "";
 
             //try
             //{
+            
+
                 type = Type.GetTypeFromProgID("nest.scriprtd");
 
 
@@ -8186,8 +8274,8 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
                     }
                 }
-                SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
-                LoadTree(sao);
+                //SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
+               // LoadTree(sao);
             //}
             //catch
             //{
@@ -8220,6 +8308,59 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Data Capturing Stop... ");
         }
+
+        private void FindSymbol_Click(object sender, RoutedEventArgs e)
+        {
+          //  savesymbol.Items.Clear();
+            marketsymbol.Clear();
+            marketsymboltoremove.Clear();
+            SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
+            LoadTree(sao);
+        }
+
+        private void SaveSymbol_Click(object sender, RoutedEventArgs e)
+        {
+          //  savesymbol.Items.Clear();
+
+            int i;
+
+            string saveintxt = "";
+
+            for (i = 0; i < marketsymbol .Count; i++)
+            {
+
+               // savesymbol.Items.Add(new Dataitemforsymbol  { Column0 = "", Column1 = marketsymbol[i] });
+
+
+                saveintxt =saveintxt + Exchangename[i].Trim()+"|"+ marketsymbol[i].Trim() + "\r\n";
+
+            }
+
+            System.IO.File.WriteAllText("c://YahooRt.txt", saveintxt.Trim());
+
+        }
+
+        private void Removesymbol_Click(object sender, RoutedEventArgs e)
+        {
+            int count = marketsymboltoremove.Count;
+            try
+            {
+                for (int i = marketsymboltoremove.Count - 1; i >= 0; i--)
+                {
+                 //  savesymbol .Items.RemoveAt(marketsymboltoremove[i]);
+                    marketsymboltoremove.RemoveAt(i);
+                   // YahooSymbolsave.RemoveAt(i);
+
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        
 
        
         
