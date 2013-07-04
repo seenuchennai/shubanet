@@ -376,7 +376,29 @@ namespace StockD
 
 
                         }
-                        string datetostore1 = day.Year + date1;
+                        string daytostore = "";
+                        string monthtostore = "";
+
+                        if (day.Day <= 9)
+                        {
+                            daytostore = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            daytostore = day.Day.ToString();
+
+                        }
+                        if (day.Month  <= 9)
+                        {
+                            monthtostore = "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            monthtostore = day.Month.ToString();
+
+                        }
+
+                        string datetostore1 = day.Year + monthtostore+daytostore ;
                         try
                         {
                             ExecuteFUTUREProcessing(PRFO, "FO", datetostore1, sec);
@@ -738,7 +760,19 @@ namespace StockD
 
                     for (int i = 0; i < yahooieod1.Count ; i++)
                     {
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo1min\\" + day.Day + yahooieod1[i] + ".csv";
+
+                        string dayforname = "";
+                        if (day.Day <= 9)
+                        {
+                            dayforname = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            dayforname = day.Day.ToString();
+
+
+                        }
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo1min\\" + dayforname + yahooieod1[i] + ".csv";
 
                         baseurl = "http://chartapi.finance.yahoo.com/instrument/1.0/" + yahooieod1[i] + "/chartdata;type=quote;range=1d/csv/";
 
@@ -750,13 +784,25 @@ namespace StockD
                         try
                         {
                             string[] csvFileNames = new string[1] { "" };
-                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\Yahoo1min\\" + day.Day + yahooieod1[i] + ".csv";
+                           
+
+                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\Yahoo1min\\" + dayforname + yahooieod1[i] + ".csv";
 
 
 
                             string datetostore = "";
-                             datetostore= day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
-                            ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO1MIN");
+                            string monthtostore = "";
+                            if (day.Month <= 9)
+                            {
+                                monthtostore = "0" + day.Month.ToString();
+                            }
+                            else
+                            {
+                                monthtostore = day.Month.ToString();
+
+                            }
+                            datetostore = day.Year.ToString() + monthtostore + dayforname;
+                           ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO1MIN");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -824,11 +870,31 @@ namespace StockD
 
                         baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s=^" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
 
+                        string monthtostore = "";
+                        if (day.Month <= 9)
+                        {
+                            monthtostore = "0" + day.Month.ToString();
+                        }
+                        else
+                        {
+                            monthtostore = day.Month.ToString();
 
+                        }
+                        string dayforname = "";
+                        if (day.Day <= 9)
+                        {
+                            dayforname = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            dayforname = day.Day.ToString();
+
+
+                        }
                         // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
                         //http://download.finance.yahoo.com/d/quotes.csv?s=^DJI+TCS+AA+AXP+BA+C+CAT+DD+DIS+EK+GE+HD+HON+HPQ+IBM+INTC+IP+JNJ+JPM+KO+MCD+MMM+MO+MRK+MSFT+PG+T+UTX+WMT+XOM&f=snl1d1t1c1ohgv&e=.csv%20[^]
                         downliaddata(strYearDir, baseurl);
-                        string datetostrore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
+                        string datetostrore = day.Year.ToString() + monthtostore + dayforname;
                         string[] namert = new string[1] { "" };
                         namert[0] = strYearDir;
                         ExecuteYAHOOProcessing(namert, datetostrore, "YAHOORT");
@@ -886,9 +952,23 @@ namespace StockD
 
                     for (int i = 0; i <yahooieod5.Count() ; i++)
                     {
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + day.Day + yahooieod5[i] + ".csv";
 
-                        baseurl = "http://chartapi.finance.yahoo.com/instrument/5.0/" + yahooieod5[i] + "/chartdata;type=quote;range=5d/csv/";
+
+                        string dayforname = "";
+                        if (day.Day <= 9)
+                        {
+                            dayforname = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            dayforname = day.Day.ToString();
+
+
+                        }
+
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + dayforname + yahooieod5[i] + ".csv";
+
+                        baseurl = "http://chartapi.finance.yahoo.com/instrument/5.0/" + yahooieod5[i] + "/chartdata;type=quote;range=1d/csv/";
 
 
                         // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
@@ -899,13 +979,22 @@ namespace StockD
                         try
                         {
                             string[] csvFileNames = new string[1] { "" };
-                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + day.Day + yahooieod5[i] + ".csv";
+                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + dayforname + yahooieod5[i] + ".csv";
 
+                            string monthtostore = "";
+                            if (day.Month <= 9)
+                            {
+                                monthtostore = "0" + day.Month.ToString();
+                            }
+                            else
+                            {
+                                monthtostore = day.Month.ToString();
 
-
+                            }
+                            
                             string datetostore = "";
-                            datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
-                            ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO5MIN");
+                            datetostore = day.Year.ToString() + monthtostore + dayforname;
+                           ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO5MIN");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1121,7 +1210,7 @@ namespace StockD
 
                     for (int i = 0; i < yahooeod.Count(); i++)
                     {
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooEod\\" + day.Day + yahooeod[i] + ".csv";
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooEod\\" + date1 + yahooeod[i] + ".csv";
                         string e1=Convert.ToInt32(date1)+1.ToString();
                         baseurl = "http://ichart.finance.yahoo.com/table.csv?s=" + yahooeod[i] + "&a=" + date2 + day.Month + "&b=" + date1 + "&c=" + day.Year + "&d=" + date2 + "&e" + e1 + "&f=" + day.Year + "&g=d";
                                   //http://ichart.finance.yahoo.com/table.csv?s=ADANIENT.ns&a=045&b=01&c=2013&d=04&e=02&f=2013&g=d"
@@ -1405,7 +1494,7 @@ namespace StockD
 
                             string datetostore = "";
                             datetostore = DateTime.Today.ToString ("yyyyMMdd");
-                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                           ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1813,12 +1902,33 @@ namespace StockD
 
 
                             }
+                            string daytostore = "";
+                            string monthtostore = "";
 
-                            string datetostorre = day.Year + date1;
+                            if (day.Day <= 9)
+                            {
+                                daytostore = "0" + day.Day.ToString();
+                            }
+                            else
+                            {
+                                daytostore = day.Day.ToString();
+
+                            }
+                            if (day.Month <= 9)
+                            {
+                                monthtostore = "0" + day.Month.ToString();
+                            }
+                            else
+                            {
+                                monthtostore = day.Month.ToString();
+
+                            }
+
+                            string datetostore1 = day.Year.ToString() + monthtostore + daytostore;
                             try
                             {
 
-                                ExecuteFUTUREProcessing(PRFO, "CF", datetostorre, sec);
+                                ExecuteFUTUREProcessing(PRFO, "CF", datetostore1, sec);
                                 filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                                 if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                                 {
@@ -3090,14 +3200,36 @@ namespace StockD
                      string[] csvFileNames = Directory.GetFiles(txtTargetFolder.Text + "\\Downloads\\bse", "*.csv");
                   if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                          Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                  string daytostore = "";
+                  string monthtostore = "";
 
+                  if (day.Day <= 9)
+                  {
+                      daytostore = "0" + day.Day.ToString();
+                  }
+                  else
+                  {
+                      daytostore = day.Day.ToString();
+
+                  }
+                  if (day.Month <= 9)
+                  {
+                      monthtostore = "0" + day.Month.ToString();
+                  }
+                  else
+                  {
+                      monthtostore = day.Month.ToString();
+
+                  }
+
+                  string datetostore1 = day.Year.ToString() + monthtostore + daytostore;
                   try
                   {
 
                       JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\BSE_INDICES_BSEIndex" + day.Day + day.Month + day.Year + ".csv");
                       string[] bsefilename = new string[1] { "" };
                       bsefilename[0] = txtTargetFolder.Text + "\\Downloads\\BSE_INDICES_BSEIndex" + day.Day + day.Month + day.Year + ".csv";
-                      ExecuteINDEXProcessing(bsefilename, "BSEINDEX", day.Year + date1 + date2.ToString(), secname);
+                      ExecuteINDEXProcessing(bsefilename, "BSEINDEX", day.Year + monthtostore  + daytostore , secname);
                       filetransfer(bsefilename[0], txtTargetFolder.Text + "\\STD_CSV\\BSE_INDICES_BSEIndex" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
                       if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                       {
@@ -3271,12 +3403,34 @@ namespace StockD
 
                      string[] strbse = new string[1] { "" };
                      strbse[0] = strYearDir;
-                     string datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
+                     string daytostore = "";
+                     string monthtostore = "";
+
+                     if (day.Day <= 9)
+                     {
+                         daytostore = "0" + day.Day.ToString();
+                     }
+                     else
+                     {
+                         daytostore = day.Day.ToString();
+
+                     }
+                     if (day.Month <= 9)
+                     {
+                         monthtostore = "0" + day.Month.ToString();
+                     }
+                     else
+                     {
+                         monthtostore = day.Month.ToString();
+
+                     }
+
+                     string datetostore1 = day.Year.ToString() + monthtostore + daytostore;
 
                      try
                      {
-                         NCDEX_Processing(strbse, datetostore, txtTargetFolder.Text + "\\");
-                         filetransfer(strbse[0], txtTargetFolder.Text + "\\STD_CSV\\NCDEX_MARKET" +datetostore+ ".csv");
+                         NCDEX_Processing(strbse, datetostore1, txtTargetFolder.Text + "\\");
+                         filetransfer(strbse[0], txtTargetFolder.Text + "\\STD_CSV\\NCDEX_MARKET" +datetostore1+ ".csv");
                          if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                          {
                              Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -4571,6 +4725,32 @@ namespace StockD
                             }
                         }
 
+                        int hrs = Convert.ToInt32(HRS.SelectedItem);
+                        int min = Convert.ToInt32(MIN.SelectedItem);
+                        //5 hrs and 30 min is default
+                       int   hrstostore=Convert.ToInt32( hrs-5);   
+                      int   mintostore=Convert.ToInt32(min-30);
+                      DateTime timefromyahoo = DateTime.Today ;
+                        if(hrs>5 && min>30)
+                        {
+                        timefromyahoo = new DateTime(1970, 1, 1, hrstostore , mintostore , 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                        }
+                        else if(hrs>5 && min<=30)
+                        {
+                      timefromyahoo = new DateTime(1970, 1, 1, hrstostore ,0 , 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                        }
+                         else if(hrs<5 && min>30)
+                        {
+                        timefromyahoo = new DateTime(1970, 1, 1, 0 ,mintostore  , 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                         }
+                        else
+                        {
+                            timefromyahoo = new DateTime(1970, 1, 1, 0, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+
+                        }
+                        string timetostore = yahootime(timefromyahoo);
+                        finalarr[icntr].time = timetostore;
+
                         finalarr[icntr].name = nameofcompany;
                         finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
                         finalarr[icntr].open = resbsecsv1[icntr].OPEN_PRICE;
@@ -4626,9 +4806,35 @@ namespace StockD
                             nameofcompany = YahooNamesave[i];
                         }
                     }
+                    int  hrs = Convert.ToInt32(HRS.SelectedItem);
+                    int  min =Convert.ToInt32( MIN.SelectedItem);
+                    //5 hrs and 30 min is default
+                    int hrstostore = Convert.ToInt32(hrs - 5);
+                    int mintostore = Convert.ToInt32(min - 30);
+                    DateTime timefromyahoo=DateTime.Today ;
+                    if (hrs > 5 && min > 30)
+                    {
+                        timefromyahoo = new DateTime(1970, 1, 1, hrstostore, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv[icntr].Name));
+                    }
+                    else if (hrs > 5 && min <= 30)
+                    {
+                        timefromyahoo = new DateTime(1970, 1, 1, hrstostore, 0, 0).AddSeconds(Convert.ToInt64(resbsecsv[icntr].Name));
+                    }
+                    else if (hrs < 5 && min > 30)
+                    {
+                        timefromyahoo = new DateTime(1970, 1, 1, 0, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv[icntr].Name));
+                    }
+                    else
+                    {
+                        timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt64(resbsecsv[icntr].Name));
+
+                    }
+                       
+                    string timetostore = yahootime(timefromyahoo);
+                    finalarr[icntr].time = timetostore;
 
                     finalarr[icntr].name = nameofcompany;
-                    
+
                     finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
                     finalarr[icntr].open = resbsecsv[icntr].OPEN_PRICE;
                     finalarr[icntr].high = resbsecsv[icntr].HIGH_PRICE;
@@ -4653,6 +4859,241 @@ namespace StockD
             }
 
 
+        }
+
+
+        public string yahootime(DateTime timetostore)
+        {
+
+
+            if (timetostore.Hour == 03)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "19:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "20:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            if (timetostore.Hour == 04)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "20:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "21:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            if (timetostore.Hour == 05)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "21:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "22:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            if (timetostore.Hour == 06)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "22:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "23:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            if (timetostore.Hour == 07)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "23:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "24:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+
+            if (timetostore.Hour == 13)
+            {
+                if (timetostore.Minute > 30)
+                {
+                   return  "00:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                  return  "00:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+
+
+
+            else if (timetostore.Hour == 14)
+            {
+                if (timetostore.Minute <30)
+                {
+                    return "00:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "01:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 15)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "01:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "02:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 16)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "02:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "03:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+
+            else if (timetostore.Hour == 17)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "03:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "04:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 18)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "04:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "05:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+
+            else if (timetostore.Hour == 19)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "05:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "06:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 20)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "06:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "07:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 21)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "07:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "08:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 22)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "08:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "09:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 23)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "09:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "10:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            else if (timetostore.Hour == 24)
+            {
+                if (timetostore.Minute < 30)
+                {
+                    return "10:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "11:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
+            return null;
         }
 
         public void ExecuteMCSSXProcessing(string[] strBSECSVArr,string datetostore, string strOutputFolder)
@@ -7931,6 +8372,13 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
         {
                       // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
 
+            //DateTime a = 1372859263000 / 86400 + 25569 + (5.5 / 24);
+
+
+           // (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(_UnixTimeStamp)
+
+            //System.Windows.MessageBox.Show(d.ToString());
+
         }
         private void linkclick()
         {
@@ -8125,6 +8573,12 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
 
             string strYearDir, baseurl;
             strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoosy.txt";
+
+                if(!Directory.Exists (txtTargetFolder.Text + "\\Downloads"))
+                {
+                Directory.CreateDirectory (txtTargetFolder.Text + "\\Downloads");
+                }
+
 
             //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
 
