@@ -968,7 +968,7 @@ namespace StockD
 
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min\\" + dayforname + yahooieod5[i] + ".csv";
 
-                        baseurl = "http://chartapi.finance.yahoo.com/instrument/5.0/" + yahooieod5[i] + "/chartdata;type=quote;range=1d/csv/";
+                        baseurl = "http://chartapi.finance.yahoo.com/instrument/5.0/" + yahooieod5[i] + "/chartdata;type=quote;range=5d/csv/";
 
 
                         // "http://chartapi.finance.yahoo.com/instrument/5.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
@@ -1305,9 +1305,9 @@ namespace StockD
                     for (int i = 0; i < GoogleEod.Count(); i++)
                     {
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod\\" + day.Day + GoogleEod[i] + ".csv";
-                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod [i] +"&x="+GoogleEod [i]+"&i=5&p=15d&f=d,o,h,l,c,v";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod[i] + "&x=NSE&i=60&p=5d&f=d,o,h,l&df=cpct&auto=1&ts=1266701290218";
                         // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=d&p=15d&f=d,o,h,l,c,v"
-
+                        //http://www.google.com/finance/getprices?q=RELIANCE&x=NSE&i=60&p=5d&f=d,c,o,h,l&df=cpct&auto=1&ts=1266701290218 [^]
 
                         downliaddata(strYearDir, baseurl);
 
@@ -1321,6 +1321,27 @@ namespace StockD
 
 
                             string datetostore = "";
+                            string monthtostore = "";
+                          string  dayforname="";
+                            if (day.Month <= 9)
+                            {
+                                monthtostore = "0" + day.Month.ToString();
+                            }
+                            else
+                            {
+                                monthtostore = day.Month.ToString();
+
+                            } if (day.Day  <= 9)
+                            {
+                                dayforname = "0" + day.Day.ToString();
+                            }
+                            else
+                            {
+                                dayforname = day.Day.ToString();
+
+                            }
+                            datetostore = day.Year.ToString() + monthtostore + dayforname;
+
                             datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
                             ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
@@ -1389,25 +1410,49 @@ namespace StockD
 
                     for (int i = 0; i < 14; i++)
                     {
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + day.Day + GoogleIEod[i] + ".csv";
-                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&i=60&p=15d&f=d,o,h,l,c,v";
+                        string dayforname = "";
+
+                        if (day.Day <= 9)
+                        {
+                            dayforname = "0" + day.Day.ToString();
+                        }
+                        else
+                        {
+                            dayforname = day.Day.ToString();
+
+                        }
+
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + dayforname + GoogleIEod[i] + ".csv";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&x=NSE&i=300&p="+Daysforgoogle.SelectedItem.ToString()+"d&f=d,o,h,l,c,v&df=cpct&auto=1&ts=1266701290218";
+
                         // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=60&p=15d&f=d,o,h,l,c,v"
 
 
                         downliaddata(strYearDir, baseurl);
 
-
+                        
 
                         try
                         {
                             string[] csvFileNames = new string[1] { "" };
-                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + day.Day + GoogleIEod[i] + ".csv";
+                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN\\" + dayforname + GoogleIEod[i] + ".csv";
 
 
 
-                            string datetostore = "";
-                            datetostore = DateTime.Today.ToString ("yyyyMMdd");
-                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                           string datetostore = "";
+                            string monthtostore = "";
+                            if (day.Month <= 9)
+                            {
+                                monthtostore = "0" + day.Month.ToString();
+                            }
+                            else
+                            {
+                                monthtostore = day.Month.ToString();
+
+                            }
+                            
+                            datetostore = day.Year.ToString() + monthtostore + dayforname;
+                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD5MIN");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1471,13 +1516,26 @@ namespace StockD
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
+                    string dayforname = "";
+
+                    if (day.Day <= 9)
+                    {
+                        dayforname = "0" + day.Day.ToString();
+                    }
+                    else
+                    {
+                        dayforname = day.Day.ToString();
+
+                    }
+
                     System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                     string strMonthName = mfi.GetMonthName(day.Month).ToString();
 
                     for (int i = 0; i < 14; i++)
                     {
-                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod\\" + day.Day + GoogleIEod[i] + ".csv";
-                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&i=60&p=15d&f=d,o,h,l,c,v";
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod\\" + dayforname + GoogleIEod[i] + ".csv";
+                        baseurl = "http://www.google.com/finance/getprices?q=" + GoogleIEod[i] + "&x=NSE&i=60&p=" + Daysforgoogle.SelectedItem.ToString() + "d&f=d,o,h,l,c,v&df=cpct&auto=1&ts=1266701290218";
+
                         // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=60&p=15d&f=d,o,h,l,c,v"
 
 
@@ -1488,7 +1546,7 @@ namespace StockD
                         try
                         {
                             string[] csvFileNames = new string[1] { "" };
-                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\GoogleIeod\\" + day.Day + GoogleIEod[i] + ".csv";
+                            csvFileNames[0] = txtTargetFolder.Text + "\\Downloads\\GoogleIeod\\" + dayforname + GoogleIEod[i] + ".csv";
 
 
 
@@ -4528,7 +4586,94 @@ namespace StockD
         }
         public void ExecuteYAHOOProcessing(string[] strBSECSVArr,string datetostore,string name)
         {
+            if (name == "GOOGLEEOD5MIN")
+            {
+                FileHelperEngine engineBSECSV1 = new FileHelperEngine(typeof(GOOGLE));
 
+                DelimitedClassBuilder cb1 = BuildNSECMPFile();
+
+
+                foreach (string obj in strBSECSVArr)
+                {
+
+                    //Get BSE Equity Filename day, month, year
+                    string[] words = obj.Split('\\');
+
+                    string strbseequityfilename = words[words.Length - 1];
+
+
+                    GOOGLE[] resbsecsv1 = engineBSECSV1.ReadFile(obj) as GOOGLE[];
+
+
+                    GOOGLEFINAL[] finalarr = new GOOGLEFINAL[resbsecsv1.Length];
+                    DateTime myDate;
+                    int icntr = 0;
+                    int hrs = Convert.ToInt32(GHRS.SelectedItem);
+                    int min = Convert.ToInt32(GMIN.SelectedItem);
+                    int hrstostore = Convert.ToInt32(hrs - 5);
+                    int mintostore = Convert.ToInt32(min - 30);
+                    DateTime timefromyahoo = DateTime.Today;
+
+                    //if (hrs > 5 && min > 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, hrstostore, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else if (hrs > 5 && min <= 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, hrstostore, 0, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else if (hrs < 5 && min > 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, 0, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else
+                    //{
+                    long valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
+
+                    // }
+
+
+                    while (icntr < resbsecsv1.Length)
+                    {
+                        finalarr[icntr] = new GOOGLEFINAL();
+                        finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
+                        finalarr[icntr].name = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6); ;
+
+
+                        timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(valueforgoogletime);
+                        valueforgoogletime = valueforgoogletime + 300;
+
+                        string timetostore = yahootime(timefromyahoo);
+
+                        string[] yahoodate = timefromyahoo.ToString().Split('/');
+
+                        datetostore = yahoodate[2].Substring(0, 4) + yahoodate[1] + yahoodate[0];
+
+
+
+                        finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
+                        finalarr[icntr].open = resbsecsv1[icntr].OPEN_PRICE;
+                        finalarr[icntr].high = resbsecsv1[icntr].HIGH_PRICE;
+                        finalarr[icntr].low = resbsecsv1[icntr].LOW_PRICE;
+                        finalarr[icntr].close = resbsecsv1[icntr].CLOSE_PRICE;
+                        finalarr[icntr].volume = resbsecsv1[icntr].volume;
+                        finalarr[icntr].time = timetostore;
+
+                        finalarr[icntr].openint = 0;  //enint;
+
+
+                        icntr++;
+                    }
+
+                    FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(GOOGLEFINAL));
+                    engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
+                    engineBSECSVFINAL.WriteFile(obj, finalarr);
+
+                }
+                return;
+
+
+            }
 
             if(name=="GOOGLEEOD")
             {
@@ -4552,18 +4697,57 @@ namespace StockD
                     GOOGLEFINAL[] finalarr = new GOOGLEFINAL[resbsecsv1.Length];
                     DateTime myDate;
                     int icntr = 0;
+                    int hrs = Convert.ToInt32(GHRS.SelectedItem);
+                    int min = Convert.ToInt32(GMIN.SelectedItem);
+                    int hrstostore = Convert.ToInt32(hrs - 5);
+                    int mintostore = Convert.ToInt32(min - 30);
+                    DateTime timefromyahoo = DateTime.Today;
+                   
+                    //if (hrs > 5 && min > 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, hrstostore, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else if (hrs > 5 && min <= 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, hrstostore, 0, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else if (hrs < 5 && min > 30)
+                    //{
+                    //    timefromyahoo = new DateTime(1970, 1, 1, 0, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                    //}
+                    //else
+                    //{
+                        long  valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
+
+                   // }
+                        
+
                     while (icntr < resbsecsv1.Length)
                     {
                         finalarr[icntr] = new GOOGLEFINAL();
+                       
+
+
+                        timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(valueforgoogletime );
+                        valueforgoogletime=valueforgoogletime+60;
+
+                        string timetostore = yahootime(timefromyahoo);
+                       
+
+                        string[] yahoodate = timefromyahoo.ToString().Split('/');
+
+                        datetostore = yahoodate[2].Substring(0, 4) + yahoodate[1] + yahoodate[0];
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
                         finalarr[icntr].name = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6); ;
+
+
                         finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
                         finalarr[icntr].open = resbsecsv1[icntr].OPEN_PRICE;
                         finalarr[icntr].high = resbsecsv1[icntr].HIGH_PRICE;
                         finalarr[icntr].low = resbsecsv1[icntr].LOW_PRICE;
                         finalarr[icntr].close = resbsecsv1[icntr].CLOSE_PRICE;
                         finalarr[icntr].volume = resbsecsv1[icntr].volume;
-                        finalarr[icntr].time = "";
+                        finalarr[icntr].time = timetostore;
 
                         finalarr[icntr].openint = 0;  //enint;
 
@@ -4745,14 +4929,17 @@ namespace StockD
                          }
                         else
                         {
-                            timefromyahoo = new DateTime(1970, 1, 1, 0, mintostore, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
+                            timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt64(resbsecsv1[icntr].Name));
 
                         }
                         string timetostore = yahootime(timefromyahoo);
                         finalarr[icntr].time = timetostore;
+                        string[] yahoodate = timefromyahoo.ToString().Split('/');
 
+                        datetostore = yahoodate[2].Substring(0, 4)+yahoodate[1] + yahoodate[0] ;
                         finalarr[icntr].name = nameofcompany;
                         finalarr[icntr].date = datetostore; // String.Format("{0:yyyyMMdd}", myDate);
+                       
                         finalarr[icntr].open = resbsecsv1[icntr].OPEN_PRICE;
                         finalarr[icntr].high = resbsecsv1[icntr].HIGH_PRICE;
                         finalarr[icntr].low = resbsecsv1[icntr].LOW_PRICE;
@@ -4931,6 +5118,19 @@ namespace StockD
 
                 }
             }
+            if (timetostore.Hour == 08)
+            {
+                if (timetostore.Minute > 30)
+                {
+                    return "24:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+                else
+                {
+                    return "24:" + timetostore.Minute.ToString() + ":" + timetostore.Second.ToString();
+
+                }
+            }
 
             if (timetostore.Hour == 13)
             {
@@ -5093,7 +5293,9 @@ namespace StockD
 
                 }
             }
-            return null;
+            
+
+            return null  ;
         }
 
         public void ExecuteMCSSXProcessing(string[] strBSECSVArr,string datetostore, string strOutputFolder)
@@ -7377,9 +7579,19 @@ namespace StockD
            {
                timetoRT.Items.Add(i);
            }
+           for (int i = 0; i < 12; i++)
+           {
+               GHRS.Items.Add(i);
+           }
 
-
-
+           for (int i = 0; i < 60; i++)
+           {
+               GMIN.Items.Add(i);
+           }
+           for (int i = 1; i < 50; i++)
+           {
+              Daysforgoogle  .Items.Add(i);
+           }
 
 
 
@@ -7548,335 +7760,320 @@ namespace StockD
            dtStartDate.Text = DateTime.Today.Date.ToShortDateString();
 
 
-            string chktmp = ConfigurationManager.AppSettings["txtTargetFolder"];
-            bool btemp = false;
+           string chktmp = ConfigurationManager.AppSettings["txtTargetFolder"];
+           bool btemp = false;
 
-            //if (chktmp == "")
-            //{
-            //    if (!Directory.Exists("C:\\data"))
-            //    {
-            //        Directory.CreateDirectory("C:\\data");
-            //    }
-            //    this.txtTargetFolder.Text = "C:\\data";
-            //}
-            //else
-            //{
+           this.txtTargetFolder.Text = chktmp;
 
-                this.txtTargetFolder.Text = chktmp;
-           // }
 
 
-                
-             chktmp = ConfigurationManager.AppSettings["Cb_BSE_CASH_MARKET"];
-            btemp = false;
-            if (chktmp != null)
-                btemp = bool.Parse(chktmp);
-            this.Cb_BSE_CASH_MARKET.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["Cb_BSE_CASH_MARKET"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_BSE_CASH_MARKET.IsChecked = btemp;
 
 
-                chktmp = ConfigurationManager.AppSettings["BSE_Delivary_Data"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.BSE_Delivary_Data.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["BSE_Delivary_Data"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.BSE_Delivary_Data.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_EOD_BhavCopy"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_EOD_BhavCopy.IsChecked = btemp;
 
-                
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_EOD_BhavCopy"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_EOD_BhavCopy.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["BSE_Delivary_Data"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.BSE_Delivary_Data.IsChecked = btemp;
 
 
+           chktmp = ConfigurationManager.AppSettings["BSE_Delivary_Data"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.BSE_Delivary_Data.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["BSE_Block"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.BSE_Block.IsChecked = btemp;
 
 
+           chktmp = ConfigurationManager.AppSettings["BSE_Block"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.BSE_Block.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["BSE_Bulk"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.BSE_Bulk.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Currency"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Currency.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["BSE_Bulk"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.BSE_Bulk.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Block"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Block.IsChecked = btemp;
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Currency"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Currency.IsChecked = btemp;
 
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Bulk"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Bulk.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Block"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Block.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Bulk"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Bulk.IsChecked = btemp;
 
 
 
 
 
 
-                chktmp = ConfigurationManager.AppSettings["Cb_BSE_Equity_Futures"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_BSE_Equity_Futures.IsChecked = btemp;
 
 
-                chktmp = ConfigurationManager.AppSettings["BSE_Index"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.BSE_Index.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["ChkBseFo"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.ChkBseFo.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkEquity"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkEquity.IsChecked = btemp;
-
-                //  Cb_NSE_EOD_BhavCopy.IsChecked = t1.Cb_NSE_EOD_BhavCopy;
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Forex_Options"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Forex_Options.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_SME"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_SME.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_ETF"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_ETF.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Index"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Index.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_Reports"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_Reports.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkCombinedReport"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkCombinedReport.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkNseForex"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkNseForex.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkNseNcdex"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkNseNcdex.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Market_Activity"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Market_Activity.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_PR"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_PR.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Bulk_Deal"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Bulk_Deal.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Block_Deal"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Block_Deal.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_India_Vix"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_India_Vix.IsChecked = btemp;
-
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_NSE_Vix"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_NSE_Vix.IsChecked = btemp;
-
-
-
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Forex_Future"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Forex_Future.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Equity_Futures"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Equity_Futures.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["MCXCommodity_Futures"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXCommodity_Futures.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["MCXSX_Equity_Options"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSX_Equity_Options.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["MCXSXForex_Options"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCXSXForex_Options.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["National_Spot_Exchange"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.National_Spot_Exchange.IsChecked = btemp;
-
-               
-
-                chktmp = ConfigurationManager.AppSettings["MCX_Index"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.MCX_Index.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkYahooEOD"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkYahooEOD.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["ChkYahooIEOD1"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.ChkYahooIEOD1.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["chkYahooFundamental"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.chkYahooFundamental.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["ChkYahooIEOD5"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.ChkYahooIEOD5.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_Yahoo_Realtime"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_Yahoo_Realtime.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["ChkGoogleEOD"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.ChkGoogleEOD.IsChecked = btemp;
-               
-                chktmp = ConfigurationManager.AppSettings["ChkGoogleIEOD"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.ChkGoogleIEOD.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_MCX_Google_IEOD_5min"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_MCX_Google_IEOD_5min.IsChecked = btemp;
-
-                chktmp = ConfigurationManager.AppSettings["Cb_Corporate_Events"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_Corporate_Events.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_Board_Message"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_Board_Message.IsChecked = btemp;
-
-
-                chktmp = ConfigurationManager.AppSettings["Cb_Delete_all_events"];
-                btemp = false;
-                if (chktmp != null)
-                    btemp = bool.Parse(chktmp);
-                this.Cb_Delete_all_events.IsChecked = btemp;
+           chktmp = ConfigurationManager.AppSettings["Cb_BSE_Equity_Futures"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_BSE_Equity_Futures.IsChecked = btemp;
 
 
+           chktmp = ConfigurationManager.AppSettings["BSE_Index"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.BSE_Index.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["ChkBseFo"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.ChkBseFo.IsChecked = btemp;
 
+           chktmp = ConfigurationManager.AppSettings["chkEquity"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkEquity.IsChecked = btemp;
+
+           //  Cb_NSE_EOD_BhavCopy.IsChecked = t1.Cb_NSE_EOD_BhavCopy;
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Forex_Options"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Forex_Options.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_SME"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_SME.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_ETF"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_ETF.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Index"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Index.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_Reports"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_Reports.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["chkCombinedReport"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkCombinedReport.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["chkNseForex"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkNseForex.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["chkNseNcdex"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkNseNcdex.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Market_Activity"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Market_Activity.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_PR"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_PR.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Bulk_Deal"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Bulk_Deal.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Block_Deal"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Block_Deal.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_India_Vix"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_India_Vix.IsChecked = btemp;
+
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_NSE_Vix"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_NSE_Vix.IsChecked = btemp;
+
+
+
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Forex_Future"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Forex_Future.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Equity_Futures"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Equity_Futures.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["MCXCommodity_Futures"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXCommodity_Futures.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["MCXSX_Equity_Options"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSX_Equity_Options.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["MCXSXForex_Options"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCXSXForex_Options.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["National_Spot_Exchange"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.National_Spot_Exchange.IsChecked = btemp;
+
+         
+
+           chktmp = ConfigurationManager.AppSettings["MCX_Index"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.MCX_Index.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["chkYahooEOD"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkYahooEOD.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["ChkYahooIEOD1"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.ChkYahooIEOD1.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["chkYahooFundamental"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.chkYahooFundamental.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["ChkYahooIEOD5"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.ChkYahooIEOD5.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_Yahoo_Realtime"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_Yahoo_Realtime.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["ChkGoogleEOD"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.ChkGoogleEOD.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["ChkGoogleIEOD"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.ChkGoogleIEOD.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_MCX_Google_IEOD_5min"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_MCX_Google_IEOD_5min.IsChecked = btemp;
+
+           chktmp = ConfigurationManager.AppSettings["Cb_Corporate_Events"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_Corporate_Events.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_Board_Message"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_Board_Message.IsChecked = btemp;
+
+
+           chktmp = ConfigurationManager.AppSettings["Cb_Delete_all_events"];
+           btemp = false;
+           if (chktmp != null)
+               btemp = bool.Parse(chktmp);
+           this.Cb_Delete_all_events.IsChecked = btemp;
                
 
             
@@ -7904,14 +8101,14 @@ namespace StockD
 
 
 
-            
+
 
             {
-               
-                
-               
 
-                
+
+
+
+
                 config.AppSettings.Settings.Remove("txtTargetFolder");
 
                 config.AppSettings.Settings.Add("txtTargetFolder", txtTargetFolder.Text.ToString());
@@ -7993,190 +8190,191 @@ namespace StockD
                 ConfigurationManager.RefreshSection("appSettings");
 
 
-config.AppSettings.Settings.Remove("chkNseNcdex");
-config.AppSettings.Settings.Add("chkNseNcdex", chkNseNcdex.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("chkNseNcdex");
+                config.AppSettings.Settings.Add("chkNseNcdex", chkNseNcdex.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
 
 
-config.AppSettings.Settings.Remove("MCXSX_Forex_Future");
-config.AppSettings.Settings.Add("MCXSX_Forex_Future", MCXSX_Forex_Future.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("MCXSX_Forex_Future");
+                config.AppSettings.Settings.Add("MCXSX_Forex_Future", MCXSX_Forex_Future.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSX_Equity_Futures");
-config.AppSettings.Settings.Add("MCXSX_Equity_Futures", MCXSX_Equity_Futures.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("MCXSX_Equity_Futures");
+                config.AppSettings.Settings.Add("MCXSX_Equity_Futures", MCXSX_Equity_Futures.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
 
-config.AppSettings.Settings.Remove("MCXCommodity_Futures");
-config.AppSettings.Settings.Add("MCXCommodity_Futures", MCXCommodity_Futures.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("MCXCommodity_Futures");
+                config.AppSettings.Settings.Add("MCXCommodity_Futures", MCXCommodity_Futures.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
 
-config.AppSettings.Settings.Remove("MCXSX_Equity_Options");
-config.AppSettings.Settings.Add("MCXSX_Equity_Options", MCXSX_Equity_Options.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("MCXSX_Equity_Options");
+                config.AppSettings.Settings.Add("MCXSX_Equity_Options", MCXSX_Equity_Options.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSXForex_Options");
-config.AppSettings.Settings.Add("MCXSXForex_Options", MCXSXForex_Options.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("MCXSXForex_Options");
+                config.AppSettings.Settings.Add("MCXSXForex_Options", MCXSXForex_Options.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
 
-config.AppSettings.Settings.Remove("National_Spot_Exchange");
-config.AppSettings.Settings.Add("National_Spot_Exchange", National_Spot_Exchange.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("National_Spot_Exchange");
+                config.AppSettings.Settings.Add("National_Spot_Exchange", National_Spot_Exchange.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
+            
 
 
+                config.AppSettings.Settings.Remove("MCX_Index");
+                config.AppSettings.Settings.Add("MCX_Index", MCX_Index.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCX_Index");
-config.AppSettings.Settings.Add("MCX_Index", MCX_Index.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("chkYahooEOD");
+                config.AppSettings.Settings.Add("chkYahooEOD", chkYahooEOD.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("chkYahooEOD");
-config.AppSettings.Settings.Add("chkYahooEOD", chkYahooEOD.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("ChkYahooIEOD1");
+                config.AppSettings.Settings.Add("ChkYahooIEOD1", ChkYahooIEOD1.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("ChkYahooIEOD1");
-config.AppSettings.Settings.Add("ChkYahooIEOD1", ChkYahooIEOD1.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("chkYahooFundamental");
+                config.AppSettings.Settings.Add("chkYahooFundamental", chkYahooFundamental.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("chkYahooFundamental");
-config.AppSettings.Settings.Add("chkYahooFundamental", chkYahooFundamental.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("ChkYahooIEOD5");
+                config.AppSettings.Settings.Add("ChkYahooIEOD5", ChkYahooIEOD5.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("ChkYahooIEOD5");
-config.AppSettings.Settings.Add("ChkYahooIEOD5", ChkYahooIEOD5.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("Cb_Yahoo_Realtime");
+                config.AppSettings.Settings.Add("Cb_Yahoo_Realtime", Cb_Yahoo_Realtime.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_Yahoo_Realtime");
-config.AppSettings.Settings.Add("Cb_Yahoo_Realtime", Cb_Yahoo_Realtime.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("ChkGoogleEOD");
+                config.AppSettings.Settings.Add("ChkGoogleEOD", ChkGoogleEOD.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("ChkGoogleEOD");
-config.AppSettings.Settings.Add("ChkGoogleEOD", ChkGoogleEOD.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("Cb_MCX_Google_IEOD_5min");
+                config.AppSettings.Settings.Add("Cb_MCX_Google_IEOD_5min", Cb_MCX_Google_IEOD_5min.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_MCX_Google_IEOD_5min");
-config.AppSettings.Settings.Add("Cb_MCX_Google_IEOD_5min", Cb_MCX_Google_IEOD_5min.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
+                config.AppSettings.Settings.Remove("Cb_Corporate_Events");
+                config.AppSettings.Settings.Add("Cb_Corporate_Events", Cb_Corporate_Events.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_Corporate_Events");
-config.AppSettings.Settings.Add("Cb_Corporate_Events", Cb_Corporate_Events.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
 
+                config.AppSettings.Settings.Remove("Cb_Board_Message");
+                config.AppSettings.Settings.Add("Cb_Board_Message", Cb_Board_Message.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_Board_Message");
-config.AppSettings.Settings.Add("Cb_Board_Message", Cb_Board_Message.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
 
+                config.AppSettings.Settings.Remove("Cb_Delete_all_events");
+                config.AppSettings.Settings.Add("Cb_Delete_all_events", Cb_Delete_all_events.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_Delete_all_events");
-config.AppSettings.Settings.Add("Cb_Delete_all_events", Cb_Delete_all_events.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
+                config.AppSettings.Settings.Remove("Cb_NSE_Market_Activity");
+                config.AppSettings.Settings.Add("Cb_NSE_Market_Activity", Cb_NSE_Market_Activity.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_Market_Activity");
-config.AppSettings.Settings.Add("Cb_NSE_Market_Activity", Cb_NSE_Market_Activity.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("Cb_NSE_PR");
+                config.AppSettings.Settings.Add("Cb_NSE_PR", Cb_NSE_PR.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_PR");
-config.AppSettings.Settings.Add("Cb_NSE_PR", Cb_NSE_PR.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("Cb_NSE_Bulk_Deal");
+                config.AppSettings.Settings.Add("Cb_NSE_Bulk_Deal", Cb_NSE_Bulk_Deal.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_Bulk_Deal");
-config.AppSettings.Settings.Add("Cb_NSE_Bulk_Deal", Cb_NSE_Bulk_Deal.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("Cb_NSE_Block_Deal");
+                config.AppSettings.Settings.Add("Cb_NSE_Block_Deal", Cb_NSE_Block_Deal.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_Block_Deal");
-config.AppSettings.Settings.Add("Cb_NSE_Block_Deal", Cb_NSE_Block_Deal.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("Cb_NSE_India_Vix");
+                config.AppSettings.Settings.Add("Cb_NSE_India_Vix", Cb_NSE_India_Vix.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_India_Vix");
-config.AppSettings.Settings.Add("Cb_NSE_India_Vix", Cb_NSE_India_Vix.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("Cb_NSE_Vix");
+                config.AppSettings.Settings.Add("Cb_NSE_Vix", Cb_NSE_Vix.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("Cb_NSE_Vix");
-config.AppSettings.Settings.Add("Cb_NSE_Vix", Cb_NSE_Vix.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("BSE_Delivary_Data");
+                config.AppSettings.Settings.Add("BSE_Delivary_Data", BSE_Delivary_Data.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("BSE_Delivary_Data");
-config.AppSettings.Settings.Add("BSE_Delivary_Data", BSE_Delivary_Data.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("BSE_Index");
+                config.AppSettings.Settings.Add("BSE_Index", BSE_Index.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("BSE_Index");
-config.AppSettings.Settings.Add("BSE_Index", BSE_Index.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
+                config.AppSettings.Settings.Remove("BSE_Block");
+                config.AppSettings.Settings.Add("BSE_Block", BSE_Block.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("BSE_Block");
-config.AppSettings.Settings.Add("BSE_Block", BSE_Block.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("BSE_Bulk");
+                config.AppSettings.Settings.Add("BSE_Bulk", BSE_Bulk.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("BSE_Bulk");
-config.AppSettings.Settings.Add("BSE_Bulk", BSE_Bulk.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
+                config.AppSettings.Settings.Remove("MCXSX_Currency");
+                config.AppSettings.Settings.Add("MCXSX_Currency", MCXSX_Currency.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSX_Currency");
-config.AppSettings.Settings.Add("MCXSX_Currency", MCXSX_Currency.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
+                config.AppSettings.Settings.Remove("MCXSX_Block");
+                config.AppSettings.Settings.Add("MCXSX_Block", MCXSX_Block.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSX_Block");
-config.AppSettings.Settings.Add("MCXSX_Block", MCXSX_Block.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
+                config.AppSettings.Settings.Remove("MCXSX_Bulk");
+                config.AppSettings.Settings.Add("MCXSX_Bulk", MCXSX_Bulk.IsChecked.Value.ToString());
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
 
-config.AppSettings.Settings.Remove("MCXSX_Bulk");
-config.AppSettings.Settings.Add("MCXSX_Bulk", MCXSX_Bulk.IsChecked.Value.ToString());
-config.Save(ConfigurationSaveMode.Full);
-ConfigurationManager.RefreshSection("appSettings");
 
 
 
@@ -8188,12 +8386,11 @@ ConfigurationManager.RefreshSection("appSettings");
 
 
 
+                System.Windows.MessageBox.Show("Changes Save Successfully ");
 
-System.Windows.MessageBox.Show("Changes Save Successfully ");
-                
-                
-                
-                
+
+
+
 
             }
         }
@@ -8375,9 +8572,9 @@ System.Windows.MessageBox.Show("Changes Save Successfully ");
             //DateTime a = 1372859263000 / 86400 + 25569 + (5.5 / 24);
 
 
-           // (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(_UnixTimeStamp)
+        //  DateTime d=  (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(1372650760);
 
-            //System.Windows.MessageBox.Show(d.ToString());
+         //  System.Windows.MessageBox.Show(d.ToString());
 
         }
         private void linkclick()

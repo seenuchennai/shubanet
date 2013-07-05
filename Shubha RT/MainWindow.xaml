@@ -90,8 +90,8 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <WebBrowser Source="http://shubhalabha.in/products/" />
 
+                  
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -227,9 +227,9 @@
                                 <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,92,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
                                 <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="220,92,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
                                 <Label Content="Days For Google EOD" Height="28" HorizontalAlignment="Left" Margin="15,58,0,0" Name="lbl_Days_For_Google_EOD" VerticalAlignment="Top" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="286,92,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="136,58,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" />
-                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,92,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="135,58,0,0" Name="Daysforgoogle" VerticalAlignment="Top" Width="120" SelectedIndex="5" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="70,92,0,0" Name="GHRS" VerticalAlignment="Top" Width="117" SelectedIndex="5" />
+                                <ComboBox Height="23" HorizontalAlignment="Left" Margin="274,92,0,0" Name="GMIN" VerticalAlignment="Top" Width="120" SelectedIndex="30" />
                                 <CheckBox Content="Google EOD" Height="16" Margin="15,25,0,0" Name="ChkGoogleEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleEOD" />
                                 <CheckBox Content="Google IEOD 1Min" Height="16" Margin="135,25,0,0" Name="ChkGoogleIEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkGoogleIEOD" />
                                 <CheckBox Content="Google IEOD 5Min " Height="16" HorizontalAlignment="Left" Margin="298,25,0,0" Name="Cb_MCX_Google_IEOD_5min" VerticalAlignment="Top" />
