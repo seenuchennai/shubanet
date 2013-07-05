@@ -40,7 +40,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>68</ApplicationRevision>
+    <ApplicationRevision>72</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -152,6 +152,8 @@
     <Compile Include="FO.cs" />
     <Compile Include="Google.cs" />
     <Compile Include="Index.cs" />
+    <Compile Include="Market.cs" />
+    <Compile Include="marketdataitem.cs" />
     <Compile Include="MCXBHAV.cs" />
     <Compile Include="MCXINDEX.cs" />
     <Compile Include="MCXSPOTINDEX.cs" />

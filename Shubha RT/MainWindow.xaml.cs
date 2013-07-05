@@ -4374,7 +4374,7 @@ namespace StockD
            
         }
 
-
+       
 
         public void Amibroker(string  strBSECSVArr)
         {
@@ -7573,6 +7573,9 @@ namespace StockD
            comboBox1.Items.Add("Amibroker");
            comboBox1.Items.Add("AdvanceGet");
            comboBox1.Items.Add("Ninja Trader");
+           selectfilebluk.Items.Add("bluk");
+           selectfilebluk.Items.Add("Block");
+
 
 
            for (int i = 3; i < 60;i++ )
@@ -7594,7 +7597,22 @@ namespace StockD
            }
 
 
+           for (int i = 0; i < 7; i++)
+           {
+               string[] nameofcol = new string[8] { "Date","Symbol","Security","Client","Buy ","Quantity Traded"," 	Trade","Remarks"};
 
+
+               var column = new DataGridTextColumn();
+               //if (i < 4)
+               //{
+               column.Header = nameofcol[i];
+               //}
+               column.Binding = new System.Windows.Data.Binding("Column" + i);
+               market  .Columns.Add(column);
+               // savesymbol.Columns.Add(column);
+
+
+           }
 
 
            for (int i = 0; i < 2; i++)
@@ -8567,15 +8585,25 @@ namespace StockD
 
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-                      // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
+            FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(Market ));
+            Market[] resbsecsv = engineBSECSV.ReadFile(@"C:\data\reports\NSE_block_deals.csv") as Market[];
+
+            for (int i = 0; i < resbsecsv.Count() - 1;i++ )
+            {
+                market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+            }
+            
+            
+            
+            // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
 
             //DateTime a = 1372859263000 / 86400 + 25569 + (5.5 / 24);
 
 
-        //  DateTime d=  (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(1372650760);
+        // DateTime d=  (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(1372650760);
 
-         //  System.Windows.MessageBox.Show(d.ToString());
-
+         System.Windows.MessageBox.Show(resbsecsv[0].Date.ToString());
+            
         }
         private void linkclick()
         {
@@ -9010,6 +9038,18 @@ namespace StockD
 
             }
 
+        }
+
+        private void selectfilebluk_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(Market));
+            Market[] resbsecsv = engineBSECSV.ReadFile(@"C:\data\reports\NSE_block_deals.csv") as Market[];
+
+            for (int i = 0; i < resbsecsv.Count() - 1; i++)
+            {
+                market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+            }
+            
         }
 
         

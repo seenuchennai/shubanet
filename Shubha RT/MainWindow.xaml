@@ -196,7 +196,6 @@
                         <l:AccordianItem Header="YAHOO" Background="#FFD6E2F5">
                             
                             <Grid >
-                                <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="la" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
 
                                 <CheckBox Content="Yahoo EOD" Height="16" Margin="175,29,0,0" Name="chkYahooEOD" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooEOD" />
                                 <CheckBox Content="Yahoo IEOD 1 Min" Margin="452,32,0,0" Name="ChkYahooIEOD1" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -222,7 +221,6 @@
                         <l:AccordianItem Header="Google" Background="#FFD6E2F5">
 
                             <Grid>
-                                <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjgh" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
 
                                 <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="15,92,0,0" Name="lbl_GHours" VerticalAlignment="Top" />
                                 <Label Content="Minutes" Height="28" HorizontalAlignment="Left" Margin="220,92,0,0" Name="lbl_GMinutes" VerticalAlignment="Top" />
@@ -270,7 +268,6 @@
                         <ColumnDefinition Width="107*" />
                         <ColumnDefinition Width="597*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" Name="labe" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" Grid.ColumnSpan="2" Width="134" />
 
                     <DataGrid Name="dataGrid3" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserAddRows="False" Margin="0,56,358,-3" SelectionChanged="dataGrid3_SelectionChanged" >
                         
@@ -345,29 +342,19 @@
                 </TabItem.Header>
                 <GroupBox Header="Market Analysis" Height="390" HorizontalAlignment="Left" Margin="13,6,0,0" Name="groupBox4" VerticalAlignment="Top" Width="772">
                     <Grid Width="775" Background="#FFD6E2F5">
-                        <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjh" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
 
-                        <Label Content="Select File " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label13" VerticalAlignment="Top" Visibility="Hidden" />
-                        <Label Content="Search" Height="28" HorizontalAlignment="Left" Margin="10,48,0,0" Name="label14" VerticalAlignment="Top" Visibility="Hidden"/>
-                        <ComboBox Height="23" HorizontalAlignment="Left" Margin="98,15,0,0" Name="comboBo" VerticalAlignment="Top" Width="138" Visibility="Hidden">
-                            <ComboBoxItem Content="Block Deals" />
-                            <ComboBoxItem Content="Bluk Deals" />
+                        <Label Content="Select File " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label13" VerticalAlignment="Top" />
+                        <Label Content="Search" Height="28" HorizontalAlignment="Left" Margin="10,48,0,0" Name="label14" VerticalAlignment="Top"/>
+                        <ComboBox Height="23" HorizontalAlignment="Left" Margin="98,15,0,0" Name="selectfilebluk" VerticalAlignment="Top" Width="138" SelectionChanged="selectfilebluk_SelectionChanged">
+                            
                         </ComboBox>
-                        <TextBox Height="23" HorizontalAlignment="Left" Margin="98,53,0,0" Name="textBox8" VerticalAlignment="Top" Width="223" Visibility="Hidden"/>
-                        <CheckBox Content="Case Sensitive" Height="16" HorizontalAlignment="Left" Margin="358,56,0,0" Name="checkBox2" VerticalAlignment="Top" Width="104" Visibility="Hidden"/>
-                        <CheckBox Content="Regular Expression " Height="16" HorizontalAlignment="Left" Margin="481,56,0,0" Name="checkBox3" VerticalAlignment="Top" Visibility="Hidden" />
-                        <DataGrid AutoGenerateColumns="True" Height="231" HorizontalAlignment="Left" Margin="10,101,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="731" Visibility="Hidden">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn />
-                                <DataGridTextColumn Header="Date" />
-                                <DataGridTextColumn Header="Symbol" />
-                                <DataGridTextColumn Header="Security Name" />
-                                <DataGridTextColumn Header="Client Name" />
-                                <DataGridTextColumn Header="Buy / Sale" />
-                                <DataGridTextColumn Header="Quantity Traded" />
-                                <DataGridTextColumn Header="Trade Prize / wght avg." />
-                                <DataGridTextColumn Header="Remarks" />
-                            </DataGrid.Columns>
+                        <TextBox Height="23" HorizontalAlignment="Left" Margin="98,53,0,0" Name="textBox8" VerticalAlignment="Top" Width="223" />
+                        <CheckBox Content="Case Sensitive" Height="16" HorizontalAlignment="Left" Margin="358,56,0,0" Name="checkBox2" VerticalAlignment="Top" Width="104" />
+                        <CheckBox Content="Regular Expression " Height="16" HorizontalAlignment="Left" Margin="481,56,0,0" Name="checkBox3" VerticalAlignment="Top" />
+                        <DataGrid Name="market" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,98,93,-3"  >
+
+                            
+
                         </DataGrid>
                     </Grid>
                 </GroupBox>
