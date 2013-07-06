@@ -8,7 +8,7 @@ using FileHelpers;
 namespace ShubhaRt
 {
    
-        [DelimitedRecord(","), IgnoreFirst(1)]
+        [DelimitedRecord(","), IgnoreFirst(1),IgnoreEmptyLines(true)]
         public class Market
         {
             public string Date;
@@ -27,6 +27,12 @@ namespace ShubhaRt
         [FieldOptional()]
 
             public string Quantity_Traded ;
+        [FieldOptional()]
+
+        public string Quantity_Traded1;
+        [FieldOptional()]
+
+        public string Quantity_Traded2;
         [FieldOptional()]
 
             public string Trade_Price;

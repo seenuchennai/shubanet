@@ -994,7 +994,12 @@ namespace StockD
                             
                             string datetostore = "";
                             datetostore = day.Year.ToString() + monthtostore + dayforname;
-                           ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO5MIN");
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug("yahoo File Processing strated....... ");
+                            ExecuteYAHOOProcessing(csvFileNames, datetostore,"YAHOO5MIN");
+                            log.Debug("yahoo File Processing End....... ");
+
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1005,9 +1010,11 @@ namespace StockD
 
                             JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\Yahoo5min\\Yahoo5min" + yahooieod5[i] + datetostore + ".csv");
                         }
-                        catch
+                        catch(Exception ex)
                         {
-
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug(ex.Message );
                         }
 
 
@@ -1343,7 +1350,13 @@ namespace StockD
                             datetostore = day.Year.ToString() + monthtostore + dayforname;
 
                             datetostore = day.Year.ToString() + day.Month.ToString() + day.Day.ToString();
+
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug("yahoo File Processing strated....... ");
                             ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                            log.Debug("yahoo File Processing End....... ");
+
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1354,11 +1367,12 @@ namespace StockD
                             }
                             JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug(ex.Message);
                         }
-
 
 
 
@@ -1452,7 +1466,12 @@ namespace StockD
                             }
                             
                             datetostore = day.Year.ToString() + monthtostore + dayforname;
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug("Google File Processing strated....... ");
                             ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD5MIN");
+                            log.Debug("Google File Processing End....... ");
+
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1464,9 +1483,11 @@ namespace StockD
                             System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\GoogleIeod5MIN" + GoogleIEod[i] + ".csv");
                           //// JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleIeod" + GoogleIEod[i] + datetostore + ".csv");
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug(ex.Message);
                         }
 
 
@@ -1552,7 +1573,12 @@ namespace StockD
 
                             string datetostore = "";
                             datetostore = DateTime.Today.ToString ("yyyyMMdd");
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug("Google File Processing strated....... ");
                            ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD");
+                           log.Debug("Google File Processing End....... ");
+
                             if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1564,9 +1590,11 @@ namespace StockD
                             System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\googleeod1min_" +GoogleIEod[i] + ".csv");
                           //// JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleIeod" + GoogleIEod[i] + datetostore + ".csv");
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            log4net.Config.XmlConfigurator.Configure();
+                            ILog log = LogManager.GetLogger(typeof(MainWindow));
+                            log.Debug(ex.Message);
                         }
 
 
@@ -4645,7 +4673,7 @@ namespace StockD
 
                         string timetostore = yahootime(timefromyahoo);
 
-                        string[] yahoodate = timefromyahoo.ToString().Split('/');
+                        string[] yahoodate = timefromyahoo.ToString().Split('-');
 
                         datetostore = yahoodate[2].Substring(0, 4) + yahoodate[1] + yahoodate[0];
 
@@ -4668,7 +4696,9 @@ namespace StockD
                     FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(GOOGLEFINAL));
                     engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
-
+                    log4net.Config.XmlConfigurator.Configure();
+                    ILog log = LogManager.GetLogger(typeof(MainWindow));
+                    log.Debug("Google File Processing ....... ");
                 }
                 return;
 
@@ -4734,7 +4764,7 @@ namespace StockD
                         string timetostore = yahootime(timefromyahoo);
                        
 
-                        string[] yahoodate = timefromyahoo.ToString().Split('/');
+                        string[] yahoodate = timefromyahoo.ToString().Split('-');
 
                         datetostore = yahoodate[2].Substring(0, 4) + yahoodate[1] + yahoodate[0];
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
@@ -4758,7 +4788,9 @@ namespace StockD
                     FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(GOOGLEFINAL));
                     engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Time,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
-
+                    log4net.Config.XmlConfigurator.Configure();
+                    ILog log = LogManager.GetLogger(typeof(MainWindow));
+                    log.Debug("Google File Processing ....... ");
                 }
                 return;
 
@@ -4934,7 +4966,7 @@ namespace StockD
                         }
                         string timetostore = yahootime(timefromyahoo);
                         finalarr[icntr].time = timetostore;
-                        string[] yahoodate = timefromyahoo.ToString().Split('/');
+                        string[] yahoodate = timefromyahoo.ToString().Split('-');
 
                         datetostore = yahoodate[2].Substring(0, 4)+yahoodate[1] + yahoodate[0] ;
                         finalarr[icntr].name = nameofcompany;
@@ -4955,7 +4987,9 @@ namespace StockD
                     FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(YAHOOFINAL));
                     engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,TIME,Open,High,Low,Close,Volume,OPENINT";
                     engineBSECSVFINAL.WriteFile(obj, finalarr);
-
+                    log4net.Config.XmlConfigurator.Configure();
+                    ILog log = LogManager.GetLogger(typeof(MainWindow));
+                    log.Debug("Yahoo File Processing ....... ");
                     return;
 
                 }
@@ -7152,7 +7186,7 @@ namespace StockD
 
             yahoortdata.Clear();
             int flagfortotaldatacount = 0;
-            using (var reader = new StreamReader("c:\\NESTRt.txt"))
+            using (var reader = new StreamReader(txtTargetFolder.Text + "\\NESTRt.txt"))
             {
                 string line = null;
                 int RTtopiccount = 0;
@@ -7246,7 +7280,7 @@ namespace StockD
                     flagfortotaldatacount++;
 
                 }
-                string tempfilepath = "C:\\YahooRealTimeData.txt";
+                string tempfilepath = txtTargetFolder.Text + "\\YahooRealTimeData.txt";
                 log4net.Config.XmlConfigurator.Configure();
                 ILog log = LogManager.GetLogger(typeof(MainWindow));
                 log.Debug("Data Capturing At" + DateTime.Now.TimeOfDay);
@@ -7366,7 +7400,7 @@ namespace StockD
             }
             
 
-         System.IO.File.WriteAllText("c://YahooRt.txt", symboltowriteinfile.Trim());
+         System.IO.File.WriteAllText(txtTargetFolder.Text+ "//YahooRt.txt", symboltowriteinfile.Trim());
 
 
 
@@ -7573,9 +7607,10 @@ namespace StockD
            comboBox1.Items.Add("Amibroker");
            comboBox1.Items.Add("AdvanceGet");
            comboBox1.Items.Add("Ninja Trader");
-           selectfilebluk.Items.Add("bluk");
-           selectfilebluk.Items.Add("Block");
+           selectfilebluk.Items.Add("NSE_bulk");
+           selectfilebluk.Items.Add("NSE_block");
 
+           
 
 
            for (int i = 3; i < 60;i++ )
@@ -7599,7 +7634,7 @@ namespace StockD
 
            for (int i = 0; i < 7; i++)
            {
-               string[] nameofcol = new string[8] { "Date","Symbol","Security","Client","Buy ","Quantity Traded"," 	Trade","Remarks"};
+               string[] nameofcol = new string[8] { "Date","Symbol","Security","Client","Buy","Quantity Traded","Trade","Remarks"};
 
 
                var column = new DataGridTextColumn();
@@ -8436,8 +8471,8 @@ namespace StockD
                         else
                         {
                             string[] filenametocombine = new string[2] { "", "" };
-                            filenametocombine[0] = srs;
-                            filenametocombine[1] = dest;
+                            filenametocombine[0] = dest;
+                            filenametocombine[1] = srs;
 
                             JoinCsvFiles(filenametocombine, dest);
                         }
@@ -8965,7 +9000,7 @@ namespace StockD
             ExcelType = Type.GetTypeFromProgID("Broker.Application");
             ExcelInst = Activator.CreateInstance(ExcelType);
             args[0] = Convert.ToInt16(0);
-            args[1] = "C:\\YahooRealTimeData.txt";
+            args[1] = txtTargetFolder.Text+"YahooRealTimeData.txt";
             args[2] = formatfilename.Text ;
 
             ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
@@ -9012,7 +9047,7 @@ namespace StockD
 
             }
 
-            System.IO.File.WriteAllText("c://NESTRt.txt", saveintxt.Trim());
+            System.IO.File.WriteAllText(txtTargetFolder.Text + "//NESTRt.txt", saveintxt.Trim());
 
             System.Windows.MessageBox.Show("symbol File Save Successfuly ");
 
@@ -9042,14 +9077,70 @@ namespace StockD
 
         private void selectfilebluk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            market.Items.Clear();
             FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(Market));
-            Market[] resbsecsv = engineBSECSV.ReadFile(@"C:\data\reports\NSE_block_deals.csv") as Market[];
-
-            for (int i = 0; i < resbsecsv.Count() - 1; i++)
+            if (selectfilebluk.SelectedItem == "NSE_block")
             {
-                market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal.csv"))
+            {
+
+                Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal.csv") as Market[];
+
+                for (int i = 0; i < resbsecsv.Count() - 1; i++)
+                {
+                    market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                }
             }
-            
+            else
+            {
+                System.Windows.MessageBox.Show("Not Found NSE_block_deals.csv ");
+            }
+            }
+            if (selectfilebluk.SelectedItem == "NSE_bulk")
+            {
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\NSE_Bulk_Deal.csv"))
+                {
+
+                    Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\NSE_Bulk_Deal.csv") as Market[];
+
+                    for (int i = 0; i < resbsecsv.Count() - 1; i++)
+                    {
+                        market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                    }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Not Found NSE_bulk_deals.csv ");
+                }
+            }
+        }
+
+        private void marketsearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<int> a = new List<int>();
+
+
+            if(marketsearch.Text.Length>=3)
+            {
+            for (int i = 0; i < market.Items.Count-1; i++)
+            {
+                marketdataitem row = (marketdataitem)market.Items.GetItemAt(i );
+                
+                string allrowdata = row.Column0 + row.Column1 + row.Column2 + row.Column3 + row.Column4 + row.Column5 + row.Column6 + row.Column7;
+                if (allrowdata.Contains(marketsearch.Text))
+                {
+                    a.Add(i );
+                   
+                    //System.Windows.MessageBox.Show(row.Column0);
+                }
+
+            }
+
+            for (int i = 0; i < a.Count - 1;i++ )
+            {
+                System.Windows.MessageBox.Show(a[i].ToString());
+            }
+            }
         }
 
         
