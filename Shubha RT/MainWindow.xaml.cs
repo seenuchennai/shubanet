@@ -7644,6 +7644,12 @@ namespace StockD
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+
+
+
+
+
+
            comboBox1.Items.Add("CSV");
            comboBox1.Items.Add("FCharts");
            comboBox1.Items.Add("Amibroker");
@@ -7651,6 +7657,8 @@ namespace StockD
            comboBox1.Items.Add("Ninja Trader");
            selectfilebluk.Items.Add("NSE_bulk");
            selectfilebluk.Items.Add("NSE_block");
+           selectfilebluk.Items.Add("BSE_bulk");
+           selectfilebluk.Items.Add("BSE_block");
 
            
 
@@ -8663,10 +8671,10 @@ namespace StockD
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
             HttpWebRequest request
-               = WebRequest.Create("http://list.shubhalabha.in/netnsecm.html") as HttpWebRequest;
-          //  WebClient webClient = new WebClient();
-           
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+               = WebRequest.Create("http://list.shubhalabha.in/netmetastock.html") as HttpWebRequest;
+            //  WebClient webClient = new WebClient();
+
+            using (HttpWebResponse response = request.GetResponse()as HttpWebResponse)
             {
                 // Get the response stream  
                 StreamReader reader = new StreamReader(response.GetResponseStream());
@@ -8675,9 +8683,8 @@ namespace StockD
                 System.Windows.MessageBox.Show(reader.ReadToEnd());
                 Console.WriteLine(reader.ReadToEnd());
             }  
-        
-           
 
+          
         }
         private void linkclick()
         {
@@ -9158,6 +9165,42 @@ namespace StockD
                     System.Windows.MessageBox.Show("Not Found NSE_bulk_deals.csv ");
                 }
             }
+
+            if (selectfilebluk.SelectedItem == "BSE_bulk")
+            {
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\bsebulkdeals.csv"))
+                {
+
+                    Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\bsebulkdeals.csv") as Market[];
+
+                    for (int i = 0; i < resbsecsv.Count() - 1; i++)
+                    {
+                        market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                    }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Not Found bsebulkdeals.csv ");
+                }
+            }
+            if (selectfilebluk.SelectedItem == "BSE_block")
+            {
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\bseblockdeals.csv"))
+                {
+
+                    Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\bseblockdeals.csv") as Market[];
+
+                    for (int i = 0; i < resbsecsv.Count() - 1; i++)
+                    {
+                        market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                    }
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Not Found bseblockdeals.csv ");
+                }
+            }
+
         }
 
 
