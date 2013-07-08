@@ -13,6 +13,8 @@ using System.Globalization;
 using FileHelpers.RunTime;
 using System.Data;
 using Microsoft.Office.Interop.Excel;
+using System.Windows.Controls.Primitives;
+using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -505,6 +507,20 @@ namespace StockD
                     {
 
                     downliaddata(strYearDir, baseurl);
+
+                        //Webpage visit
+                    HttpWebRequest request  = WebRequest.Create("http://list.shubhalabha.in/netnsecm.html") as HttpWebRequest;
+                    //  WebClient webClient = new WebClient();
+                    using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                    {
+                        // Get the response stream  
+                        StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                        // Console application output  
+
+                        Console.WriteLine(reader.ReadToEnd());
+                    }  
+        
                     }
 
 
@@ -656,7 +672,20 @@ namespace StockD
 
 
 
-                    downliaddata(strYearDir, baseurl);
+                    downliaddata(strYearDir, baseurl); 
+                    //Webpage visit
+                    HttpWebRequest request = WebRequest.Create("http://list.shubhalabha.in/netindex.html") as HttpWebRequest;
+                    //  WebClient webClient = new WebClient();
+                    using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                    {
+                        // Get the response stream  
+                        StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                        // Console application output  
+
+                        Console.WriteLine(reader.ReadToEnd());
+                    }  
+        
 
                     //process 
                     if (System.IO.File.Exists(strYearDir))
@@ -780,6 +809,19 @@ namespace StockD
                         // "http://chartapi.finance.yahoo.com/instrument/1.0/ACROPETAL.ns/chartdata;type=quote;range=1d/csv/"
 
                         downliaddata(strYearDir, baseurl);
+                        //Webpage visit
+                        HttpWebRequest request = WebRequest.Create("http://list.shubhalabha.in/netyahooieod.html") as HttpWebRequest;
+                        //  WebClient webClient = new WebClient();
+                        using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                        {
+                            // Get the response stream  
+                            StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                            // Console application output  
+
+                            Console.WriteLine(reader.ReadToEnd());
+                        }  
+        
 
                         try
                         {
@@ -7345,7 +7387,7 @@ namespace StockD
             {
                 log4net.Config.XmlConfigurator.Configure();
                 ILog log = LogManager.GetLogger(typeof(MainWindow));
-                log.Debug("Error While Data Capture ...." );
+                log.Debug("Error While Data Capture ....");
 
 
             }
@@ -7371,7 +7413,7 @@ namespace StockD
             sao = parents[parents.Count - 1];
 
            // List<string> symbolname = new List<String>();
-
+         
 
             symbolname.Clear();
             dataGridforsymbol.Items.Clear();
@@ -7400,7 +7442,7 @@ namespace StockD
             }
             
 
-         System.IO.File.WriteAllText(txtTargetFolder.Text+ "//YahooRt.txt", symboltowriteinfile.Trim());
+     //    System.IO.File.WriteAllText(txtTargetFolder.Text+ "//YahooRt.txt", symboltowriteinfile.Trim());
 
 
 
@@ -8620,25 +8662,22 @@ namespace StockD
 
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(Market ));
-            Market[] resbsecsv = engineBSECSV.ReadFile(@"C:\data\reports\NSE_block_deals.csv") as Market[];
-
-            for (int i = 0; i < resbsecsv.Count() - 1;i++ )
+            HttpWebRequest request
+               = WebRequest.Create("http://list.shubhalabha.in/netnsecm.html") as HttpWebRequest;
+          //  WebClient webClient = new WebClient();
+           
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
-                market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
-            }
-            
-            
-            
-            // SendMail("webmaster@shubhalabha.in", "DEmoCheck", "HI this cheking email", false);
+                // Get the response stream  
+                StreamReader reader = new StreamReader(response.GetResponseStream());
 
-            //DateTime a = 1372859263000 / 86400 + 25569 + (5.5 / 24);
+                // Console application output  
+                System.Windows.MessageBox.Show(reader.ReadToEnd());
+                Console.WriteLine(reader.ReadToEnd());
+            }  
+        
+           
 
-
-        // DateTime d=  (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(1372650760);
-
-         System.Windows.MessageBox.Show(resbsecsv[0].Date.ToString());
-            
         }
         private void linkclick()
         {
@@ -9077,24 +9116,30 @@ namespace StockD
 
         private void selectfilebluk_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            marketgridfill();
+        }
+
+
+        public void marketgridfill()
+        {
             market.Items.Clear();
             FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(Market));
             if (selectfilebluk.SelectedItem == "NSE_block")
             {
                 if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal.csv"))
-            {
-
-                Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal.csv") as Market[];
-
-                for (int i = 0; i < resbsecsv.Count() - 1; i++)
                 {
-                    market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+
+                    Market[] resbsecsv = engineBSECSV.ReadFile(txtTargetFolder.Text + "\\Reports\\NSE_Block_Deal.csv") as Market[];
+
+                    for (int i = 0; i < resbsecsv.Count() - 1; i++)
+                    {
+                        market.Items.Add(new marketdataitem { Column0 = resbsecsv[i].Date, Column1 = resbsecsv[i].Symbol, Column2 = resbsecsv[i].Security_Name, Column3 = resbsecsv[i].Client_Name, Column4 = resbsecsv[i].Buy_Sell, Column5 = resbsecsv[i].Quantity_Traded + resbsecsv[i].Quantity_Traded1 + resbsecsv[i].Quantity_Traded2, Column6 = resbsecsv[i].Trade_Price, Column7 = resbsecsv[i].Remarks });
+                    }
                 }
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Not Found NSE_block_deals.csv ");
-            }
+                else
+                {
+                    System.Windows.MessageBox.Show("Not Found NSE_block_deals.csv ");
+                }
             }
             if (selectfilebluk.SelectedItem == "NSE_bulk")
             {
@@ -9115,33 +9160,52 @@ namespace StockD
             }
         }
 
+
         private void marketsearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<int> a = new List<int>();
-
-
+            List<marketdataitem> row1 = new List<marketdataitem>();
+            marketgridfill();
+           
             if(marketsearch.Text.Length>=3)
             {
+                //market.Items.Clear();
+
             for (int i = 0; i < market.Items.Count-1; i++)
             {
+
                 marketdataitem row = (marketdataitem)market.Items.GetItemAt(i );
-                
+                System.Data.DataTable d = new System.Data.DataTable();
                 string allrowdata = row.Column0 + row.Column1 + row.Column2 + row.Column3 + row.Column4 + row.Column5 + row.Column6 + row.Column7;
+               
                 if (allrowdata.Contains(marketsearch.Text))
                 {
                     a.Add(i );
-                   
+                    row1.Add(row);
                     //System.Windows.MessageBox.Show(row.Column0);
                 }
 
             }
-
+            market.Items.Clear();
             for (int i = 0; i < a.Count - 1;i++ )
             {
-                System.Windows.MessageBox.Show(a[i].ToString());
+                    market.Items.Add(row1[i] );
+
+               // System.Windows.MessageBox.Show(a[i].ToString());
             }
             }
         }
+
+        private void Start_Yahoo_Rt_Click(object sender, RoutedEventArgs e)
+        {
+            Login logincall = new Login();
+            logincall.Show();
+
+            MainWindow a = new MainWindow();
+            a.Hide();
+        }
+
+        
 
         
 
