@@ -46,7 +46,7 @@ using System.Data.OleDb;
 using System.Runtime.InteropServices;
 using ManagedWinapi.Windows;
 using ManagedWinapi.Accessibility;
-
+using Microsoft.Win32;
 
 
 namespace StockD
@@ -61,6 +61,9 @@ namespace StockD
     /// </summary>
     public partial class MainWindow :System.Windows. Window
     {
+        string  AppId = "1";
+         string  PathForYahooRT="";
+         string baseurlForYahooRt = "";
         List<string> yahoortname = new List<String>();
         List<string> yahoortdata = new List<String>();
         System.Windows.Threading.DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
@@ -225,6 +228,7 @@ namespace StockD
 
             if (chkCombinedReport.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netnsecombine.html");
                 prograss();
 
                 foreach (DateTime day in EachDay(StartDate, EndDate))
@@ -464,6 +468,7 @@ namespace StockD
             {
 
 
+           visit( "http://list.shubhalabha.in/netnsecm.html");
 
               
 
@@ -644,6 +649,9 @@ namespace StockD
 
             if (Cb_NSE_Index.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netindex.html");
+
+                
                 prograss();
 
 
@@ -750,6 +758,8 @@ namespace StockD
 
             if (ChkYahooIEOD1.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netyahooieod.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo1min";
 
@@ -866,6 +876,8 @@ namespace StockD
 
             if (Cb_Yahoo_Realtime.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netyahoort.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooRT";
 
@@ -956,6 +968,8 @@ namespace StockD
 
             if (ChkYahooIEOD5.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netyahooieod.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoo5min";
 
@@ -1069,6 +1083,8 @@ namespace StockD
             }
             if (chkYahooFundamental.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netyahoofunda.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Yahoofun";
 
@@ -1203,6 +1219,8 @@ namespace StockD
 
             if (chkYahooEOD.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netyahooeod.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\YahooEod";
 
@@ -1317,6 +1335,8 @@ namespace StockD
 
             if (ChkGoogleEOD.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netgoogleieod.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod";
 
@@ -1428,6 +1448,10 @@ namespace StockD
 
             if (Cb_MCX_Google_IEOD_5min.IsChecked == true)
             {
+
+           visit( "http://list.shubhalabha.in/netgoogleieod.html");
+
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod5MIN";
 
@@ -1546,6 +1570,8 @@ namespace StockD
 
             if (ChkGoogleIEOD.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netgoogleieod.html");
+
                 prograss();
                 strYearDir = txtTargetFolder.Text + "\\Downloads\\GoogleIeod";
 
@@ -1654,6 +1680,7 @@ namespace StockD
             
                 if(chkEquity.IsChecked==true )
                 {
+           visit( "http://list.shubhalabha.in/netnseo.html");
 
                     foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
@@ -1795,6 +1822,7 @@ namespace StockD
 
                 if (Cb_NSE_Forex_Options.IsChecked == true)
                 {
+           visit( "http://list.shubhalabha.in/netnseo.html");
 
                     foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
@@ -1937,6 +1965,7 @@ namespace StockD
 
                 if (chkNseForex.IsChecked == true)
                 {
+           visit( "http://list.shubhalabha.in/netnsefo.html");
 
                     foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
@@ -2108,6 +2137,8 @@ namespace StockD
                 
                 if (Cb_NSE_SME.IsChecked == true)
                 {
+           visit( "http://list.shubhalabha.in/netnsesme.html");
+
 
                     foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
@@ -2246,6 +2277,7 @@ namespace StockD
 
                 if (Cb_NSE_ETF.IsChecked == true)
                 {
+           visit( "http://list.shubhalabha.in/netnseetf.html");
 
                     foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
@@ -2438,6 +2470,7 @@ namespace StockD
 
             if (Cb_NSE_Bulk_Deal.IsChecked == true)
             {
+
                 prograss();
 
 
@@ -2584,6 +2617,7 @@ namespace StockD
             }
             if (MCXSX_Forex_Future.IsChecked == true)
             {
+
                 prograss();
                 foreach (DateTime day in EachDay(StartDate, EndDate))
                 {
@@ -2701,6 +2735,8 @@ namespace StockD
 
          if (Cb_BSE_CASH_MARKET.IsChecked == true)
             {
+           visit( "http://list.shubhalabha.in/netbsecm.html");
+
                 BSE_Delivary_Data.IsChecked = true;
 
                 prograss();
@@ -2878,6 +2914,7 @@ namespace StockD
 
          if (Cb_BSE_Equity_Futures.IsChecked == true)
          {
+
              prograss();
 
 
@@ -3108,6 +3145,8 @@ namespace StockD
              
          if (BSE_Index.IsChecked == true)
          {
+           visit( "http://list.shubhalabha.in/netindex.html");
+
              prograss();
              prograss();
 
@@ -3490,6 +3529,8 @@ namespace StockD
 
          if (chkNseNcdex.IsChecked == true)
          {
+           visit( "http://list.shubhalabha.in/netncdex.html");
+
              prograss();
 
              foreach (DateTime day in EachDay(StartDate, EndDate))
@@ -3951,6 +3992,8 @@ namespace StockD
 
          if (MCX_Index.IsChecked == true)
          {
+           visit( "http://list.shubhalabha.in/netindex.html");
+
              MCXSX_Spot_Indices.IsChecked = true;
              WebClient webClient = new WebClient();
            string[] arrIndexValues =  new string[]{"323","324","325","326"};
@@ -4088,6 +4131,8 @@ namespace StockD
 
          if (MCXSX_Spot_Indices.IsChecked == true)
          {
+             visit("http://list.shubhalabha.in/netindices.html");
+
              WebClient webClient = new WebClient();
              string[] arrIndexValues = new string[] { "323", "324", "325", "326" };
              string[] arrindexvaluesname = new string[] { "Spot_MCXCOMDEX", "Spot_MCXMETAL", "Spot_MCXENRGY", "Spot_MCXAGRI" };
@@ -4448,6 +4493,8 @@ namespace StockD
 
         public void Amibroker(string  strBSECSVArr)
         {
+            visit("http://list.shubhalabha.in/netamibroker.html");
+
             FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(amibrikerFINAL));
 
             DelimitedClassBuilder cb = BuildNSECMPFile();
@@ -4523,6 +4570,8 @@ namespace StockD
         }
         public void AdvanceGet(string strBSECSVArr)
         {
+            visit("http://list.shubhalabha.in/netadvanceget.html");
+
             FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(amibrikerFINAL));
 
             DelimitedClassBuilder cb = BuildNSECMPFile();
@@ -4588,10 +4637,12 @@ namespace StockD
 
             engineBSECSVFINAL.WriteFile(strBSECSVArr, finalarr);
 
-
+            
         }
         public void Fchart(string strBSECSVArr)
         {
+            visit("http://list.shubhalabha.in/netfcharts.html");
+            
             FileHelperEngine engineBSECSV = new FileHelperEngine(typeof(amibrikerFINAL));
 
             DelimitedClassBuilder cb = BuildNSECMPFile();
@@ -7166,7 +7217,7 @@ namespace StockD
                         log4net.Config.XmlConfigurator.Configure();
                         ILog log = LogManager.GetLogger(typeof(MainWindow));
                         log.Debug(url + "Download Started at " + DateTime.Now.ToString("HH:mm:ss tt"));
-
+                       
                         Client.Headers.Add("Accept", "application/zip");
                         Client.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
                         Client.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1");
@@ -7210,11 +7261,24 @@ namespace StockD
             RtdataRecall();
 
         }
+        private void dispatcherTimerForYahooRT_Tick(object sender, EventArgs e)
+        {
+            CommandManager.InvalidateRequerySuggested();
+            downliaddata(PathForYahooRT, baseurlForYahooRt);
+
+        }
 
         private void RtdataRecall()
         {
             DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForRT_Tick);
-            DispatcherTimer1.Interval = new TimeSpan(0, 0,Convert.ToInt32( timetoRT.SelectedItem) );
+            DispatcherTimer1.Interval = new TimeSpan(0, 0, Convert.ToInt32(timetoRT.SelectedItem));
+            DispatcherTimer1.Start();
+
+        }
+        private void YahooRtrecall()
+        {
+            DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForYahooRT_Tick);
+            DispatcherTimer1.Interval = new TimeSpan(0, 0, 5);
             DispatcherTimer1.Start();
 
         }
@@ -7378,8 +7442,8 @@ namespace StockD
 
 
 
-                //ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
-                //       ExcelInst, new object[1] { "" });
+                ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                       ExcelInst, new object[1] { "" });
                
             }
             }
@@ -7641,15 +7705,84 @@ namespace StockD
             }
         }
 
+        public void SetRegKey()
+        {
 
-        private void wMain_Loaded(object sender, RoutedEventArgs e)
+            RegistryKey regKey = Registry.CurrentUser;
+            regKey = regKey.CreateSubKey(@"Software\");
+            regKey.SetValue("ApplicationID", AppId );
+
+        }
+
+
+        public void GetRegKey()
         {
 
 
+            RegistryKey regKey = Registry.CurrentUser;
+            regKey = regKey.CreateSubKey(@"Software\");
+
+            try
+            {
+                object  unm = regKey.GetValue("ApplicationID");
+                
+                string   a="1";
+                string b = unm.ToString();
+
+                if (unm != null)
+                    //username .Text = regKey.GetValue("UserName").ToString();
+
+
+                if(b==a )
+                {
+                    System.Windows.MessageBox.Show("Already Present ");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void wMain_Loaded(object sender, RoutedEventArgs e)
+        {
+            RegistryKey regKey = Registry.CurrentUser;
+            regKey = regKey.CreateSubKey(@"Software\");
+            object unm = regKey.GetValue("ApplicationID");
+
+            string a = "1";
+            string b = unm.ToString();
+
+            if (unm != null)
+                //username .Text = regKey.GetValue("UserName").ToString();
+
+
+                if (b != a)
+                {
+                    System.Windows.MessageBox.Show("Not  Present ");
+                    System.Diagnostics.Process.Start("http://shubhalabha.in/community/wp-login.php?action=register");
+                    
+                }
 
 
 
-
+            //GetRegKey();
+            
+            try
+            {
+                System.Net.WebRequest myRequest = System.Net.WebRequest.Create("http://www.Google.co.in");
+                System.Net.WebResponse myResponse = myRequest.GetResponse();
+                Uri a1 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
+                Uri a2 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
+                Uri a3 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
+                wad1.Source = a1;
+                
+      
+            ad3.Source = a3;
+            }
+            catch{
+            }
            comboBox1.Items.Add("CSV");
            comboBox1.Items.Add("FCharts");
            comboBox1.Items.Add("Amibroker");
@@ -8186,6 +8319,7 @@ namespace StockD
 
         private void wMain_Closed(object sender, EventArgs e)
         {
+            SetRegKey();
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Close ");
@@ -8667,25 +8801,64 @@ namespace StockD
         {
            
         }
+        public void visit(string url)
+        {
 
+            Uri a1 = new System.Uri(url);
+
+
+            webforvisit.Source = a1;
+            grid1.Focus();
+
+        }
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            HttpWebRequest request
-               = WebRequest.Create("http://list.shubhalabha.in/netmetastock.html") as HttpWebRequest;
-            //  WebClient webClient = new WebClient();
+            WebClient webClient = new WebClient();
+            byte[] b = webClient.DownloadData("http://shubhalabha.in/community/wp-login.php");
 
-            using (HttpWebResponse response = request.GetResponse()as HttpWebResponse)
-            {
-                // Get the response stream  
-                StreamReader reader = new StreamReader(response.GetResponseStream());
+            string s = System.Text.Encoding.UTF8.GetString(b);
+            var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+            //__EVENTVALIDATION.Dump();
+            var forms = new System.Collections.Specialized.NameValueCollection();
+            // forms["__EVENTTARGET"] = "btnLink_Excel";
+            forms["__EVENTARGUMENT"] = "";
+            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+          //  forms["user_login"] = "shantesh";
+            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+          //  forms["user_pass"] = "lionking";
+          //  forms["wp-submit"] = "6";
+            // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
 
-                // Console application output  
-                System.Windows.MessageBox.Show(reader.ReadToEnd());
-                Console.WriteLine(reader.ReadToEnd());
-            }  
+
+            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+            var responseData = webClient.UploadValues(@"http://shubhalabha.in/community/wp-login.php", "POST", forms);
+            System.IO.File.WriteAllBytes("c://a.html", responseData);
+
+
+             s = System.Text.Encoding.UTF8.GetString(responseData);
+             __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
+            //__EVENTVALIDATION.Dump();
+            forms = new System.Collections.Specialized.NameValueCollection();
+            // forms["__EVENTTARGET"] = "btnLink_Excel";
+            forms["__EVENTARGUMENT"] = "";
+            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
+            forms["user_login"] = "shantesh";
+            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
+             forms["user_pass"] = "lionking";
+            //  forms["wp-submit"] = "6";
+            // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+
+
+            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
+             responseData = webClient.UploadValues(@"http://shubhalabha.in/community/wp-login.php", "POST", forms);
+            System.IO.File.WriteAllBytes("c://b.html", responseData);
+
+
 
           
         }
+ 
+
         private void linkclick()
         {
             System.Diagnostics.Process.Start("http://www.google.com");
@@ -9046,7 +9219,7 @@ namespace StockD
             ExcelType = Type.GetTypeFromProgID("Broker.Application");
             ExcelInst = Activator.CreateInstance(ExcelType);
             args[0] = Convert.ToInt16(0);
-            args[1] = txtTargetFolder.Text+"YahooRealTimeData.txt";
+            args[1] = txtTargetFolder.Text+"\\YahooRealTimeData.txt";
             args[2] = formatfilename.Text ;
 
             ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
@@ -9241,13 +9414,108 @@ namespace StockD
 
         private void Start_Yahoo_Rt_Click(object sender, RoutedEventArgs e)
         {
-            Login logincall = new Login();
-            logincall.Show();
-
-            MainWindow a = new MainWindow();
-            a.Hide();
+            uname.Visibility = Visibility.Visible;
+            pwd.Visibility = Visibility.Visible;
+            username.Visibility = Visibility.Visible;
+            password.Visibility = Visibility.Visible;
+            Login_btn.Visibility = Visibility.Visible;
+            Cancle_btn.Visibility = Visibility.Visible;
+            Login_frame.Visibility = Visibility.Visible;
         }
 
+        private void market_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Login_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (username.Text == "")
+            {
+                System.Windows.MessageBox.Show("Please Enter User Name");
+                return;
+            }
+            if (password.Text == "")
+            {
+                System.Windows.MessageBox.Show("Please Enter Password");
+                return;
+            }
+
+            try
+            {
+                string subject = username.Text;
+                string body = "Register User Id:----" + subject + "\n ";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.mail.yahoo.com",
+                    Port = 587,
+                    //EnableSsl = false ,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //UseDefaultCredentials = false ,
+                    Credentials = new NetworkCredential(username.Text, password.Text)
+                };
+                using (var message = new MailMessage(username.Text, "shanteshpaigude1988@gmail.com")
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+
+                    System.Windows.MessageBox.Show("Login Successfull");
+                    //strYearDir = txtTargetFolder.Text + "\\Downloads\\yahoort.csv";
+
+                    //baseurl = "http://download.finance.yahoo.com/d/quotes.csv?s=^" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
+                    string yahoortsymbol = "";
+                   
+
+                    try
+                    {
+
+                        using (var reader = new StreamReader(txtTargetFolder.Text + "\\Yahoo.txt"))
+                        {
+                            string line = null;
+                            int i = 0;
+
+                            while ((line = reader.ReadLine()) != null)
+                            {
+
+                                // YahooRT.Add(line);
+
+                                yahoortsymbol = yahoortsymbol + line + "+";
+                                i++;
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+
+                    WebClient Client = new WebClient();
+
+                    //http://download.finance.yahoo.com/d/quotes.csv?s=^DJI+TCS+AA+AXP+BA+C+CAT+DD+DIS+EK+GE+HD+HON+HPQ+IBM+INTC+IP+JNJ+JPM+KO+MCD+MMM+MO+MRK+MSFT+PG+T+UTX+WMT+XOM&f=snl1d1t1c1ohgv&e=.csv%20[^]
+                     PathForYahooRT = txtTargetFolder.Text + "\\yahooRt.csv";
+
+                    baseurlForYahooRt = "http://download.finance.yahoo.com/d/quotes.csv?s=" + yahoortsymbol.Substring(0, yahoortsymbol.Length - 1) + "&f=snl1d1t1c1ohgv&e=.csv%20";
+
+                   YahooRtrecall();
+                    
+                    //downliaddata(strYearDir, baseurl);
+
+                   
+
+
+                }
+            }
+
+            catch
+            {
+                System.Windows.MessageBox.Show("Please Enter Valid User Name And Password");
+            }
+        }
+
+        
         
 
         
