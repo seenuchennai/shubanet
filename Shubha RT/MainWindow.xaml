@@ -203,7 +203,7 @@
                                 <CheckBox Content="Yahoo Fundamental" HorizontalAlignment="Left" Margin="11,29,0,0" Name="chkYahooFundamental" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooFundamental"/>
                                 <CheckBox Content="Yahoo IEOD 5 Min" HorizontalAlignment="Left" Margin="299,29,0,0" Name="ChkYahooIEOD5" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="ChkYahooIEOD5" />
 
-                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="11,65,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" />
+                                <CheckBox Content="Yahoo Realtime" Height="16" HorizontalAlignment="Left" Margin="11,65,0,0" Name="Cb_Yahoo_Realtime" VerticalAlignment="Top" Width="125" Visibility="Hidden"  />
                                 <Label Content="Select Time Zone Offset" Height="28" HorizontalAlignment="Left" Margin="11,107,0,0" Name="lbl_Select_Time_Zone_Offset" VerticalAlignment="Top" />
                                 <Label Content="Hours" Height="28" HorizontalAlignment="Left" Margin="163,107,0,0" Name="lbl_Hours" VerticalAlignment="Top" />
 

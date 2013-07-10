@@ -7747,27 +7747,7 @@ namespace StockD
         }
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
-            RegistryKey regKey = Registry.CurrentUser;
-            regKey = regKey.CreateSubKey(@"Software\");
-            object unm = regKey.GetValue("ApplicationID");
-
-            string a = "1";
-            string b = unm.ToString();
-
-            if (unm != null)
-                //username .Text = regKey.GetValue("UserName").ToString();
-
-
-                if (b != a)
-                {
-                    System.Windows.MessageBox.Show("Not  Present ");
-                    System.Diagnostics.Process.Start("http://shubhalabha.in/community/wp-login.php?action=register");
-                    
-                }
-
-
-
-            //GetRegKey();
+           
             
             try
             {
@@ -8323,6 +8303,8 @@ namespace StockD
             log4net.Config.XmlConfigurator.Configure();
             ILog log = LogManager.GetLogger(typeof(MainWindow));
             log.Debug("Application Close ");
+            Environment.Exit(0);
+
             //savechanges();
            
         }
