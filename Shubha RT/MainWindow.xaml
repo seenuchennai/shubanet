@@ -411,8 +411,8 @@
                 </TabItem.Header>
                 <Grid>
                     
-                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="413,102,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
-                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="526,102,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
+                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="413,142,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
+                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="526,142,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
                     <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Margin="16,55,367,88" Name="dataGridforsymbol" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
@@ -433,20 +433,22 @@
                     </DataGrid>
                     <Button Content="Find Symbol" Height="23" HorizontalAlignment="Right" Margin="0,16,587,0" Name="FindSymbol" VerticalAlignment="Top" Width="97" Click="FindSymbol_Click" />
                     <Button Content="Save Symbol in text file" Height="23" HorizontalAlignment="Left" Margin="163,16,0,0" Name="SaveSymbol" VerticalAlignment="Top" Width="142" Click="SaveSymbol_Click" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,16,0,0" Name="timetoRT" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
-                    <Label Content="Select Time To Capture Data " Height="28" HorizontalAlignment="Left" Margin="365,16,0,0" Name="label5" VerticalAlignment="Top" />
-                    <Label Content="Format file Name" Height="28" HorizontalAlignment="Left" Margin="424,50,0,0" Name="label6" VerticalAlignment="Top" />
-                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,52,48,0" Name="formatfilename" VerticalAlignment="Top" Width="120" Text="ShubhaRt.format" IsReadOnly="True" />
-                    <Button Content="Start Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="365,153,0,0" Name="Start_Yahoo_Rt" VerticalAlignment="Top" Width="112" Click="Start_Yahoo_Rt_Click" />
-                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="567,153,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="103" />
-                    <Frame Height="128" HorizontalAlignment="Left" Margin="354,6,0,0" Name="frame1" VerticalAlignment="Top" Width="327" />
-                    <Label Content="User Name :" Height="28" HorizontalAlignment="Left" Margin="365,215,0,0" Name="uname" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"  />
-                    <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="373,259,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"/>
-                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,215,75,0" Name="username" VerticalAlignment="Top" Width="180" Visibility="Hidden" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="449,259,0,0" Name="password" VerticalAlignment="Top" Width="180" Visibility="Hidden"/>
-                    <Button Content="Login" Height="23" HorizontalAlignment="Left" Margin="424,314,0,0" Name="Login_btn" VerticalAlignment="Top" Width="75"  Visibility="Hidden" Click="Login_btn_Click" />
-                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,314,86,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
-                    <Frame Height="21" HorizontalAlignment="Left" Margin="356,188,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden"  />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,56,0,0" Name="timetoRT" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
+                    <Label Content="Select Time To Capture Data " Height="28" HorizontalAlignment="Left" Margin="365,56,0,0" Name="label5" VerticalAlignment="Top" />
+                    <Label Content="Format file Name" Height="28" HorizontalAlignment="Left" Margin="424,90,0,0" Name="label6" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,92,48,0" Name="formatfilename" VerticalAlignment="Top" Width="120" Text="ShubhaRt.format" IsReadOnly="True" />
+                    <Button Content="Start Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="354,205,0,0" Name="Start_Yahoo_Rt" VerticalAlignment="Top" Width="112" Click="Start_Yahoo_Rt_Click" />
+                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="511,205,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="103" />
+                    <Frame Height="122" HorizontalAlignment="Left" Margin="354,6,0,0" Name="frame1" VerticalAlignment="Top" Width="327" Navigated="frame1_Navigated" />
+                    <Label Content="User Name :" Height="28" HorizontalAlignment="Left" Margin="372,269,0,0" Name="uname" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"  />
+                    <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="380,313,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"/>
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,269,68,0" Name="username" VerticalAlignment="Top" Width="180" Visibility="Hidden" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="456,313,0,0" Name="password" VerticalAlignment="Top" Width="180" Visibility="Hidden"/>
+                    <Button Content="Login" Height="23" HorizontalAlignment="Left" Margin="431,368,0,0" Name="Login_btn" VerticalAlignment="Top" Width="75"  Visibility="Hidden" Click="Login_btn_Click" />
+                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,368,79,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
+                    <Frame Height="163" HorizontalAlignment="Left" Margin="354,242,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden"  />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,16,0,0" Name="RTD_server_name" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
+                    <Label Content="Select RTD Server " Height="28" HorizontalAlignment="Left" Margin="413,12,0,0" Name="label8" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
         </TabControl>

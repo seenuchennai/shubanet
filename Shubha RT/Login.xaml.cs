@@ -157,13 +157,17 @@ namespace ShubhaRt
                 }
                 else
                 {
+                    try
+                    {
+                        this.Hide();
+                        StockD.MainWindow newwin = new StockD.MainWindow();
+                        newwin.InitializeComponent();
 
-                    this.Hide();
-                    StockD.MainWindow newwin = new StockD.MainWindow();
-                    newwin.InitializeComponent();
-
-                    newwin.ShowDialog();
-
+                        newwin.ShowDialog();
+                    }
+                    catch
+                    {
+                    }
 
 
                     // System.Diagnostics.Process.Start(@"C:\Documents and Settings\maheshwar\My Documents\GitHub\shubanet\Shubha RT\bin\Debug\ShubhaRt.exe");

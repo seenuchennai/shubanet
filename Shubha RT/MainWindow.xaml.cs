@@ -654,104 +654,111 @@ namespace StockD
                 
                 prograss();
 
-
-                foreach (DateTime day in EachDay(StartDate, EndDate))
+                try
                 {
-                    System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
-                    string strMonthName = mfi.GetMonthName(day.Month).ToString();
-
-                    
-                strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
-                baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
-
-                string sec=strYearDir;
-               if(!System.IO.File.Exists(strYearDir))
-               {
-                   prograss();
-                downliaddata(strYearDir, baseurl);
-
-
-               }
-                    string secname=strYearDir;
-
-                    strYearDir = txtTargetFolder.Text + "\\Downloads\\NseIndex" + formatdate(day) + ".csv";
-
-                    baseurl = "http://nseindia.com/content/indices/ind_close_all_" + formatdate(day) + ".csv";
-
-
-
-                    downliaddata(strYearDir, baseurl); 
-                    //Webpage visit
-                    HttpWebRequest request = WebRequest.Create("http://list.shubhalabha.in/netindex.html") as HttpWebRequest;
-                    //  WebClient webClient = new WebClient();
-                    using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                    foreach (DateTime day in EachDay(StartDate, EndDate))
                     {
-                        // Get the response stream  
-                        StreamReader reader = new StreamReader(response.GetResponseStream());
+                        System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+                        string strMonthName = mfi.GetMonthName(day.Month).ToString();
 
-                        // Console application output  
 
-                        Console.WriteLine(reader.ReadToEnd());
-                    }  
-        
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\sec_list.csv";
+                        baseurl = "http://www.nseindia.com/content/equities/sec_list.csv";
 
-                    //process 
-                    if (System.IO.File.Exists(strYearDir))
-                    {
-
-                        try
+                        string sec = strYearDir;
+                        if (!System.IO.File.Exists(strYearDir))
                         {
-                            string[] nseindex = new string[1] { "" };
-                            nseindex[0] = strYearDir;
-                            if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
-                                Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
-                            ExecuteINDEXProcessing(nseindex, "NSEINDEX", txtTargetFolder.Text + "\\Download", secname);
+                            prograss();
+                            downliaddata(strYearDir, baseurl);
 
 
-                            filetransfer(nseindex[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-                            if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
-                            {
-                                Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
-                            }
-                            if (!Directory.Exists(txtTargetFolder.Text + "\\FCharts"))
-                            {
-                                Directory.CreateDirectory(txtTargetFolder.Text + "\\FCharts");
-                            }
-                            if (!Directory.Exists(txtTargetFolder.Text + "\\AdvanceGet"))
-                            {
-                                Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
-                            }
-                            if (comboBox1.SelectedItem == "Amibroker")
-                            {
-                            System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\Amibroker\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-
-
-                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-                            }
-                            if (comboBox1.SelectedItem == "FCharts")
-                            {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-
-
-                            Fchart (txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-                            }
-
-                            if (comboBox1.SelectedItem == "AdvanceGet")
-                            {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-
-
-                                AdvanceGet (txtTargetFolder.Text + "\\AdvanceGet\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
-                            }
-                            
-                            
                         }
-                        catch
+                        string secname = strYearDir;
+
+                        strYearDir = txtTargetFolder.Text + "\\Downloads\\NseIndex" + formatdate(day) + ".csv";
+
+                        baseurl = "http://nseindia.com/content/indices/ind_close_all_" + formatdate(day) + ".csv";
+
+
+
+                        downliaddata(strYearDir, baseurl);
+                        //Webpage visit
+                        HttpWebRequest request = WebRequest.Create("http://list.shubhalabha.in/netindex.html") as HttpWebRequest;
+                        //  WebClient webClient = new WebClient();
+                        using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                         {
+                            // Get the response stream  
+                            StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                            // Console application output  
+
+                            Console.WriteLine(reader.ReadToEnd());
+                        }
+
+
+                        //process 
+                        if (System.IO.File.Exists(strYearDir))
+                        {
+
+                            try
+                            {
+                                string[] nseindex = new string[1] { "" };
+                                nseindex[0] = strYearDir;
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                                ExecuteINDEXProcessing(nseindex, "NSEINDEX", txtTargetFolder.Text + "\\Download", secname);
+
+
+                                filetransfer(nseindex[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
+                                {
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
+                                }
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\FCharts"))
+                                {
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\FCharts");
+                                }
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\AdvanceGet"))
+                                {
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
+                                }
+                                if (comboBox1.SelectedItem == "Amibroker")
+                                {
+                                    System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\Amibroker\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+
+
+                                    Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+                                }
+                                if (comboBox1.SelectedItem == "FCharts")
+                                {
+                                    System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+
+
+                                    Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+                                }
+
+                                if (comboBox1.SelectedItem == "AdvanceGet")
+                                {
+                                    System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+
+
+                                    AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
+                                }
+
+
+                            }
+                            catch
+                            {
+                            }
+
                         }
 
                     }
 
+
+                }
+                catch
+                {
                 }
 
             }
@@ -4097,6 +4104,8 @@ namespace StockD
                      JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\MCXINDEX" + datetoselect + ".csv");
                      filetransfer(txtTargetFolder.Text + "\\Downloads\\MCXINDEX" + datetoselect + ".csv", txtTargetFolder.Text + "\\STD_CSV\\MCX_INDEX_" + datetoselect + ".csv");
 
+                     Deletspace(txtTargetFolder.Text + "\\STD_CSV\\MCX_INDEX_" + datetoselect + ".csv");
+
                      if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                      {
                          Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -4114,7 +4123,7 @@ namespace StockD
                          Directory.Delete(txtTargetFolder.Text + "\\Downloads\\MCX_INDEX", true);
                      }
                  }
-                 catch
+                 catch(Exception ex)
                  {
                  }
 
@@ -4257,6 +4266,9 @@ namespace StockD
 
                  JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\Downloads\\MCX_SPOT_INDEX" + datetoselect + ".csv");
                  filetransfer(txtTargetFolder.Text + "\\Downloads\\MCX_SPOT_INDEX" + datetoselect + ".csv", txtTargetFolder.Text + "\\STD_CSV\\MCX_SPOT_INDEX" + datetoselect + ".csv");
+
+                 Deletspace(txtTargetFolder.Text + "\\STD_CSV\\MCX_SPOT_INDEX" + datetoselect + ".csv");
+                 
                  if (Directory.Exists(txtTargetFolder.Text + "\\Downloads\\MCX_Spot_Index"))
                  {
                      Directory.Delete(txtTargetFolder.Text + "\\Downloads\\MCX_Spot_Index", true);
@@ -6041,6 +6053,52 @@ namespace StockD
             wbWorkbook.Close(false, "", true);
         }
 
+        public void Deletspace(string Filename)
+        {
+            FileHelperEngine engineMCXindex = new FileHelperEngine(typeof(SpaceRemove));
+            SpaceRemove[] resbsecsv = engineMCXindex.ReadFile(Filename) as SpaceRemove[];
+
+            SpaceRemove[] finalarr = new SpaceRemove[resbsecsv.Length];
+            int icntr = 0;
+            while (icntr < resbsecsv.Length)
+            {
+                finalarr[icntr] = new SpaceRemove();
+
+
+                finalarr[icntr].ticker = resbsecsv[icntr].ticker;
+
+            // finalarr[icntr].ticker = strbseequityfilename.Substring(0,strbseequityfilename.Length - 4);
+
+
+                finalarr[icntr].name = resbsecsv[icntr].name;
+
+            //first col is not present as nseindex so data is capture as open =highprice,high=low_price and so on
+
+                finalarr[icntr].date = resbsecsv[icntr].date;
+
+
+            finalarr[icntr].open = resbsecsv[icntr].open ;
+            finalarr[icntr].high = resbsecsv[icntr].high ;
+            finalarr[icntr].low = resbsecsv[icntr].low ;
+            finalarr[icntr].close = resbsecsv[icntr].close ;
+            finalarr[icntr].volume = resbsecsv[icntr].volume ;
+            finalarr[icntr].openint = resbsecsv[icntr].openint ; //enint;
+
+
+            icntr++;
+                   
+            
+            }
+            FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(SpaceRemove));
+
+
+            engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT";
+
+
+
+            engineBSECSVFINAL.WriteFile(Filename , finalarr);
+
+        }
         public void ExecuteINDEXProcessing(string[] strBSECSVArr, string name, string datetostore, string strNSESEC)
         {
             if (name == "MCXSPOTINDEX")
@@ -7763,6 +7821,10 @@ namespace StockD
             }
             catch{
             }
+            RTD_server_name.Items.Add("NEST");
+            RTD_server_name.Items.Add("NOW");
+
+
            comboBox1.Items.Add("CSV");
            comboBox1.Items.Add("FCharts");
            comboBox1.Items.Add("Amibroker");
@@ -9169,6 +9231,14 @@ namespace StockD
 
         private void StartRT_Click(object sender, RoutedEventArgs e)
         {
+            if(txtTargetFolder.Text=="")
+            {
+                System.Windows.MessageBox.Show("Set Target Path.");
+                txtTargetFolder.Focus();
+                return;
+                
+            }
+            
             string symboltowriteinfile = "";
             if(formatfilename.Text=="")
             {
@@ -9180,9 +9250,16 @@ namespace StockD
             {
             
 
-                type = Type.GetTypeFromProgID("nest.scriprtd");
+             //   type = Type.GetTypeFromProgID("nest.scriprtd");
+                if(RTD_server_name.SelectedItem=="NEST")
+                {
+                   type = Type.GetTypeFromProgID("nest.scriprtd");
+                }
+                else if (RTD_server_name.SelectedItem == "NOW")
+                {
+                    type = Type.GetTypeFromProgID("now.scriprtd");
 
-
+                }
                 m_server = (IRtdServer)Activator.CreateInstance(type);
 
                 
@@ -9228,12 +9305,20 @@ namespace StockD
             marketsymboltoremove.Clear();
             SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
             LoadTree(sao);
+
         }
 
         private void SaveSymbol_Click(object sender, RoutedEventArgs e)
         {
           //  savesymbol.Items.Clear();
+            if (txtTargetFolder.Text == "")
+            {
+                System.Windows.MessageBox.Show("Set Target Path.");
+                txtTargetFolder.Focus();
+                return;
 
+            }
+            
             int i;
 
             string saveintxt = "";
@@ -9495,6 +9580,11 @@ namespace StockD
             {
                 System.Windows.MessageBox.Show("Please Enter Valid User Name And Password");
             }
+        }
+
+        private void frame1_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
 
         
