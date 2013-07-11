@@ -10,15 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Web;
-using System.Net.Mail;
-using System.Net;
-
 using System.IO;
-using System.Collections;
-using System.Threading;
-
+using System.Net;
 using Microsoft.Win32;
-
 namespace ShubhaRt
 {
     /// <summary>
@@ -26,8 +20,6 @@ namespace ShubhaRt
     /// </summary>
     public partial class Login : Window
     {
-        System.Windows.Threading.DispatcherTimer DispatcherTimer1 = new System.Windows.Threading.DispatcherTimer();
-
         public Login()
         {
             InitializeComponent();
@@ -36,59 +28,7 @@ namespace ShubhaRt
         private void frame1_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             //Login Page
-
-
-
-
-
-
-
-
         }
-
-        private void RtdataRecall()
-        {
-            DispatcherTimer1.Tick += new EventHandler(dispatcherTimerForRT_Tick);
-            DispatcherTimer1.Interval = new TimeSpan(0, 0, 5);
-            DispatcherTimer1.Start();
-
-        }
-        private void dispatcherTimerForRT_Tick(object sender, EventArgs e)
-        {
-            CommandManager.InvalidateRequerySuggested();
-            validate();
-            RtdataRecall();
-
-        }
-
-        private void Login_btn_Click(object sender, RoutedEventArgs e)
-        {
-
-            Uri a = new Uri("http://shubhalabha.in/community/wp-login.php");
-            Uri a1 = new Uri("http://shubhalabha.in/community/wp-admin/profile.php");
-
-
-            if (LoginAunthenticate.Source == a)
-            {
-                System.Windows.MessageBox.Show("Please Valicated Acc First ");
-
-            }
-            else if (LoginAunthenticate.Source == a1)
-            {
-                System.Windows.MessageBox.Show("Valid USer ");
-
-            }
-            else
-            {
-                LoginAunthenticate.Source = a;
-                System.Windows.MessageBox.Show("Please Valicated Acc First ");
-
-            }
-
-
-
-        }
-
         public void SetRegKey()
         {
 
@@ -97,44 +37,61 @@ namespace ShubhaRt
             regKey.SetValue("ApplicationID", "1");
 
         }
-        public void validate()
+        private void Loginbtn_Click(object sender, RoutedEventArgs e)
         {
-            Uri a = new Uri("http://shubhalabha.in/community/wp-login.php");
-            Uri a1 = new Uri("http://shubhalabha.in/community/");
-            Uri a2 = new Uri("http://shubhalabha.in/community/wp-admin/profile.php");
+            string loginUri = "http://shubhalabha.in/community/wp-login.php";
+            
+            string reqString = "log=" + username.Text  + "&pwd=" + password.Password ;
+            byte[] requestData = Encoding.UTF8.GetBytes(reqString);
 
+            CookieContainer cc = new CookieContainer();
+            var request = (HttpWebRequest)WebRequest.Create(loginUri);
+            request.Proxy = null;
+            request.AllowAutoRedirect = false;
+            request.CookieContainer = cc;
+            request.Method = "post";
 
-            if (LoginAunthenticate.Source == a1)
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = requestData.Length;
+            using (Stream s = request.GetRequestStream())
+                s.Write(requestData, 0, requestData.Length);
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
-                LoginAunthenticate.Source = a;
-                System.Windows.MessageBox.Show("Please Valicated Acc First ");
-                RtdataRecall();
+                int count=1;
+                foreach (Cookie c in response.Cookies)
+                {
+                    //responce 2 contain loggen in or not 
+                    if (count == 2)
+                    {
+                        if (c.ToString().Contains("wordpress_logged_in_17e90d9fdb1ef2a442ed2d6aeb707f54"))
+                        {
+                            System.Windows.MessageBox.Show("Login Successfull");
+                            try
+                            {
+                                SetRegKey();
+                                this.Hide();
+                                StockD.MainWindow newwin = new StockD.MainWindow();
+                                newwin.InitializeComponent();
+
+                                newwin.ShowDialog();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("Please Enter Valid UserName & Password ");
+
+                        }
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
             }
-            if (LoginAunthenticate.Source == a2)
-            {
-                System.Windows.MessageBox.Show("Valid USer ");
-                SetRegKey();
-                this.Hide();
-                StockD.MainWindow newwin = new StockD.MainWindow();
-                newwin.InitializeComponent();
-
-                newwin.ShowDialog();
-                   
-                   
-
-
-            }
-
-
-        }
-
-
-
-
-        private void Register_btn_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://shubhalabha.in/community/wp-login.php?action=register");
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -174,9 +131,18 @@ namespace ShubhaRt
 
                 }
             }
-            validate();
-            RtdataRecall();
-
         }
+
+        private void Regiser_btn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://shubhalabha.in/community/wp-login.php?action=register");
+        }
+
+        private void Cancle_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        
     }
 }

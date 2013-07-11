@@ -7811,13 +7811,18 @@ namespace StockD
             {
                 System.Net.WebRequest myRequest = System.Net.WebRequest.Create("http://www.Google.co.in");
                 System.Net.WebResponse myResponse = myRequest.GetResponse();
+
+
+                Uri a4 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/ck.php?n=a3f24fd1&amp;cb=INSERT_RANDOM_NUMBER_HERE'");
                 Uri a1 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a2 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a3 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 wad1.Source = a1;
-                
+                wad2.Source = a3;
+                wad3.Source = a1;
+                wad4.Source = a4;
+              
       
-            ad3.Source = a3;
             }
             catch{
             }

@@ -81,6 +81,13 @@
                         <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" />
                         <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,147,0,0" Name="textBlock4" Text="Copyright © 2013 Shubhalabha.in" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" />
                     </Grid>
+                    <Grid Height="155" HorizontalAlignment="Left" Margin="83,100,0,0" Name="gri2" VerticalAlignment="Top" Width="138" Grid.Column="1">
+                        
+                        <WebBrowser Name="wad2" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ></WebBrowser>
+                    </Grid >
+                    <Grid Height="155" HorizontalAlignment="Left" Margin="84,267,0,0" Name="gri3" VerticalAlignment="Top" Width="138" Grid.Column="1">
+                        <WebBrowser Name="wad3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"></WebBrowser>
+                    </Grid >
                 </Grid>
             </TabItem>
             <TabItem Name="tabItem1">
@@ -456,13 +463,15 @@
         <Image Height="25" HorizontalAlignment="Left" Margin="975,573,0,0" Name="image5" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="Images/gplus.png" />
         <Image Height="25" HorizontalAlignment="Left" Margin="1022,573,0,0" Name="image6" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="Images/in.png" />
         <Image Height="25" HorizontalAlignment="Left" Margin="1063,572,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="35" Source="Images/email.png" />
-        <Frame ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"    Height="153" HorizontalAlignment="Left" Margin="721,208,0,0" Name="ad3" VerticalAlignment="Top" Width="138" />
         <Grid Height="100" HorizontalAlignment="Left" Name="grid1" VerticalAlignment="Top" Width="200" Visibility="Hidden"  >
             <WebBrowser Name="webforvisit" Margin="-3,1,3,-1"></WebBrowser>
 
         </Grid>
         <Grid Height="155" HorizontalAlignment="Left" Margin="723,42,0,0" Name="grid2" VerticalAlignment="Top" Width="138">
-            <WebBrowser Name="wad1"></WebBrowser>
+            <WebBrowser Name="wad1" SelectiveScrollingGrid.SelectiveScrollingOrientation="None" Width="138" Height="155" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="138" MaxHeight="155"></WebBrowser>
         </Grid >
+        <Grid Height="67" HorizontalAlignment="Left" Margin="361,1,0,0" Name="grid3" VerticalAlignment="Top" Width="337" >
+            <WebBrowser Name="wad4"></WebBrowser>
+        </Grid>
     </Grid>
 </Window>
