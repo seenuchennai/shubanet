@@ -81,9 +81,11 @@
                         <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" />
                         <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,147,0,0" Name="textBlock4" Text="Copyright © 2013 Shubhalabha.in" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" />
                     </Grid>
-                    <Grid Height="155" HorizontalAlignment="Left" Margin="83,100,0,0" Name="gri2" VerticalAlignment="Top" Width="138" Grid.Column="1">
-                        
-                        <WebBrowser Name="wad2" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ></WebBrowser>
+                    <Grid Height="155" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.IsDeferredScrollingEnabled="False" ScrollViewer.CanContentScroll="False"  Margin="83,100,0,0" Name="gri2" VerticalAlignment="Top" Width="138" Grid.Column="1">
+
+                        <WebBrowser  Width="138" Name="wad2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"   ScrollViewer.IsDeferredScrollingEnabled="False" ScrollViewer.CanContentScroll="False" Margin="0,0,0,-2">
+                            
+                        </WebBrowser>
                     </Grid >
                     <Grid Height="155" HorizontalAlignment="Left" Margin="84,267,0,0" Name="gri3" VerticalAlignment="Top" Width="138" Grid.Column="1">
                         <WebBrowser Name="wad3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"></WebBrowser>
@@ -264,7 +266,7 @@
                 </Grid>
             </TabItem>
            
-            <TabItem  Name="tabLog">
+            <TabItem  Name="tabLog" GotFocus="tabLog_GotFocus">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image VerticalAlignment="Center"  Width="15" Source="Images/yahoo.jpeg" />
@@ -337,8 +339,9 @@
                     </DataGrid>
                     <Label Content="Search:" Height="28" HorizontalAlignment="Left" Margin="1,24,0,0" Name="label4" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="53,26,0,0" Name="yahoosearch" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2" TextChanged="yahoosearch_TextChanged"  />
-                    <Button Content="Add" Height="23" HorizontalAlignment="Right" Margin="0,26,411,0" Name="button2" VerticalAlignment="Top" Width="60" Grid.Column="1" Click="button2_Click_1" />
-                    <Button Content="Remove" Height="23" HorizontalAlignment="Right" Margin="0,26,282,0" Name="button1" VerticalAlignment="Top" Width="59" Grid.Column="1" Click="button1_Click" />
+                    <Button Content="Add" Height="23" HorizontalAlignment="Left" Margin="97,26,0,0" Name="button2" VerticalAlignment="Top" Width="60" Grid.Column="1" Click="button2_Click_1" />
+                    <Button Content="Remove" Height="23" HorizontalAlignment="Right" Margin="0,24,148,0" Name="button1" VerticalAlignment="Top" Width="59" Grid.Column="1" Click="button1_Click" />
+                    <Button Content="Save Selected Symbol" Height="23" HorizontalAlignment="Left" Margin="227,24,0,0" Name="savesymbol_btn" VerticalAlignment="Top" Width="123" Grid.Column="1" Click="savesymbol_btn_Click" />
                 </Grid>
             </TabItem>
             <TabItem  Name="Tab_Market_Analysis" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
@@ -392,7 +395,7 @@
                     <WebBrowser Source="http://list.shubhalabha.in/netbsecm.html" Name="web" />
                 </Grid>
             </TabItem>
-            <TabItem  Name="Tab_Help" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+            <TabItem  Name="Tab_Help" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri" GotFocus="Tab_Help_GotFocus">
 
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -450,10 +453,11 @@
                     <Label Content="User Name :" Height="28" HorizontalAlignment="Left" Margin="372,269,0,0" Name="uname" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"  />
                     <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="380,313,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"/>
                     <TextBox Height="23" HorizontalAlignment="Right" Margin="0,269,68,0" Name="username" VerticalAlignment="Top" Width="180" Visibility="Hidden" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="456,313,0,0" Name="password" VerticalAlignment="Top" Width="180" Visibility="Hidden"/>
+                    <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Top"  Height="23" Margin="0,310,68,0" Name="password" Width="180"  Visibility="Hidden"></PasswordBox>
+
                     <Button Content="Login" Height="23" HorizontalAlignment="Left" Margin="431,368,0,0" Name="Login_btn" VerticalAlignment="Top" Width="75"  Visibility="Hidden" Click="Login_btn_Click" />
-                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,368,79,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden"/>
-                    <Frame Height="163" HorizontalAlignment="Left" Margin="354,242,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden"  />
+                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,368,93,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Cancle_btn_Click" />
+                    <Frame Height="99" HorizontalAlignment="Left" Margin="354,242,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden" Navigated="Login_frame_Navigated" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,16,0,0" Name="RTD_server_name" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
                     <Label Content="Select RTD Server " Height="28" HorizontalAlignment="Left" Margin="413,12,0,0" Name="label8" VerticalAlignment="Top" />
                 </Grid>
@@ -468,10 +472,10 @@
 
         </Grid>
         <Grid Height="155" HorizontalAlignment="Left" Margin="723,42,0,0" Name="grid2" VerticalAlignment="Top" Width="138">
-            <WebBrowser Name="wad1" SelectiveScrollingGrid.SelectiveScrollingOrientation="None" Width="138" Height="155" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="138" MaxHeight="155"></WebBrowser>
+            <WebBrowser Name="wad1" SelectiveScrollingGrid.SelectiveScrollingOrientation="None" Width="138" Height="155" VerticalAlignment="Stretch" HorizontalAlignment="Center" MaxWidth="138" MaxHeight="155" UseLayoutRounding="False"></WebBrowser>
         </Grid >
         <Grid Height="67" HorizontalAlignment="Left" Margin="361,1,0,0" Name="grid3" VerticalAlignment="Top" Width="337" >
-            <WebBrowser Name="wad4"></WebBrowser>
+            <WebBrowser Name="wed4"></WebBrowser>
         </Grid>
     </Grid>
 </Window>
