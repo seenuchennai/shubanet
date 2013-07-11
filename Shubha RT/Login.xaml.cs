@@ -13,6 +13,7 @@ using System.Web;
 using System.IO;
 using System.Net;
 using Microsoft.Win32;
+using System.Configuration;
 namespace ShubhaRt
 {
     /// <summary>
@@ -73,7 +74,14 @@ namespace ShubhaRt
                                 System.Windows.MessageBox.Show("Login Successful");
                                 try
                                 {
-                                    SetRegKey();
+                                    Configuration config;
+                                    config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                                    config.AppSettings.Settings.Remove("ApplicationId");
+
+                                    config.AppSettings.Settings.Add("ApplicationId", "1");
+                                    config.Save(ConfigurationSaveMode.Full);
+                                    ConfigurationManager.RefreshSection("ApplicationId");
+                                   // SetRegKey();
                                     this.Hide();
                                     StockD.MainWindow newwin = new StockD.MainWindow();
                                     CommandManager.InvalidateRequerySuggested();
@@ -112,16 +120,21 @@ namespace ShubhaRt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            RegistryKey regKey = Registry.CurrentUser;
-            regKey = regKey.CreateSubKey(@"Software\");
-            object unm = regKey.GetValue("ApplicationID");
+            //RegistryKey regKey = Registry.CurrentUser;
+            //regKey = regKey.CreateSubKey(@"Software\");
+            //object unm = regKey.GetValue("ApplicationId");
 
-            string a = "0";
+            string chktmp = ConfigurationManager.AppSettings["ApplicationId"];
+            bool btemp = false;
 
-            if (unm != null)
+
+
+            string a = "1";
+
+            if (chktmp != null)
             {   //username .Text = regKey.GetValue("UserName").ToString();
 
-                string b = unm.ToString();
+                string b = chktmp.ToString();
 
                 if (b != a)
                 {
