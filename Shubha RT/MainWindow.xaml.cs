@@ -71,6 +71,7 @@ namespace StockD
         object ExcelInst;
         Type type;
         List<string> symbolname = new List<String>();
+        List<string> exchagename = new List<string>();
         string Marketwatchname = "";
 
         IRtdServer m_server;
@@ -7671,11 +7672,48 @@ namespace StockD
             CommandManager.InvalidateRequerySuggested();
 
             symbolname.Clear();
+            exchagename.Clear();
             dataGridforsymbol.Items.Clear();
-
+           
+            SystemAccessibleObject[] exchange = parents[1].Children;
             for (i = 0; i < sao.Children.Count() - 1; i++)
             {
+               
                 symbolname.Add(sao.Children.GetValue(i).ToString());
+                string s = exchange[i].Description;
+              
+                string[] words = s.Split(',');
+
+             int   i1 = words.Count();
+             string s1 = words[i1 - 1];
+
+                string[] words1 = s1.Split(':');
+
+
+                if (words1[1].Trim() == "MCX")
+                {
+                    exchagename.Add("mcx_fo");
+
+                }
+                else if (words1[1].Trim() == "NSE")
+                {
+                    exchagename.Add("nse_cm");
+
+                }
+                else if (words1[1].Trim() == "NFO")
+                {
+                    exchagename.Add("nse_fo");
+
+                }
+                else if (words1[1].Trim() == "CDS")
+                {
+                    exchagename.Add("cde_fo");
+
+                }
+
+
+
+             //   System.Windows.MessageBox.Show(words1[1]);
 
             }
 
@@ -7691,7 +7729,7 @@ namespace StockD
 
 
                 symboltowriteinfile = symboltowriteinfile + symbolname[i].Trim() + "\r\n";
-                dataGridforsymbol.Items.Add(new Dataitemforsymbol { Column0 = "", Column1 = symbolname[i] });
+                dataGridforsymbol.Items.Add(new Dataitemforsymbol { Column0 = "", Column1 = symbolname[i], Column2 = exchagename[i] });
 
 
             }
@@ -7835,16 +7873,16 @@ namespace StockD
                 dataGridforsymbol.SelectedItem.ToString();
 
 
-                exchagenameenterbyuser = Interaction.InputBox("Enter Exchange Name For Selected Symbol", "Exchang name", "", -1, -1);
+               // exchagenameenterbyuser = Interaction.InputBox("Enter Exchange Name For Selected Symbol", "Exchang name", "", -1, -1);
 
                 Dataitemforsymbol row = (Dataitemforsymbol)dataGridforsymbol.SelectedItems[0];
-                var a1 = dataGridforsymbol.Columns[1];
+               // var a1 = dataGridforsymbol.Columns[1];
 
 
 
                 marketsymbol.Add(row.Column1);
 
-                Exchangename.Add(exchagenameenterbyuser);
+                Exchangename.Add(row.Column2 );
 
             }
 
@@ -8017,9 +8055,9 @@ namespace StockD
             }
 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
-                string[] nameofcol = new string[2] { "", "Symbol" };
+                string[] nameofcol = new string[3] { "", "Symbol" ,"Exchange"};
 
 
                 var column = new DataGridTextColumn();
@@ -9461,8 +9499,14 @@ namespace StockD
             marketsymbol.Clear();
             marketsymboltoremove.Clear();
             SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
-            LoadTree(sao);
+            try
+            {
 
+                LoadTree(sao);
+            }
+            catch
+            {
+            }
         }
 
         private void SaveSymbol_Click(object sender, RoutedEventArgs e)
