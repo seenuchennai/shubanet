@@ -412,6 +412,7 @@ namespace StockD
                             {
                                 ExecuteFUTUREProcessing(PRFO, "FO", datetostore1, sec);
                                 filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Deletspace(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                                 if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                                 {
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -2358,7 +2359,7 @@ namespace StockD
 
 
                             ExecuteSMEETFProcessing(smeetf, "SME_SME", txtTargetFolder.Text + "\\STD_CSV", sec);
-                            filetransfer(smeetf[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                            filetransfer(smeetf[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -2375,23 +2376,23 @@ namespace StockD
                             if (comboBox1.SelectedItem == "Amibroker")
                             {
 
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
-                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                             if (comboBox1.SelectedItem == "FCharts")
                             {
 
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
-                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                             if (comboBox1.SelectedItem == "AdvanceGet")
                             {
 
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
-                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME_sme" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
 
 
@@ -2487,7 +2488,7 @@ namespace StockD
                             }
 
                             ExecuteSMEETFProcessing(smeetf, "SME_ETF", txtTargetFolder.Text + "\\STD_CSV", sec);
-                            filetransfer(smeetf[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                            filetransfer(smeetf[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -2502,25 +2503,25 @@ namespace StockD
                             }
                             if (comboBox1.SelectedItem == "Amibroker")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
 
                             if (comboBox1.SelectedItem == "FCharts")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                             if (comboBox1.SelectedItem == "AdvanceGet")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_SME_etf" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_ETF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
 
                         }
@@ -2573,7 +2574,7 @@ namespace StockD
                         if (!Directory.Exists(strYearDir))
                         {
                             downliaddata(strYearDir, baseurl);
-                            dest_filename = txtTargetFolder.Text + "\\Reports\\NSE_MARKET_ACTIVITY.csv";
+                            dest_filename = txtTargetFolder.Text + "\\STD_CSV\\NSE_MARKET_ACTIVITY.csv";
 
                             movefile(strYearDir, dest_filename);
                         }
@@ -4592,7 +4593,7 @@ namespace StockD
                 {
                     finalarr[icntr] = new BSECSVFINAL();
                     finalarr[icntr].ticker = resbsecsv[icntr].sc_code;
-                    finalarr[icntr].name = resbsecsv[icntr].sc_name;
+                    finalarr[icntr].name = resbsecsv[icntr].sc_name.Trim();
 
 
                     finalarr[icntr].date = "20" + stryear + strmon + strday; // String.Format("{0:yyyyMMdd}", myDate);
@@ -5745,13 +5746,13 @@ namespace StockD
                 int itmp = 0;
                 int cnt = 0;
 
-                SMEETFFINAL[] finalarr = new SMEETFFINAL[resbsecsv.Length];
+                optionFINAL[] finalarr = new optionFINAL[resbsecsv.Length];
                 DateTime myDate;
                 itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
-                    finalarr[icntr] = new SMEETFFINAL();
+                    finalarr[icntr] = new optionFINAL();
 
 
                     finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL;
@@ -5776,7 +5777,7 @@ namespace StockD
                     icntr++;
                 }
 
-                FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(SMEETFFINAL));
+                FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(optionFINAL));
                 engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT";
                 engineBSECSVFINAL.WriteFile(obj, finalarr);
 
@@ -6094,7 +6095,7 @@ namespace StockD
                         finalarr[itmp].high = resbsecsv[icntr].HIGH_PRICE;
                         finalarr[itmp].low = resbsecsv[icntr].LOW_PRICE;
                         finalarr[itmp].close = resbsecsv[icntr].CLOSE_PRICE;
-                        finalarr[itmp].volume = resbsecsv[icntr].NET_TRDQTY;
+                        finalarr[itmp].volume = resbsecsv[icntr].NET_TRDQTY.Trim();
 
                         if (name == "MCXBHAV")
                         {
@@ -6103,11 +6104,11 @@ namespace StockD
 
                         }
 
-                        finalarr[itmp].openint = Convert.ToInt32(resbsecsv[icntr].OPEN_INT); //enint;
+                        finalarr[itmp].openint = Convert.ToInt32(resbsecsv[icntr].OPEN_INT.ToString().Trim()); //enint;
 
                         if (name == "CF")
                         {
-                            finalarr[itmp].AUX1 = resbsecsv[icntr].TRD_VAL.ToString(); //enint;
+                            finalarr[itmp].AUX1 = resbsecsv[icntr].TRD_VAL.ToString().Trim(); //enint;
 
                         }
                         else
@@ -6785,7 +6786,7 @@ namespace StockD
                 int itmp = 0;
                 int cnt = 0;
 
-                SMEETFFINAL[] finalarr = new SMEETFFINAL[resbsecsv.Length];
+                optionFINAL[] finalarr = new optionFINAL[resbsecsv.Length];
                 DateTime myDate;
                 itmp = 0;
                 int icntr = 0;
@@ -6794,10 +6795,10 @@ namespace StockD
 
                 while (icntr < resbsecsv.Length)
                 {
-                    finalarr[icntr] = new SMEETFFINAL();
+                    finalarr[icntr] = new optionFINAL();
 
 
-                    finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL + resbsecsv[icntr].STR_PRICE + resbsecsv[icntr].OPT_TYPE;
+                    finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL.Trim() + resbsecsv[icntr].STR_PRICE.ToString().Trim() + resbsecsv[icntr].OPT_TYPE.Trim();
 
 
                     //myDate = Convert.ToDateTime(dt);
@@ -6819,7 +6820,7 @@ namespace StockD
                     icntr++;
                 }
 
-                FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(SMEETFFINAL));
+                FileHelperEngine engineBSECSVFINAL = new FileHelperEngine(typeof(optionFINAL));
                 engineBSECSVFINAL.HeaderText = "Ticker,Name,Date,Open,High,Low,Close,Volume,OPENINT";
                 engineBSECSVFINAL.WriteFile(obj, finalarr);
 

@@ -89,6 +89,20 @@ namespace ShubhaRt
             public string  AUX1;
 
         }
+        [DelimitedRecord(","), IgnoreFirst(1)]
+        public class optionFINAL
+        {
+            public string ticker;
+            public string name;
+            public string date;
+            public double open;
+            public double high;
+            public double low;
+            public double close;
+            public int volume;
+            [FieldNullValue(typeof(long), "0")]
+            public Nullable<long> openint;
 
+        }
     
 }
