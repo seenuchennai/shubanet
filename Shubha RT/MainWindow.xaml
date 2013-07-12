@@ -101,7 +101,7 @@
                 </TabItem.Header>
                 <Grid>
 
-                  
+               
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -185,12 +185,12 @@
                         <l:AccordianItem Header="MCX">
                             <Grid >
 
-                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Visible"  />
-                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="322,40,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
+                                <CheckBox Content="MCX-SX Forex Future" Height="16" HorizontalAlignment="Left" Margin="481,6,0,0" Name="MCXSX_Forex_Future" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Forex_Future" Visibility="Hidden"   />
+                                <CheckBox Content="MCX-SX Equity Futures  " Height="16" HorizontalAlignment="Left" Margin="319,7,0,0" Name="MCXSX_Equity_Futures" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Futures" />
                                 <CheckBox Content="MCX Commodity Futures" Height="16" HorizontalAlignment="Left" Margin="153,7,0,0" Name="MCXCommodity_Futures" VerticalAlignment="Top" Width="164" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXCommodity_Futures" />
-                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="153,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" />
-                                <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,40,0,0" Name="MCXSXForex_Options" VerticalAlignment="Top" IsChecked="False" IsEnabled="False" />
-                                <CheckBox Content="National Spot Exchange" Height="16" HorizontalAlignment="Left" Margin="322,7,0,0" Name="National_Spot_Exchange" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="National_Spot_Exchange" />
+                                <CheckBox Content="MCX-SX Equity Options" Height="16" HorizontalAlignment="Left"  Margin="153,40,0,0" Name="MCXSX_Equity_Options" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Options" IsChecked="False" IsEnabled="False" Visibility="Hidden" />
+                                <CheckBox Content="MCX-SX Forex Options" Height="16" HorizontalAlignment="Left" Margin="6,40,0,0" Name="MCXSXForex_Options" VerticalAlignment="Top" IsChecked="False" IsEnabled="False" Visibility="Hidden"  />
+                                <CheckBox Content="National Spot Exchange" Height="16" HorizontalAlignment="Left" Margin="319,40,0,0" Name="National_Spot_Exchange" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="National_Spot_Exchange" Visibility="Hidden"  />
                                 <CheckBox Content="MCX Index" Height="16" HorizontalAlignment="Left" Margin="6,7,0,0" Name="MCX_Index" VerticalAlignment="Top" Width="125" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCX_Index" />
                                 <CheckBox Content="MCX-SX Currency  " Height="16" HorizontalAlignment="Left" Margin="481,73,0,0" Name="MCXSX_Currency" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
                                 <CheckBox Content="MCX-SX Block  " Height="16" HorizontalAlignment="Left" Margin="6,73,0,0" Name="MCXSX_Block" VerticalAlignment="Top" Command="{Binding Path=IsCheckBoxClicked}"  CommandParameter="MCXSX_Equity_Indices" Visibility="Hidden" />
@@ -448,7 +448,7 @@
                     <Label Content="Format file Name" Height="28" HorizontalAlignment="Left" Margin="424,90,0,0" Name="label6" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Right" Margin="0,92,48,0" Name="formatfilename" VerticalAlignment="Top" Width="120" Text="ShubhaRt.format" IsReadOnly="True" />
                     <Button Content="Start Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="354,205,0,0" Name="Start_Yahoo_Rt" VerticalAlignment="Top" Width="112" Click="Start_Yahoo_Rt_Click" />
-                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="511,205,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="103" />
+                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="567,205,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="103" />
                     <Frame Height="122" HorizontalAlignment="Left" Margin="354,6,0,0" Name="frame1" VerticalAlignment="Top" Width="327" Navigated="frame1_Navigated" />
                     <Label Content="User Name :" Height="28" HorizontalAlignment="Left" Margin="372,269,0,0" Name="uname" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"  />
                     <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="380,313,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"/>

@@ -582,12 +582,16 @@ namespace StockD
                                     strnse[0] = txtTargetFolder.Text + "\\Downloads\\cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav\\cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv";
 
 
-
+                                    if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\Metastock"))
+                                    {
+                                        Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\Metastock");
+                                    }
                                     ExecuteNSEEQUITYProcessing(mto, strnse, sec, "STDCSV", txtTargetFolder.Text + "\\");
                                     if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                                         Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
 
                                     filetransfer(strnse[0], txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                    commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhavv");
                                     if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                                     {
                                         Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -1449,6 +1453,7 @@ namespace StockD
 
 
                         JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv");
+                        commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\YahooEod");
 
                         if (Directory.Exists(txtTargetFolder.Text + "\\Downloads\\YahooEod"))
                         {
@@ -1505,13 +1510,14 @@ namespace StockD
                         for (int i = 0; i < GoogleEod.Count(); i++)
                         {
                             strYearDir = txtTargetFolder.Text + "\\Downloads\\Googleeod\\" + day.Day + GoogleEod[i] + ".csv";
-                            baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod[i] + "&x=NSE&i=60&p=5d&f=d,o,h,l&df=cpct&auto=1&ts=1266701290218";
+                            baseurl = "http://www.google.com/finance/getprices?q=" + GoogleEod[i] + "&x=NSE&i=60&p=5d&f=d,o,h,l,c,v&df=cpct&auto=1&ts=1266701290218";
                             // "http://www.google.com/finance/getprices?q=LICHSGFIN&x=LICHSGFIN&i=d&p=15d&f=d,o,h,l,c,v"
                             //http://www.google.com/finance/getprices?q=RELIANCE&x=NSE&i=60&p=5d&f=d,c,o,h,l&df=cpct&auto=1&ts=1266701290218 [^]
 
                             downliaddata(strYearDir, baseurl);
 
-
+                            ////////////////////metastock
+                            
 
                             try
                             {
@@ -1549,7 +1555,6 @@ namespace StockD
                                 log.Debug("yahoo File Processing strated....... ");
                                 ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD",i);
                                 log.Debug("yahoo File Processing End....... ");
-
                                 if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
                                 {
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
@@ -1558,7 +1563,14 @@ namespace StockD
                                 {
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\GoogleEod");
                                 }
-                                JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\Metastock"))
+                                {
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\Metastock");
+                                }
+                                //JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                                System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                                commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\" + GoogleEod[i] + datetostore + ".csv");
+
                             }
                             catch (Exception ex)
                             {
@@ -2996,7 +3008,13 @@ namespace StockD
                                     {
                                         Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
                                     }
+                                     if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\Metastock"))
+                                    {
+                                        Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\Metastock");
+                                    }
+                                    
                                     filetransfer(strbse[0], txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market" + date1 + day.Year + "bhav.csv");
+                                    commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market" + date1 + day.Year + "bhav.csv",txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Bse_Cash_Market" + date1 + day.Year + "bhav");
 
                                     if (comboBox1.SelectedItem == "Amibroker")
                                     {
@@ -5571,15 +5589,99 @@ namespace StockD
 
                 MCXSX[] resbsecsv = engineBSECSV.ReadFile(obj) as MCXSX[];
 
+
+
+
+
+
+
                 int iTotalRows = resbsecsv.Length;
 
 
 
+                /////////////////
+                List<Int32> lowvalue = new List<int> { };
+
+               
+                    for (int i = 0; i < iTotalRows - 1; i++)
+                    {
+
+                        lowvalue.Add(Convert.ToInt32(resbsecsv[i].Date.Substring(3, 2)));
+
+                    }
+                
+
+
+
+
+                ////////////////////
+
                 MCXSXFINAL[] finalarr = new MCXSXFINAL[resbsecsv.Length];
                 DateTime myDate;
                 int icntr = 0;
+                //////////////////
                 while (icntr < resbsecsv.Length)
                 {
+
+                                        int lowmonth = lowvalue.Min();
+                        if (Convert.ToInt32(resbsecsv[icntr].Date .Substring(3, 2)) == lowmonth)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-I";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 1)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-II";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 2)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-III";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 3)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-IV";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 4)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-V";
+                        }
+
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 5)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-VI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 6)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-VII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 7)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-VIII";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 8)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-IX";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 9)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-X";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 10)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-XI";
+                        }
+                        if (Convert.ToInt32(resbsecsv[icntr].Date.Substring(3, 2)) == lowmonth + 11)
+                        {
+                            resbsecsv[icntr].Symbol = resbsecsv[icntr].Symbol.Trim() + "-XII";
+                        }
+
+
+
+
+                    ///////////////////////
+
+
+
+
                     finalarr[icntr] = new MCXSXFINAL();
                     finalarr[icntr].ticker = resbsecsv[icntr].Symbol;
                     finalarr[icntr].date = datetostore;// String.Format("{0:yyyyMMdd}", myDate);
@@ -5646,6 +5748,23 @@ namespace StockD
 
 
                 int totrows = 0;
+
+
+                ///////////////////
+
+
+
+
+
+
+
+
+                ////////
+
+
+
+
+
 
                 int itmp = 0;
                 int cnt = 0;
@@ -7993,6 +8112,7 @@ namespace StockD
                 Uri a2 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a3 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 wad1.Source = a1;
+              
                 wad2.Source = a3;
                 wad3.Source = a1;
                 //  wad4.Source = a4;
@@ -9039,50 +9159,46 @@ namespace StockD
         }
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            WebClient webClient = new WebClient();
-            byte[] b = webClient.DownloadData("http://shubhalabha.in/community/wp-login.php");
-
-            string s = System.Text.Encoding.UTF8.GetString(b);
-            var __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
-            //__EVENTVALIDATION.Dump();
-            var forms = new System.Collections.Specialized.NameValueCollection();
-            // forms["__EVENTTARGET"] = "btnLink_Excel";
-            forms["__EVENTARGUMENT"] = "";
-            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
-            //  forms["user_login"] = "shantesh";
-            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
-            //  forms["user_pass"] = "lionking";
-            //  forms["wp-submit"] = "6";
-            // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\12AMBUJACEM.csv -r r -o C:\\data\\Metastock\\google\\h";
+           // startInfo.Arguments = "/C  C:\\asc2ms.exe -f " + filename + " -r r -o " + filestorename;
+          //  startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\12ACC.csv -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a";
 
 
-            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-            var responseData = webClient.UploadValues(@"http://shubhalabha.in/community/wp-login.php", "POST", forms);
-            System.IO.File.WriteAllBytes("c://a.html", responseData);
+
+            process.StartInfo = startInfo;
+            process.Start();
 
 
-            s = System.Text.Encoding.UTF8.GetString(responseData);
-            __EVENTVALIDATION = ExtractVariable(s, "__EVENTVALIDATION");
-            //__EVENTVALIDATION.Dump();
-            forms = new System.Collections.Specialized.NameValueCollection();
-            // forms["__EVENTTARGET"] = "btnLink_Excel";
-            forms["__EVENTARGUMENT"] = "";
-            forms["__VIEWSTATE"] = ExtractVariable(s, "__VIEWSTATE");
-            forms["user_login"] = "shantesh";
-            forms["__EVENTVALIDATION"] = __EVENTVALIDATION;
-            forms["user_pass"] = "lionking";
-            //  forms["wp-submit"] = "6";
-            // forms["ScriptManager1"] = "MupdPnl|mImgBtnGo";
 
 
-            webClient.Headers.Set(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded");
-            responseData = webClient.UploadValues(@"http://shubhalabha.in/community/wp-login.php", "POST", forms);
-            System.IO.File.WriteAllBytes("c://b.html", responseData);
+
+           
+
+        }
 
 
+        public void commandpromptcall(string filename,string filestorename)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            //startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
+            startInfo.Arguments = "/C  C:\\asc2ms.exe -f "+filename +" -r r -o "+filestorename ;
+           // startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a" ;
+            
+            
+            
+            process.StartInfo = startInfo;
+            process.Start();
 
 
         }
+
 
 
         private void linkclick()
@@ -9289,7 +9405,7 @@ namespace StockD
                     Directory.CreateDirectory(txtTargetFolder.Text + "\\Downloads");
                 }
 
-
+                //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=google&callback=YAHOO.Finance.SymbolSuggest.ssCallback
                 //http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=GOO&callback=YAHOO.Finance.SymbolSuggest.ssCallback
 
                 baseurl = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=" + yahoosearch.Text + "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
@@ -9779,7 +9895,7 @@ namespace StockD
 
                     //downliaddata(strYearDir, baseurl);
 
-
+                   
 
 
                 }
