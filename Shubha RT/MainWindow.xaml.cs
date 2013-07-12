@@ -8099,6 +8099,14 @@ namespace StockD
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
 
+
+
+            var delimiter = ",";
+
+            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+           
+
+
             CommandManager.InvalidateRequerySuggested();
 
             try
@@ -8137,6 +8145,8 @@ namespace StockD
             selectfilebluk.Items.Add("BSE_block");
 
 
+
+            
 
 
             for (int i = 3; i < 60; i++)
@@ -8193,6 +8203,30 @@ namespace StockD
 
             }
 
+            try
+            {
+
+
+                using (var reader = new StreamReader("C:\\Shubha\\YahooAll.csv"))
+                {
+                    string line = null;
+                    string[] headers = null;
+                    int i = 0;
+                    string name = "";
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
+                        dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = headers[0], Column2 = headers[1], Column3 = headers[2] });
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
             for (int i = 0; i < 2; i++)
             {
                 string[] nameofcol = new string[2] { "", "Symbol" };
@@ -8249,9 +8283,9 @@ namespace StockD
 
             dataGrid3.Items.Clear();
 
-            var delimiter = ",";
+             delimiter = ",";
 
-            var splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
+            splitExpression = new Regex(@"(" + delimiter + @")(?=(?:[^""]|""[^""]*"")*$)");
 
             try
             {
@@ -9352,41 +9386,46 @@ namespace StockD
 
         private void button2_Click_1(object sender, RoutedEventArgs e)
         {
-            dataGrid5.Items.Clear();
-
-            int i;
-
-
-
-            for (i = 0; i < YahooSymbolsave.Count; i++)
+            try
             {
-                CommandManager.InvalidateRequerySuggested();
+                dataGrid5.Items.Clear();
+
+                int i;
 
 
-                dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbolsave[i], Column2 = YahooNamesave[i], Column3 = YahooExchangesave[i] });
+
+                for (i = 0; i < YahooSymbolsave.Count; i++)
+                {
+                    CommandManager.InvalidateRequerySuggested();
+
+
+                    dataGrid5.Items.Add(new DataItem { Column0 = "", Column1 = YahooSymbolsave[i], Column2 = YahooNamesave[i], Column3 = YahooExchangesave[i] });
+                }
+
+
+                string line = "";
+
+                for (i = 0; i < YahooSymbolsave.Count; i++)
+                {
+                    // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
+
+                    line = line + YahooSymbolsave[i] + "\n";
+
+
+
+                }
+
+
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\Yahoo.txt"))
+                {
+                    System.IO.File.Delete(txtTargetFolder.Text + "\\Yahoo.txt");
+
+                }
+                System.IO.File.WriteAllText(txtTargetFolder.Text + "\\Yahoo.txt", line);
             }
-
-
-            string line = "";
-
-            for (i = 0; i < YahooSymbolsave.Count; i++)
+            catch
             {
-                // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
-
-                line = line + YahooSymbolsave[i] + "\n";
-
-
-
             }
-
-
-            if (System.IO.File.Exists(txtTargetFolder.Text + "\\Yahoo.txt"))
-            {
-                System.IO.File.Delete(txtTargetFolder.Text + "\\Yahoo.txt");
-
-            }
-            System.IO.File.WriteAllText(txtTargetFolder.Text + "\\Yahoo.txt", line);
-
         }
 
         private void yahoosearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -9944,6 +9983,7 @@ namespace StockD
         {
             List<string> sysmbolname = new List<string>();
             List<string> companyname = new List<string>();
+            List<string> yahooexchange = new List<string>();
 
             List<DataItem> row1 = new List<DataItem>();
 
@@ -9957,22 +9997,27 @@ namespace StockD
                     DataItem row = (DataItem)dataGrid5.Items.GetItemAt(i);
                     symbolname.Add(row.Column1.ToString());
                     companyname.Add(row.Column2.ToString());
+                    yahooexchange.Add(row.Column3.ToString());
 
                 }
                 string line = "";
                 string line1 = "";
+                string line2 = "";
+                string allinone = "";
+
                 for (int i = 0; i < symbolname.Count; i++)
                 {
                     // System.IO.File.WriteAllText("c://abc.txt", YahooSymbolsave[i]);
 
                     line = line + symbolname[i] + "\n";
                     line1 = line1 + companyname[i] + "\n";
-
+                    line2 = line2 + yahooexchange[i] + "\n";
+                    allinone = allinone + symbolname[i]+"," + companyname[i] +","+ yahooexchange[i]+"\n";
 
                 }
                 symbolname.Clear();
                 companyname.Clear();
-
+                yahooexchange.Clear();
                 if (System.IO.File.Exists(txtTargetFolder.Text + "\\YahooSymbol.txt"))
                 {
                     System.IO.File.Delete(txtTargetFolder.Text + "\\YahooSymbol.txt");
@@ -9983,8 +10028,25 @@ namespace StockD
                     System.IO.File.Delete(txtTargetFolder.Text + "\\YahooCompany.txt");
 
                 }
+                if (System.IO.File.Exists(txtTargetFolder.Text + "\\YahooExchange.txt"))
+                {
+                    System.IO.File.Delete(txtTargetFolder.Text + "\\YahooExchange.txt");
+
+                }
+                if (System.IO.File.Exists( "C:\\Shubha\\YahooAll.csv"))
+                {
+                    System.IO.File.Delete("C:\\Shubha\\YahooAll.csv");
+
+                }
+                if (Directory.Exists("C:\\Shubha"))
+                {
+                    Directory.CreateDirectory("C:\\Shubha");
+                }
+
                 System.IO.File.WriteAllText(txtTargetFolder.Text + "\\YahooSymbol.txt", line);
                 System.IO.File.WriteAllText(txtTargetFolder.Text + "\\YahooCompany.txt", line1);
+                System.IO.File.WriteAllText(txtTargetFolder.Text + "\\YahooExchange.txt", line2);
+                System.IO.File.WriteAllText("C:\\Shubha\\YahooAll.csv", allinone);
 
             }
             catch
