@@ -588,7 +588,11 @@ namespace StockD
                                         Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
 
                                     filetransfer(strnse[0], txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
-                                    commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhavv");
+                                    if (comboBox1.SelectedItem == "Metastock")
+                                    {
+
+                                        commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Nse_Cash_Market_cm" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhavv");
+                                    }
                                     if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                                     {
                                         Directory.CreateDirectory(txtTargetFolder.Text + "\\Amibroker");
@@ -1448,7 +1452,7 @@ namespace StockD
 
 
                         JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv");
-                        commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\YahooEod");
+                        //commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\YAHOO\\EOD\\YahooEod.csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\YahooEod");
 
                         if (Directory.Exists(txtTargetFolder.Text + "\\Downloads\\YahooEod"))
                         {
@@ -3009,8 +3013,11 @@ namespace StockD
                                     }
                                     
                                     filetransfer(strbse[0], txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market" + date1 + day.Year + "bhav.csv");
-                                    commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market" + date1 + day.Year + "bhav.csv",txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Bse_Cash_Market" + date1 + day.Year + "bhav");
+                                    if (comboBox1.SelectedItem == "Metastock")
+                                    {
 
+                                    commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\Bse_Cash_Market" + date1 + day.Year + "bhav.csv",txtTargetFolder.Text + "\\STD_CSV\\Metastock\\Bse_Cash_Market" + date1 + day.Year + "bhav");
+                                    }
                                     if (comboBox1.SelectedItem == "Amibroker")
                                     {
 
@@ -7642,9 +7649,9 @@ namespace StockD
                     CommandManager.InvalidateRequerySuggested();
 
                     string tempfilepath = txtTargetFolder.Text + "\\YahooRealTimeData.txt";
-                    log4net.Config.XmlConfigurator.Configure();
-                    ILog log = LogManager.GetLogger(typeof(MainWindow));
-                    log.Debug("Data Capturing At" + DateTime.Now.TimeOfDay);
+                    //log4net.Config.XmlConfigurator.Configure();
+                    //ILog log = LogManager.GetLogger(typeof(MainWindow));
+                    //log.Debug("Data Capturing At" + DateTime.Now.TimeOfDay);
                     string storeinfile1 = "";
                     CommandManager.InvalidateRequerySuggested();
 
@@ -8111,7 +8118,7 @@ namespace StockD
             comboBox1.Items.Add("FCharts");
             comboBox1.Items.Add("Amibroker");
             comboBox1.Items.Add("AdvanceGet");
-            comboBox1.Items.Add("Ninja Trader");
+            comboBox1.Items.Add("Metastock");
             selectfilebluk.Items.Add("NSE_bulk");
             selectfilebluk.Items.Add("NSE_block");
             selectfilebluk.Items.Add("BSE_bulk");
@@ -9171,19 +9178,8 @@ namespace StockD
         }
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\12AMBUJACEM.csv -r r -o C:\\data\\Metastock\\google\\h";
-           // startInfo.Arguments = "/C  C:\\asc2ms.exe -f " + filename + " -r r -o " + filestorename;
-          //  startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\12ACC.csv -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a";
-
-
-
-            process.StartInfo = startInfo;
-            process.Start();
-
+            dtStartDate.Text = DateTime.Today.ToShortDateString();
+            dtEndDate.Text = DateTime.Today.ToShortDateString();
 
 
 

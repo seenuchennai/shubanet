@@ -33,6 +33,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://shubhalabha.in/dev1/</InstallUrl>
+    <UpdateUrl>https://sourceforge.net/projects/shubhanet/files/b1/</UpdateUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
     <ProductName>ShubhaDownloader</ProductName>
@@ -40,7 +41,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>87</ApplicationRevision>
+    <ApplicationRevision>90</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

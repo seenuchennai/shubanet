@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="25*" />
                             <ColumnDefinition Width="666" />
                         </Grid.ColumnDefinitions>
-                        <GroupBox Height="85" HorizontalAlignment="Left" Margin="-1,24,0,0" Name="group" VerticalAlignment="Top" Width="683" Background="#FF108BCE" Grid.ColumnSpan="2"></GroupBox>
+                        <GroupBox Height="85" HorizontalAlignment="Left" Margin="-1,24,0,0" Name="group" VerticalAlignment="Top" Width="684" Background="#FF108BCE" Grid.ColumnSpan="2"></GroupBox>
 
                         <Label Content="Start Date" Height="28" HorizontalAlignment="Left" Margin="16,46,0,0" Name="label1" VerticalAlignment="Top" Grid.Column="1" Foreground="White" />
                         <DatePicker Height="25" HorizontalAlignment="Left" Margin="98,46,0,0" Name="dtStartDate" VerticalAlignment="Top" Width="115" Grid.Column="1"  >
@@ -75,11 +75,11 @@
                         <Button Content="DownLoad"  Height="22" Name="btnStart" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" Margin="507,80,11,0" Width="148" VerticalAlignment="Top" />
                         <Button Content="Reset" Height="22" HorizontalAlignment="Right" Margin="0,80,252,0" Name="Lbl_reset" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="Lbl_reset_Click" />
                         <Image Height="135" HorizontalAlignment="Left" Margin="0,139,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="683" Source="Images/home_banner1.jpg" ImageFailed="image2_ImageFailed" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-                        <ProgressBar Height="21" HorizontalAlignment="Right" Margin="0,110,4,0" Name="ProgressBar1" VerticalAlignment="Top" Width="502" Grid.Column="1" Visibility="Hidden" />
-                        <Label Content="Please Wait File Is Downloading" Height="27" HorizontalAlignment="Left" Margin="0,107,0,0" Name="lbl_Download" VerticalAlignment="Top" Foreground="#FF302180" FontSize="10" Visibility="Hidden" Grid.ColumnSpan="2" />
+                        <ProgressBar Height="21" HorizontalAlignment="Right" Margin="0,113,4,0" Name="ProgressBar1" VerticalAlignment="Top" Width="524" Grid.Column="1" Visibility="Hidden" />
+                        <Label Content="Please Wait File Is Downloading" Height="27" HorizontalAlignment="Left" Margin="6,111,0,0" Name="lbl_Download" VerticalAlignment="Top" Foreground="#FF302180" FontSize="10" Visibility="Hidden" Grid.ColumnSpan="2" />
                         <GridViewColumnHeader Name="gridViewColumnHeader3" Grid.ColumnSpan="2" Margin="-2,6,3,178" Background="#FF108BCE" BorderThickness="0" />
                         <Button Content="Stop" Height="22" Name="btnExit" Width="75" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" Margin="0,80,167,102" HorizontalAlignment="Right" />
-                        <Border BorderBrush="WhiteSmoke" BorderThickness="2" Height="75" HorizontalAlignment="Left" Margin="7,31,0,0" Name="border1" VerticalAlignment="Top" Width="670" UseLayoutRounding="False" Grid.ColumnSpan="2" />
+                        <Border BorderBrush="WhiteSmoke" BorderThickness="2" Height="75" HorizontalAlignment="Left" Margin="5,31,0,0" Name="border1" VerticalAlignment="Top" Width="675" UseLayoutRounding="False" Grid.ColumnSpan="2" />
                         <Label Content="Shubha Downloader" Grid.ColumnSpan="2" Height="26" HorizontalAlignment="Left" Margin="0,3,0,0" Name="label3" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White" />
                         <TextBlock Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Left" Margin="10,87,0,0" Name="textBlock1" Text="Shubha Downloader  enables you to download  pricing data from publicly available sites and convert in different formats." VerticalAlignment="Top" Grid.Row="1" Width="672" />
                         <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,108,0,0" Name="textBlock2" Text="This program comes with ABSOLUTELY NO WARRANTY, for details please see notice.txt in installed folder. " VerticalAlignment="Top" Grid.Row="1" />
@@ -139,7 +139,7 @@
                                         <Label Content="Output" Height="28" HorizontalAlignment="Left" Margin="240,43,0,0" Name="label7" VerticalAlignment="Top" Grid.Column="1" />
 
                                         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,9,16,0" Name="txtTargetFolder" VerticalAlignment="Top" Width="457" Grid.Column="1" />
-                                        <Button Content="Target" Height="23" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="75"  Grid.ColumnSpan="2" Click="btnTarget_Click" />
+                                        <Button Content="Download path" Height="25" HorizontalAlignment="Left" Margin="17,10,0,0" Name="btnTarget" VerticalAlignment="Top" Width="85"  Grid.ColumnSpan="2" Click="btnTarget_Click" />
                                     </Grid>
                                 </GroupBox>
                                 

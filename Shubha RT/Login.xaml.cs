@@ -71,7 +71,7 @@ namespace ShubhaRt
                         {
                             if (c.ToString().Contains("wordpress_logged_in_17e90d9fdb1ef2a442ed2d6aeb707f54"))
                             {
-                                System.Windows.MessageBox.Show("Thank You For Using Shubha Downloader ");
+                                System.Windows.MessageBox.Show("Thank you for using shubha downloader ");
                                 try
                                 {
                                     Configuration config;
