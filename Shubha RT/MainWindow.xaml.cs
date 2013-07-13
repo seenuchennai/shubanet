@@ -8095,6 +8095,12 @@ namespace StockD
 
             }
         }
+        void wb_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            string script = "document.body.style.overflow ='hidden'";
+            System.Windows.Controls.WebBrowser wb = (System.Windows.Controls.WebBrowser)sender;
+            wb.InvokeScript("execScript", new Object[] { script, "JavaScript" });
+        }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
@@ -8115,20 +8121,28 @@ namespace StockD
                 System.Net.WebResponse myResponse = myRequest.GetResponse();
 
 
-                Uri a4 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/ck.php?n=a3f24fd1&amp;cb=INSERT_RANDOM_NUMBER_HERE'");
+                Uri a= new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=18&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a1 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a2 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
                 Uri a3 = new System.Uri("http://shubhalabha.in/eng/ads/www/delivery/afr.php?zoneid=17&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE");
+                wad .Source = a;
                 wad1.Source = a1;
               
-                wad2.Source = a3;
-                wad3.Source = a1;
+               wad2.Source = a2;
+                wad3.Source = a3;
                 //  wad4.Source = a4;
 
 
             }
             catch
             {
+
+
+                wad.Visibility = Visibility.Hidden;
+                wad1.Visibility = Visibility.Hidden;
+                wad2.Visibility = Visibility.Hidden;
+                wad3.Visibility = Visibility.Hidden;
+
             }
             RTD_server_name.Items.Add("NEST");
             RTD_server_name.Items.Add("NOW");
