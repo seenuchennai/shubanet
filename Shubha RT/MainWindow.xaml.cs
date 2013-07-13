@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using ShubhaRt;
 using System.Configuration;
 using System.Net.Mail;
@@ -36,14 +35,12 @@ using System.Collections.Specialized ;
 using System.Collections;
 using System.IO.Compression;
 using System.Diagnostics;
-using System.Diagnostics;
 
 using System.IO.Packaging;
 using Ionic.Zlib;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Data.OleDb;
-using System.Runtime.InteropServices;
 using ManagedWinapi.Windows;
 using ManagedWinapi.Accessibility;
 using Microsoft.Win32;
@@ -72,7 +69,6 @@ namespace StockD
         Type type;
         List<string> symbolname = new List<String>();
         List<string> exchagename = new List<string>();
-        string Marketwatchname = "";
 
         IRtdServer m_server;
 
@@ -93,8 +89,9 @@ namespace StockD
         List<Int32> yahoosymbolindextoremove = new List<int>();
 
         string url1 = "http://www.goog";
-        int flag = 0;
         WebClient Client = new WebClient();
+        int flag = 0;
+       
         double value = 0;
         List<string> nameofbseindex = new List<string>();//imp
         List<string> namemcxindex = new List<string> { "COMDEX", "METAL", "ENRGY", "AGRI" };
@@ -126,7 +123,7 @@ namespace StockD
             UpdateProgressBarDelegate updatePbDelegate = new UpdateProgressBarDelegate(ProgressBar1.SetValue);
 
 
-            value += 10;
+            value += 20;
             Dispatcher.Invoke(updatePbDelegate,
                 System.Windows.Threading.DispatcherPriority.Background,
                 new object[] { System.Windows.Controls.ProgressBar.ValueProperty, value });
@@ -426,21 +423,21 @@ namespace StockD
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
                                 }
 
-                                if (comboBox1.SelectedItem == "Amibroker")
+                                if (comboBox1.SelectedItem.ToString() == "Amibroker")
                                 {
 
                                     System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                                     Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                                 }
-                                if (comboBox1.SelectedItem == "FCharts")
+                                if (comboBox1.SelectedItem.ToString() == "FCharts")
                                 {
 
                                     System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                                     Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                                 }
-                                if (comboBox1.SelectedItem == "AdvanceGet")
+                                if (comboBox1.SelectedItem.ToString() == "AdvanceGet")
                                 {
 
                                     System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_Equity_Futures_fo" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
@@ -737,7 +734,7 @@ namespace StockD
 
                                         Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
                                     }
-                                    if (comboBox1.SelectedItem == "FCharts")
+                                    if (comboBox1.SelectedItem.ToString() == "FCharts")
                                     {
                                         System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
 
@@ -745,7 +742,7 @@ namespace StockD
                                         Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
                                     }
 
-                                    if (comboBox1.SelectedItem == "AdvanceGet")
+                                    if (comboBox1.SelectedItem.ToString() == "AdvanceGet")
                                     {
                                         System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_Indices_NSE_Index" + day.Day + strMonthName.Substring(0, 3).ToUpper() + day.Year + ".csv");
 
@@ -929,7 +926,6 @@ namespace StockD
                     companynameforprocessing.Clear();
                     yahoosysmbolforprocessing.Clear();
 
-                    string datetostore = "";
 
                     try
                     {
@@ -1186,7 +1182,6 @@ namespace StockD
                     companynameforprocessing.Clear();
                     yahoosysmbolforprocessing.Clear();
 
-                    string datetostore = "";
 
                     try
                     {
@@ -1555,9 +1550,9 @@ namespace StockD
                                 log.Debug("yahoo File Processing strated....... ");
                                 ExecuteYAHOOProcessing(csvFileNames, datetostore, "GOOGLEEOD",i);
                                 log.Debug("yahoo File Processing End....... ");
-                                if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV"))
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\\\GoogleEod"))
                                 {
-                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV");
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\\\GoogleEod");
                                 }
                                 if (!Directory.Exists(txtTargetFolder.Text + "\\STD_CSV\\GoogleEod"))
                                 {
@@ -1567,9 +1562,9 @@ namespace StockD
                                 {
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\STD_CSV\\Metastock");
                                 }
-                                //JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
-                                System.IO.File.Copy(csvFileNames[0], txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
-                                commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\" + GoogleEod[i] + datetostore + ".csv");
+                                JoinCsvFiles(csvFileNames, txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv");
+                               
+                               commandpromptcall(txtTargetFolder.Text + "\\STD_CSV\\GoogleEod\\Googleeod" + GoogleEod[i] + datetostore + ".csv", txtTargetFolder.Text + "\\STD_CSV\\Metastock\\" + GoogleEod[i] + datetostore + ".csv");
 
                             }
                             catch (Exception ex)
@@ -1929,21 +1924,21 @@ namespace StockD
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
                             }
-                            if (comboBox1.SelectedItem == "Amibroker")
+                            if (comboBox1.SelectedItem.ToString() == "Amibroker")
                             {
 
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                                 Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
-                            if (comboBox1.SelectedItem == "FCharts")
+                            if (comboBox1.SelectedItem.ToString() == "FCharts")
                             {
 
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                                 Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
-                            if (comboBox1.SelectedItem == "AdvanceGet")
+                            if (comboBox1.SelectedItem.ToString() == "AdvanceGet")
                             {
 
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_Equity_Options_OP" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
@@ -2077,21 +2072,21 @@ namespace StockD
                             {
                                 Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
                             }
-                            if (comboBox1.SelectedItem == "Amibroker")
+                            if (comboBox1.SelectedItem.ToString() == "Amibroker")
                             {
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
                                 Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
-                            if (comboBox1.SelectedItem == "FCharts")
+                            if (comboBox1.SelectedItem.ToString() == "FCharts")
                             {
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
                                 Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
-                            if (comboBox1.SelectedItem == "AdvanceGet")
+                            if (comboBox1.SelectedItem.ToString() == "AdvanceGet")
                             {
                                 System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
@@ -2243,14 +2238,14 @@ namespace StockD
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\AdvanceGet");
                                 }
 
-                                if (comboBox1.SelectedItem == "Amibroker")
+                                if (comboBox1.SelectedItem.ToString() == "Amibroker")
                                 {
 
                                     System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                                     Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                                 }
-                                if (comboBox1.SelectedItem == "FCharts")
+                                if (comboBox1.SelectedItem.ToString() == "FCharts")
                                 {
 
                                     System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Futures_CF" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
@@ -2678,7 +2673,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year;
+                        string day1, month;
 
 
                         if (day.Day < 10)
@@ -2731,7 +2726,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year;
+                        string day1;
 
 
                         if (day.Day < 10)
@@ -2813,7 +2808,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year;
+                        string day1;
 
 
                         if (day.Day < 10)
@@ -2849,7 +2844,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1;
+                        string year, date1;
 
 
                         if (day.Day < 10)
@@ -2890,7 +2885,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, date3;
+                        string day1, year, date1, date2;
 
 
                         if (day.Day < 10)
@@ -3071,7 +3066,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3180,7 +3175,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3240,7 +3235,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3305,7 +3300,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
                         strYearDir = txtTargetFolder.Text + "\\Downloads\\Bse";
                         if (!Directory.Exists(strYearDir))
                             Directory.CreateDirectory(strYearDir);
@@ -3601,7 +3596,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3686,7 +3681,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3797,7 +3792,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3867,7 +3862,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3914,7 +3909,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -3963,7 +3958,7 @@ namespace StockD
                     {
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string  year, date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -4017,7 +4012,7 @@ namespace StockD
 
                         System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
                         string strMonthName = mfi.GetMonthName(day.Month).ToString();
-                        string day1, month, year, date1, date2, datetoselect;
+                        string   date1, date2, datetoselect;
 
 
                         if (day.Day < 10)
@@ -4088,7 +4083,6 @@ namespace StockD
 
                             string destfilepath = txtTargetFolder.Text + "\\Downloads\\Temp_FUTURE_STD.csv";
                             string dateformtoprocessingsave = formatdate(day);
-                            string nameoffile = "MCX_ComodityBhavCopy";
                             try
                             {
 
@@ -4264,7 +4258,7 @@ namespace StockD
                                 Directory.Delete(txtTargetFolder.Text + "\\Downloads\\MCX_INDEX", true);
                             }
                         }
-                        catch (Exception ex)
+                        catch 
                         {
                         }
 
@@ -4598,14 +4592,9 @@ namespace StockD
 
                 }
 
-                int totrows = 0;
 
-                int itmp = 0;
-                int cnt = 0;
 
                 BSECSVFINAL[] finalarr = new BSECSVFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -4880,7 +4869,6 @@ namespace StockD
 
 
                     GOOGLEFINAL[] finalarr = new GOOGLEFINAL[resbsecsv1.Length];
-                    DateTime myDate;
                     int icntr = 0;
                     int hrs = Convert.ToInt32(GHRS.SelectedItem);
                     int min = Convert.ToInt32(GMIN.SelectedItem);
@@ -4971,7 +4959,6 @@ namespace StockD
 
 
                     GOOGLEFINAL[] finalarr = new GOOGLEFINAL[resbsecsv1.Length];
-                    DateTime myDate;
                     int icntr = 0;
                     int hrs = Convert.ToInt32(GHRS.SelectedItem);
                     int min = Convert.ToInt32(GMIN.SelectedItem);
@@ -5617,7 +5604,6 @@ namespace StockD
                 ////////////////////
 
                 MCXSXFINAL[] finalarr = new MCXSXFINAL[resbsecsv.Length];
-                DateTime myDate;
                 int icntr = 0;
                 //////////////////
                 while (icntr < resbsecsv.Length)
@@ -5747,7 +5733,6 @@ namespace StockD
 
 
 
-                int totrows = 0;
 
 
                 ///////////////////
@@ -5766,12 +5751,8 @@ namespace StockD
 
 
 
-                int itmp = 0;
-                int cnt = 0;
 
                 MCXSXFOREXFINAL[] finalarr = new MCXSXFOREXFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -5860,14 +5841,9 @@ namespace StockD
 
 
 
-                int totrows = 0;
 
-                int itmp = 0;
-                int cnt = 0;
 
                 optionFINAL[] finalarr = new optionFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -6174,9 +6150,7 @@ namespace StockD
 
 
 
-                int totrows = 0;
 
-                int cnt = 0;
 
                 FOFINAL[] finalarr = new FOFINAL[resbsecsv.Length - 1];
                 int totallenth = resbsecsv.Length;
@@ -6185,7 +6159,6 @@ namespace StockD
                     finalarr = new FOFINAL[countformcxbhavblankrow + 1];
                     totallenth = countformcxbhavblankrow;
                 }
-                DateTime myDate;
                 int itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
@@ -6594,16 +6567,11 @@ namespace StockD
 
 
 
-                int totrows = 0;
 
-                int itmp = 0;
-                int cnt = 0;
 
                 IndexFINAL[] finalarr = new IndexFINAL[resbsecsv.Length];
                 PEBEFINAL[] PEBE = new PEBEFINAL[resbsecsv.Length];
 
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 while (icntr < resbsecsv.Length)
                 {
@@ -6900,16 +6868,10 @@ namespace StockD
 
 
 
-                int totrows = 0;
 
-                int itmp = 0;
-                int cnt = 0;
 
                 optionFINAL[] finalarr = new optionFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
-                int lenth = 0;
 
 
                 while (icntr < resbsecsv.Length)
@@ -7162,14 +7124,9 @@ namespace StockD
                     }
                 }
 
-                int totrows = 0;
                 int lowmonth = lowvalue.Min();
-                int itmp = 0;
-                int cnt = 0;
 
                 NCDXFINAL[] finalarr = new NCDXFINAL[resbsecsv.Length];
-                DateTime myDate;
-                itmp = 0;
                 int icntr = 0;
                 char[] delimiterChars = { '\"', ':' };
 
@@ -7587,10 +7544,10 @@ namespace StockD
 
                     while ((line = reader.ReadLine()) != null)
                     {
+                        CommandManager.InvalidateRequerySuggested();
 
                         yahoortname.Add(line);
                         Array retval;
-                        MethodInfo method;
 
 
                         int j = m_server.Heartbeat();
@@ -7630,6 +7587,7 @@ namespace StockD
                         Array sysArrParams2 = (Array)arrayForLTP;
                         m_server.ConnectData(RTtopiccount, sysArrParams2, bolGetNewValue);
 
+                        CommandManager.InvalidateRequerySuggested();
 
                         RTtopiccount++;    //imp it change topic id 
 
@@ -7671,6 +7629,7 @@ namespace StockD
                         {
 
                             yahoortdata.Add(item.ToString());
+                            CommandManager.InvalidateRequerySuggested();
 
                         }
 
@@ -7769,6 +7728,8 @@ namespace StockD
         private void LoadTree(SystemAccessibleObject sao)
         {
             CommandManager.InvalidateRequerySuggested();
+
+            
 
             if (sao == null) return;
             IntPtr hwnd = sao.Window.HWnd;
@@ -7989,7 +7950,6 @@ namespace StockD
             {
                 //DataGridColumn column in dataGr
 
-                string exchagenameenterbyuser;
                 dataGridforsymbol.SelectedItem.ToString();
 
 
@@ -8033,7 +7993,6 @@ namespace StockD
         {
             var fromAddress = new MailAddress("webmaster@shubhalabha.in", "From Name");
             var toAddress = new MailAddress(p_sEmailTo, "To Name");
-            const string fromPassword = "";
             subject = "Your Password";
             string body = "This is your password:" + subject + "\n ";
             var smtp = new SmtpClient
@@ -8090,7 +8049,7 @@ namespace StockD
 
 
             }
-            catch (Exception ex)
+            catch 
             {
 
             }
@@ -8225,8 +8184,6 @@ namespace StockD
                 {
                     string line = null;
                     string[] headers = null;
-                    int i = 0;
-                    string name = "";
                     while ((line = reader.ReadLine()) != null)
                     {
                         headers = splitExpression.Split(line).Where(s => s != delimiter).ToArray();
@@ -8390,7 +8347,14 @@ namespace StockD
             string chktmp = ConfigurationManager.AppSettings["txtTargetFolder"];
             bool btemp = false;
 
+            if(chktmp==null )
+            {
+                this.txtTargetFolder.Text  = "C:\\Data";
+            }
+            {
             this.txtTargetFolder.Text = chktmp;
+
+            }
 
 
 
@@ -9137,7 +9101,7 @@ namespace StockD
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
@@ -9597,7 +9561,6 @@ namespace StockD
 
             }
 
-            string symboltowriteinfile = "";
             if (formatfilename.Text == "")
             {
                 System.Windows.MessageBox.Show("Please Enter Format File Name");
@@ -9647,7 +9610,7 @@ namespace StockD
             ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                       ExcelInst, args);
             CommandManager.InvalidateRequerySuggested();
-
+            StartRT.IsEnabled = false;
             RtdataRecall();
             CommandManager.InvalidateRequerySuggested();
 
@@ -9661,6 +9624,7 @@ namespace StockD
             log.Debug("Data Capturing Stop... ");
 
             System.Windows.MessageBox.Show("Real Time Data Stop");
+            StartRT.IsEnabled = true;
         }
 
         private void FindSymbol_Click(object sender, RoutedEventArgs e)
@@ -9794,7 +9758,7 @@ namespace StockD
                     System.Windows.MessageBox.Show("Not Found bsebulkdeals.csv ");
                 }
             }
-            if (selectfilebluk.SelectedItem == "BSE_block")
+            if (selectfilebluk.SelectedItem.ToString() == "BSE_block")
             {
                 if (System.IO.File.Exists(txtTargetFolder.Text + "\\Reports\\bseblockdeals.csv"))
                 {

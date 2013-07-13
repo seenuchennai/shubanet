@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        
          xmlns:l="clr-namespace:ShubhaRt.Controls"
-        Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="900" Height="592" WindowStyle="ThreeDBorderWindow">
+        Title="Shubha RT" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" WindowState="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" d:DesignHeight="671" d:DesignWidth="891" Name="wMain" Loaded="wMain_Loaded" Closed="wMain_Closed" xmlns:my="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="860" Height="592" WindowStyle="ThreeDBorderWindow" Background="#FFE9E9F5">
    
-    <Grid Name="MyGrid" Background="#FFB9D4F5" Height="550" Width="861">
+    <Grid Name="MyGrid" Background="#FFE9E9F5" Height="550" Width="861">
         <Grid Margin="4,0,12,0">
-            <WebBrowser Name="wad1" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="724,20,6,391"></WebBrowser>
-            <WebBrowser Name="wad2" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="730,184,11,218"></WebBrowser>
-            <WebBrowser Name="wad3" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="730,348,11,54"></WebBrowser>
+            <WebBrowser Name="wad1" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="721,73,4,329"></WebBrowser>
+            <WebBrowser Name="wad2" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="721,237,4,165"></WebBrowser>
+            <WebBrowser Name="wad3" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="120" VerticalAlignment="Stretch" Height="148" HorizontalAlignment="Center" Margin="721,401,4,1"></WebBrowser>
             <WebBrowser Name="wad" LoadCompleted="wb_LoadCompleted" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="False" Width="344" VerticalAlignment="Stretch" Height="60" HorizontalAlignment="Center" Margin="354,8,148,482"></WebBrowser>
         </Grid >
         <Image Height="68" HorizontalAlignment="Left" Margin="4,0,0,0" Name="image" Stretch="Fill" VerticalAlignment="Top" Width="351" Source="Images/logo.jpg" />
@@ -39,9 +39,9 @@
                             <ColumnDefinition Width="25*" />
                             <ColumnDefinition Width="666" />
                         </Grid.ColumnDefinitions>
-                        <GroupBox Height="85" HorizontalAlignment="Left" Margin="-1,24,0,0" Name="group" VerticalAlignment="Top" Width="683" Background="#FF85B6F2" Grid.ColumnSpan="2"></GroupBox>
+                        <GroupBox Height="85" HorizontalAlignment="Left" Margin="-1,24,0,0" Name="group" VerticalAlignment="Top" Width="683" Background="#FF108BCE" Grid.ColumnSpan="2"></GroupBox>
 
-                        <Label Content="Start Date" Height="28" HorizontalAlignment="Left" Margin="16,46,0,0" Name="label1" VerticalAlignment="Top" Grid.Column="1" />
+                        <Label Content="Start Date" Height="28" HorizontalAlignment="Left" Margin="16,46,0,0" Name="label1" VerticalAlignment="Top" Grid.Column="1" Foreground="White" />
                         <DatePicker Height="25" HorizontalAlignment="Left" Margin="98,46,0,0" Name="dtStartDate" VerticalAlignment="Top" Width="115" Grid.Column="1"  >
                             <DatePicker.Resources>
                                 <Style TargetType="{x:Type DatePickerTextBox}">
@@ -57,7 +57,7 @@
                             </DatePicker.Resources>
                         </DatePicker>
                         
-                        <Label Content="End Date" Height="28" HorizontalAlignment="Left" Margin="279,44,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="1" />
+                        <Label Content="End Date" Height="28" HorizontalAlignment="Left" Margin="279,44,0,0" Name="label2" VerticalAlignment="Top" Grid.Column="1" Foreground="White" />
                         <DatePicker Height="25" HorizontalAlignment="Left" Margin="348,45,0,0" Name="dtEndDate" VerticalAlignment="Top" Width="115" Grid.Column="1" SelectedDateChanged="dtEndDate_SelectedDateChanged">
                             <DatePicker.Resources>
                                 <Style TargetType="{x:Type DatePickerTextBox}">
@@ -74,24 +74,20 @@
                         </DatePicker>
                         <Button Content="DownLoad"  Height="22" Name="btnStart" CommandParameter="btnStart" Click="btnStart_Click" Grid.Column="1" Margin="507,80,11,0" Width="148" VerticalAlignment="Top" />
                         <Button Content="Reset" Height="22" HorizontalAlignment="Right" Margin="0,80,252,0" Name="Lbl_reset" VerticalAlignment="Top" Width="75" FontWeight="Normal" FontFamily="Calibri" Grid.Column="1" Click="Lbl_reset_Click" />
-                        <Image Height="135" HorizontalAlignment="Left" Margin="0,132,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="683" Source="Images/home_banner1.jpg" ImageFailed="image2_ImageFailed" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                        <Image Height="135" HorizontalAlignment="Left" Margin="0,139,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="683" Source="Images/home_banner1.jpg" ImageFailed="image2_ImageFailed" Grid.ColumnSpan="2" Grid.RowSpan="2" />
                         <ProgressBar Height="21" HorizontalAlignment="Right" Margin="0,110,4,0" Name="ProgressBar1" VerticalAlignment="Top" Width="502" Grid.Column="1" Visibility="Hidden" />
                         <Label Content="Please Wait File Is Downloading" Height="27" HorizontalAlignment="Left" Margin="0,107,0,0" Name="lbl_Download" VerticalAlignment="Top" Foreground="#FF302180" FontSize="10" Visibility="Hidden" Grid.ColumnSpan="2" />
-                        <GridViewColumnHeader Name="gridViewColumnHeader3" Grid.ColumnSpan="2" Margin="-2,6,3,178" Background="#FF5999E8" BorderThickness="0" />
+                        <GridViewColumnHeader Name="gridViewColumnHeader3" Grid.ColumnSpan="2" Margin="-2,6,3,178" Background="#FF108BCE" BorderThickness="0" />
                         <Button Content="Stop" Height="22" Name="btnExit" Width="75" Command="{Binding Path=EODControlClicked}" CommandParameter="btnExit" Click="btnExit_Click" Grid.Column="1" Margin="0,80,167,102" HorizontalAlignment="Right" />
-                        <Border BorderBrush="#FFA7A5A5" BorderThickness="2" Height="0" HorizontalAlignment="Left" Margin="10,35,0,0" Name="border1" VerticalAlignment="Top" Width="665" UseLayoutRounding="False" Grid.ColumnSpan="2" />
+                        <Border BorderBrush="WhiteSmoke" BorderThickness="2" Height="75" HorizontalAlignment="Left" Margin="7,31,0,0" Name="border1" VerticalAlignment="Top" Width="670" UseLayoutRounding="False" Grid.ColumnSpan="2" />
                         <Label Content="Shubha Downloader" Grid.ColumnSpan="2" Height="26" HorizontalAlignment="Left" Margin="0,3,0,0" Name="label3" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Foreground="White" />
                         <TextBlock Grid.ColumnSpan="2" Height="36" HorizontalAlignment="Left" Margin="10,87,0,0" Name="textBlock1" Text="Shubha Downloader  enables you to download  pricing data from publicly available sites and convert in different formats." VerticalAlignment="Top" Grid.Row="1" Width="672" />
                         <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,108,0,0" Name="textBlock2" Text="This program comes with ABSOLUTELY NO WARRANTY, for details please see notice.txt in installed folder. " VerticalAlignment="Top" Grid.Row="1" />
                         <TextBlock Grid.ColumnSpan="2" Height="23" HorizontalAlignment="Left" Margin="10,129,0,0" Name="textBlock3" Text="This is free software (released under GNU GPL V3) and you are welcome to redistribute it under certain conditions as per notice.txt " VerticalAlignment="Top" Grid.Row="1" />
-                        <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" />
+                        <Button Content="click here to report bugs" Height="23" HorizontalAlignment="Left" Margin="508,179,0,0" Name="button4" VerticalAlignment="Top" Width="138" Grid.Column="1" Grid.Row="1" Click="button4_Click" Visibility="Hidden"  />
                         <TextBlock Height="23" HorizontalAlignment="Left" Margin="10,147,0,0" Name="textBlock4" Text="Copyright © 2013 Shubhalabha.in" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" />
                     </Grid>
-                    <Grid >
-
-                       
-
-                    </Grid >
+                    
                     
                 </Grid>
             </TabItem>
@@ -99,12 +95,12 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image VerticalAlignment="Center"  Width="15" Source="Images/product.jpeg" />
-                        <TextBlock VerticalAlignment="Center" Margin="5, 0" >Product</TextBlock>
+                        <TextBlock VerticalAlignment="Center" Margin="5, 0" >Products</TextBlock>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
+                    <WebBrowser Source="http://shubhalabha.in/products-2/"></WebBrowser>
 
-               
                 </Grid>
             </TabItem>
             <TabItem  Name="tabItem2" >
@@ -249,7 +245,7 @@
                         </l:AccordianItem>
 
 
-                        <l:AccordianItem Header="Calender Events" Background="#FFD6E2F5">
+                        <l:AccordianItem Header="Calender Events" Background="#FFD6E2F5" Visibility="Hidden" >
 
                             <Grid>
                                 <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajghjg" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
@@ -373,17 +369,16 @@
                     </Grid>
                 </GroupBox>
             </TabItem>
-            <TabItem  Name="Tab_Calender" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
+            <TabItem  Name="Tab_Calender" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri" Visibility="Visible">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image VerticalAlignment="Center"  Width="15" Source="Images/Calendar.jpeg" />
-                        <TextBlock VerticalAlignment="Center" Margin="5, 0" >Calender</TextBlock>
+                        <TextBlock VerticalAlignment="Center" Margin="5, 0" >Services</TextBlock>
                     </StackPanel>
                     
                 </TabItem.Header>
                 <Grid>
-                    <Label Content="Work In Progress " Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="lajg" VerticalAlignment="Top" FontSize="15" Foreground="#FF4141DB" />
-
+                    <WebBrowser Source="http://shubhalabha.in/services/"></WebBrowser>
                 </Grid>
             </TabItem>
             <TabItem Name="Tab_ContactUs" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri">
@@ -395,7 +390,7 @@
                 </TabItem.Header>
                 <Grid>
 
-                    <WebBrowser Source="http://list.shubhalabha.in/netbsecm.html" Name="web" />
+                    <WebBrowser Source="http://shubhalabha.in/contact-us/" Name="web" />
                 </Grid>
             </TabItem>
             <TabItem  Name="Tab_Help" FontSize="13" FontStretch="Normal" FontStyle="Normal" FontWeight="Thin" FontFamily="Calibri" GotFocus="Tab_Help_GotFocus">
@@ -424,8 +419,8 @@
                 </TabItem.Header>
                 <Grid>
                     
-                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="413,142,0,0" Name="StartRT" VerticalAlignment="Top" Width="75" Click="StartRT_Click" />
-                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="526,142,0,0" Name="EndRT" VerticalAlignment="Top" Width="75" Click="EndRT_Click" />
+                    <Button Content="Start RT" Height="23" HorizontalAlignment="Left" Margin="393,134,0,0" Name="StartRT" VerticalAlignment="Top" Width="113" Click="StartRT_Click" />
+                    <Button Content="End RT" Height="23" HorizontalAlignment="Left" Margin="526,134,0,0" Name="EndRT" VerticalAlignment="Top" Width="110" Click="EndRT_Click" />
                     <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Margin="16,55,367,88" Name="dataGridforsymbol" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
@@ -447,22 +442,22 @@
                     <Button Content="Find Symbol" Height="23" HorizontalAlignment="Right" Margin="0,16,587,0" Name="FindSymbol" VerticalAlignment="Top" Width="97" Click="FindSymbol_Click" />
                     <Button Content="Save Symbol in text file" Height="23" HorizontalAlignment="Left" Margin="163,16,0,0" Name="SaveSymbol" VerticalAlignment="Top" Width="142" Click="SaveSymbol_Click" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,56,0,0" Name="timetoRT" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
-                    <Label Content="Select Time To Capture Data " Height="28" HorizontalAlignment="Left" Margin="365,56,0,0" Name="label5" VerticalAlignment="Top" />
-                    <Label Content="Format file Name" Height="28" HorizontalAlignment="Left" Margin="424,90,0,0" Name="label6" VerticalAlignment="Top" />
+                    <Label Content="Please set refresh rate  " Height="28" HorizontalAlignment="Left" Margin="405,56,0,0" Name="label5" VerticalAlignment="Top" />
+                    <Label Content="Amibroker format file name" Height="28" HorizontalAlignment="Left" Margin="377,90,0,0" Name="label6" VerticalAlignment="Top" />
                     <TextBox Height="23" HorizontalAlignment="Right" Margin="0,92,48,0" Name="formatfilename" VerticalAlignment="Top" Width="120" Text="ShubhaRt.format" IsReadOnly="True" />
-                    <Button Content="Start Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="354,205,0,0" Name="Start_Yahoo_Rt" VerticalAlignment="Top" Width="112" Click="Start_Yahoo_Rt_Click" />
-                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="567,205,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="103" />
+                    <Button Content="Start Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="393,173,0,0" Name="Start_Yahoo_Rt" VerticalAlignment="Top" Width="112" Click="Start_Yahoo_Rt_Click" />
+                    <Button Content="End Yahoo Rt" Height="23" HorizontalAlignment="Left" Margin="526,173,0,0" Name="End_Yahoo_Rt" VerticalAlignment="Top" Width="110" />
                     <Frame Height="122" HorizontalAlignment="Left" Margin="354,6,0,0" Name="frame1" VerticalAlignment="Top" Width="327" Navigated="frame1_Navigated" />
-                    <Label Content="User Name :" Height="28" HorizontalAlignment="Left" Margin="372,269,0,0" Name="uname" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"  />
-                    <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="380,313,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF1212E5" Visibility="Hidden"/>
-                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,269,68,0" Name="username" VerticalAlignment="Top" Width="180" Visibility="Hidden" />
-                    <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Top"  Height="23" Margin="0,310,68,0" Name="password" Width="180"  Visibility="Hidden"></PasswordBox>
+                    <Label Content="Yaho User Name :" Height="28" HorizontalAlignment="Left" Margin="362,218,0,0" Name="uname" VerticalAlignment="Top" Foreground="Black" Visibility="Hidden"  />
+                    <Label Content="Password :" Height="28" HorizontalAlignment="Left" Margin="394,262,0,0" Name="pwd" VerticalAlignment="Top" Foreground="#FF101010" Visibility="Hidden"/>
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,218,59,0" Name="username" VerticalAlignment="Top" Width="180" Visibility="Hidden" />
+                    <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Top"  Height="23" Margin="0,259,59,0" Name="password" Width="180"  Visibility="Hidden"></PasswordBox>
 
-                    <Button Content="Login" Height="23" HorizontalAlignment="Left" Margin="431,368,0,0" Name="Login_btn" VerticalAlignment="Top" Width="75"  Visibility="Hidden" Click="Login_btn_Click" />
-                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,368,93,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Cancle_btn_Click" />
-                    <Frame Height="99" HorizontalAlignment="Left" Margin="354,242,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden" Navigated="Login_frame_Navigated" />
+                    <Button Content="Login" Height="23" HorizontalAlignment="Left" Margin="440,317,0,0" Name="Login_btn" VerticalAlignment="Top" Width="75"  Visibility="Hidden" Click="Login_btn_Click" />
+                    <Button Content="Cancle" Height="23" HorizontalAlignment="Right" Margin="0,317,84,0" Name="Cancle_btn" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Cancle_btn_Click" />
+                    <Frame Height="98" HorizontalAlignment="Left" Margin="357,202,0,0" Name="Login_frame" VerticalAlignment="Top" Width="324" Visibility="Hidden" Navigated="Login_frame_Navigated" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="534,16,0,0" Name="RTD_server_name" VerticalAlignment="Top" Width="120" SelectedIndex="0" />
-                    <Label Content="Select RTD Server " Height="28" HorizontalAlignment="Left" Margin="413,12,0,0" Name="label8" VerticalAlignment="Top" />
+                    <Label Content="Please Select Terminal " Height="28" HorizontalAlignment="Left" Margin="403,12,0,0" Name="label8" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
         </TabControl>

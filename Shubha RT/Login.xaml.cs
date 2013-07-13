@@ -125,7 +125,6 @@ namespace ShubhaRt
             //object unm = regKey.GetValue("ApplicationId");
 
             string chktmp = ConfigurationManager.AppSettings["ApplicationId"];
-            bool btemp = false;
 
 
 
