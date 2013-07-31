@@ -1,0 +1,79 @@
+//////////////////////////////////////////////////////////////
+//
+// Please, read Samples.pdf on how to use this sample
+// (.NET for AmiBroker\Samples folder)
+//
+//////////////////////////////////////////////////////////////
+
+// ------------------------------------------------------------------------------------------
+// This AFL script uses features of the .NET Yahoo data source plug-in !
+// 
+// Please, set up a new database to use the .NET Yahoo data source plug-in
+// than add this AFL script to a chart pane.
+// 
+// It will present the current status of the current security. 
+// ------------------------------------------------------------------------------------------
+
+function PrintExtraData(fieldName)
+{
+	extraData = GetExtraData(fieldName);
+
+	if (typeof(extraData) == "undefined")
+	{
+		YTracePrintMessage(fieldName + ": no data", 9);
+	}
+	else
+	{
+		if (typeof(extraData) == "number")
+			YTracePrintMessage(fieldName + ": " + NumToStr(extraData, 10.5), 9, colorBlack);
+		else
+			YTracePrintMessage(fieldName + ": " + extraData, 9, colorBlack);
+	}
+}
+
+function PrintFormattedExtraData(fieldName, format, sep)
+{
+	extraData = GetExtraData(fieldName);
+
+	if (typeof(extraData) == "undefined")
+	{
+		YTracePrintMessage(fieldName + ": no data", 9);
+	}
+	else
+	{
+		if (typeof(extraData) == "number")
+			YTracePrintMessage(fieldName + ": " + NumToStr(extraData, format, sep), 9, colorBlack);
+		else
+			YTracePrintMessage(fieldName + ": Not numeric", 9, colorRed);
+	}
+}
+
+
+// if GetExtraData fails, you are not using a Yahoo data source
+dataSource = GetExtraData("DataSource");
+if (typeof(dataSource) == "string" AND dataSource == "Yahoo")
+{
+	YTracePrintMessage("Symbol status", 12);
+	
+	// Ticker status
+	PrintFormattedExtraData("IsKnown", 1, False);
+
+	// Quotation status
+	PrintFormattedExtraData("QuoteDataStatus", 1, False);
+	PrintFormattedExtraData("LastDownloaded", 1, False);
+	PrintFormattedExtraData("LastTickTime", 1, False);
+	PrintFormattedExtraData("LastTickDate", 1, False);
+
+	// RT window data
+	PrintFormattedExtraData("UpdateRecentInfo", 1, False);
+	if (GetExtraData("UpdateRecentInfo") != 1)
+	  YTracePrintMessage("Add ticker to RT window", 9);
+	else
+	  PrintFormattedExtraData("RecentInfo.Last", 5.2, False);
+}
+else
+{
+	YTracePrintMessage("This database does not use Yahoo .NET data source.", 12);
+	YTracePrintMessage("Click File-Database settings... . Select '.NET Data Source Plug-In' as Data Source, then click Configure button. Select 'Yahoo Real Time Data', click Ok.", 12);
+}
+_SECTION_END();

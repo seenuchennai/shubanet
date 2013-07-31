@@ -59,7 +59,7 @@ namespace RTDFINAL
 
             yahoortdata.Clear();
 
-            using (var reader = new StreamReader("c:\\YahooRT.txt"))
+            using (var reader = new StreamReader("c:\\ShubhaRtsymbollist.txt"))
             {
                 string line = null;
                 int i = 0;
@@ -70,7 +70,7 @@ namespace RTDFINAL
                     yahoortname.Add(line);
                     Array retval;
                     MethodInfo method;
-                    Type type = Type.GetTypeFromProgID("nest.scriprtd");
+                    Type type = Type.GetTypeFromProgID("now.scriprtd");
 
 
                     IRtdServer m_server = (IRtdServer)Activator.CreateInstance(type);
@@ -79,14 +79,48 @@ namespace RTDFINAL
                     if (flag == 0)
                     {
                         bool bolGetNewValue = true;
-                        object[] array = new object[2];
+                        object[] array = new object[3];
 
-                        
-                            array[0] = line;
-                            array[1] = "LTP";
+
+
+
+
+                        array[0] = "MktWatch";
+                            array[1] = line;
+                            array[2] = "Last Trade Time";
 
                             Array sysArrParams = (Array)array;
                             m_server.ConnectData(i, sysArrParams, bolGetNewValue);
+
+                            i++;
+                            object[] array1 = new object[3];
+
+
+
+
+
+                            array1[0] = "MktWatch";
+                            array1[1] = line;
+                            array1[2] = "Best Buy Rate";
+
+                            Array sysArrParams1 = (Array)array1;
+                            m_server.ConnectData(i, sysArrParams1, bolGetNewValue);
+
+                            i++;
+
+                            object[] array2 = new object[3];
+
+
+
+
+
+                            array2[0] = "MktWatch";
+                            array2[1] = line;
+                            array2[2] = "Best Buy Qty";
+
+                            Array sysArrParams2 = (Array)array2;
+                            m_server.ConnectData(i, sysArrParams2, bolGetNewValue);
+
                             retval = m_server.RefreshData(10);
 
                             i++;    //imp it change topic id 
@@ -111,12 +145,9 @@ namespace RTDFINAL
 
             }
             }
-            catch
+            catch(Exception ex)
             {
-                log4net.Config.XmlConfigurator.Configure();
-                ILog log = LogManager.GetLogger(typeof(MainWindow));
-                log.Debug("Server Not Found...." );
-
+                MessageBox.Show(ex.Message );
 
             }
        }

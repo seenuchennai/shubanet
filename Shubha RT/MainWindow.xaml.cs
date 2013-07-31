@@ -46,6 +46,7 @@ using ManagedWinapi.Accessibility;
 using Microsoft.Win32;
 
 
+
 namespace StockD
 {
      
@@ -691,19 +692,7 @@ namespace StockD
 
 
                             downliaddata(strYearDir, baseurl);
-                            //Webpage visit
-                            HttpWebRequest request = WebRequest.Create("http://list.shubhalabha.in/netindex.html") as HttpWebRequest;
-                            //  WebClient webClient = new WebClient();
-                            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-                            {
-                                // Get the response stream  
-                                StreamReader reader = new StreamReader(response.GetResponseStream());
-
-                                // Console application output  
-
-                                Console.WriteLine(reader.ReadToEnd());
-                            }
-
+                           
 
                             //process 
                             if (System.IO.File.Exists(strYearDir))
@@ -7506,7 +7495,15 @@ namespace StockD
         private void dispatcherTimerForRT_Tick(object sender, EventArgs e)
         {
             CommandManager.InvalidateRequerySuggested();
-            rtddata();
+
+            if (RTD_server_name.SelectedItem == "NEST")
+            {
+                rtddata();
+            }
+            else if (RTD_server_name.SelectedItem == "NOW")
+            {
+                nowdata();
+            }
             RtdataRecall();
 
         }
@@ -7540,7 +7537,19 @@ namespace StockD
             CommandManager.InvalidateRequerySuggested();
             try
             {
-
+                if (File.Exists(txtTargetFolder.Text + "\\realtimemetastock.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\realtimemetastock.csv");
+                }
+                if (File.Exists(txtTargetFolder.Text + "\\realtimefchart.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\realtimefchart.csv");
+                }
+                if (File.Exists(txtTargetFolder.Text + "\\YahooRealTimeData.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\YahooRealTimeData.csv");
+                }
+               
                 yahoortdata.Clear();
                 int flagfortotaldatacount = 0;
                 using (var reader = new StreamReader(txtTargetFolder.Text + "\\NESTRt.txt"))
@@ -7674,7 +7683,7 @@ namespace StockD
                         }
                         else
                         {
-                            storeinfile1 = storeinfile1 + " " + DateTime.Today.Date.ToShortDateString();
+                            storeinfile1 = storeinfile1 + "," + DateTime.Today.Date.ToShortDateString();
 
                             flagtocheckfirstvaluefordate = 1;
 
@@ -7683,7 +7692,7 @@ namespace StockD
                         {
                             CommandManager.InvalidateRequerySuggested();
 
-                            storeinfile1 = storeinfile1 + "  " + yahoortdata[c].ToString();
+                            storeinfile1 = storeinfile1 + "," + yahoortdata[c].ToString();
 
                         }
 
@@ -7700,14 +7709,144 @@ namespace StockD
                     //if count is greater than data required then dont write it in file
                     if (yahoortdata.Count <= flagfortotaldatacount * 10)
                     {
-
+                        //<TICKER>,<NAME>,<PER>,<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>,<OPENINT>
                         using (var writer = new StreamWriter(tempfilepath))
 
                             writer.WriteLine(storeinfile1);
+
+                        if (Format_cb.SelectedItem == "Amibroker")
+                        {
+                            string realtimemetastock = "";
+
+                            string datastoreforami="";
+                            int count = 0;
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    string[] words = line1.Split(',');
+                                    if (line1 != "")
+                                    {
+                                        if (count == 0)
+                                        {
+                                            realtimemetastock = realtimemetastock + " " + words[0] + " " + words[1] + " " + words[2] + " " + words[3] + " " + words[4] + " " + words[5];
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            realtimemetastock = realtimemetastock + " " + words[1] + " " + words[2] + " " + words[3] + " " + words[4] + " " + words[5] + " " + words[6];
+
+
+                                        }
+                                        realtimemetastock = realtimemetastock + "\r\n";
+                                    }
+                                }
+                            }
+
+
+                            string filename = txtTargetFolder.Text + "\\AmibrokerRTdata.txt";
+                                    //   System.Windows.MessageBox.Show(realtimemetastock);
+                                    using (var writer = new StreamWriter(filename))
+                                        writer.WriteLine(realtimemetastock);
+
+                        }
+
+
+
+                        if (Format_cb.SelectedItem == "Fchart")
+                        {
+                            int count = 0;
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                string realtimemetastock = "";
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    string[] words = line1.Split(',');
+                                    if (line1 != "")
+                                    {
+                                        if (count == 0)
+                                        {
+                                            realtimemetastock = words[1] + "," + words[1] + "," + "I" + "," + words[0] + "," + words[2] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[4] + "," + words[5];
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            realtimemetastock = words[2] + "," + words[2] + "," + "I" + "," + words[1] + "," + words[3] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[5] + "," + words[6];
+
+                                        }
+                                        string filename = txtTargetFolder.Text + "\\realtimefchart.csv";
+                                        //   System.Windows.MessageBox.Show(realtimemetastock);
+                                        using (var writer = new StreamWriter(filename, true))
+                                            writer.WriteLine(realtimemetastock);
+                                    }
+                                }
+                            }
+
+                        }
+                       
+                        if (Format_cb.SelectedItem == "Metastock")
+                        {
+                            int count = 0;
+                            string filename="";
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                string realtimemetastock = "";
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    if(line1!="")
+                                    {
+                                        string[] words = line1.Split(',');
+
+                                    if (count == 0)
+                                    {
+                                         realtimemetastock = words[1] + "," + words[1] + "," + "I" + "," + words[0] + "," + words[2] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[4] + "," + words[5];
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                         realtimemetastock = words[2] + "," + words[2] + "," + "I" + "," + words[1] + "," + words[3] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[5] + "," + words[6];
+
+                                    }
+                                     filename = txtTargetFolder.Text + "\\realtimemetastock.csv";
+                                    //   System.Windows.MessageBox.Show(realtimemetastock);
+                                    using (var writer = new StreamWriter(filename, true))
+                                        writer.WriteLine(realtimemetastock);
+                                    }
+                                }
+                            }
+                                if (!Directory.Exists(txtTargetFolder.Text + "\\Intraday\\Metastock"))
+                                {
+                                    Directory.CreateDirectory(txtTargetFolder.Text + "\\Intraday\\Metastock");
+                                }
+                                // commandpromptcall(filename, txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock");
+                                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                                startInfo.FileName = "cmd.exe";
+                                //startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
+                                startInfo.Arguments = "/C  C:\\asc2ms.exe -f " + filename  + " -r r -o " + txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock --forceWrite=yes";
+                                // startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a" ;
+
+
+
+                                process.StartInfo = startInfo;
+                                process.Start();
+                            
+                        }
                     }
 
                     CommandManager.InvalidateRequerySuggested();
 
+
+                    
+                    if (Format_cb.SelectedItem == "Amibroker")
+                    {
                     ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                          ExcelInst, args);
 
@@ -7716,7 +7855,349 @@ namespace StockD
 
                     ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                            ExcelInst, new object[1] { "" });
+}
+                }
+            }
+            catch
+            {
+                CommandManager.InvalidateRequerySuggested();
 
+                log4net.Config.XmlConfigurator.Configure();
+                ILog log = LogManager.GetLogger(typeof(MainWindow));
+                log.Debug("Error While Data Capture ....");
+
+                CommandManager.InvalidateRequerySuggested();
+
+            }
+        }
+        public void nowdata()
+        {
+            CommandManager.InvalidateRequerySuggested();
+            try
+            {
+                if (File.Exists(txtTargetFolder.Text + "\\realtimemetastock.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\realtimemetastock.csv");
+                }
+                if (File.Exists(txtTargetFolder.Text + "\\realtimemetastock.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\realtimemetastock.csv");
+                }
+                if (File.Exists(txtTargetFolder.Text + "\\YahooRealTimeData.csv"))
+                {
+                    File.Delete(txtTargetFolder.Text + "\\YahooRealTimeData.csv");
+                }
+                yahoortdata.Clear();
+                int flagfortotaldatacount = 0;
+                using (var reader = new StreamReader(txtTargetFolder.Text + "\\NESTRt.txt"))
+                {
+                    string line = null;
+                    int RTtopiccount = 0;
+                    yahoortdata.Clear();
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        CommandManager.InvalidateRequerySuggested();
+
+                        yahoortname.Add(line);
+                        Array retval;
+
+
+                        int j = m_server.Heartbeat();
+
+                        bool bolGetNewValue = true;
+                        object[] arrayForSymbol = new object[3];
+
+                        // RTtopiccount++;    //imp it change topic id 
+                        CommandManager.InvalidateRequerySuggested();
+
+                        arrayForSymbol[0] = "MktWatch";
+
+                        arrayForSymbol[1] = line;
+                        arrayForSymbol[2] = "Trading Symbol";
+
+
+                        Array sysArrParams = (Array)arrayForSymbol;
+                        m_server.ConnectData(RTtopiccount, sysArrParams, bolGetNewValue);
+
+                        RTtopiccount++;    //imp it change topic id 
+                        object[] arrayForLTT = new object[3];
+
+                        CommandManager.InvalidateRequerySuggested();
+
+                        arrayForLTT[0] = "MktWatch";
+                        
+                        arrayForLTT[1] = line;
+                        arrayForLTT[2] = "Last Trade Time";
+
+                        Array sysArrParams1 = (Array)arrayForLTT;
+                        m_server.ConnectData(RTtopiccount, sysArrParams1, bolGetNewValue);
+
+                        RTtopiccount++;    //imp it change topic id 
+
+                        object[] arrayForLTP = new object[3];
+
+                        arrayForLTP[0] = "MktWatch";
+
+                        arrayForLTP[1] = line;
+                        arrayForLTP[2] = "Last Traded Price";
+
+                        Array sysArrParams2 = (Array)arrayForLTP;
+                        m_server.ConnectData(RTtopiccount, sysArrParams2, bolGetNewValue);
+
+                        CommandManager.InvalidateRequerySuggested();
+
+                        RTtopiccount++;    //imp it change topic id 
+
+                        CommandManager.InvalidateRequerySuggested();
+
+
+                        object[] arrayForVolume = new object[3];
+                        arrayForVolume[0] = "MktWatch";
+
+                        arrayForVolume[1] = line;
+                        arrayForVolume[2] = "Volume Traded Today";
+
+                        Array sysArrParams3 = (Array)arrayForVolume;
+                        m_server.ConnectData(RTtopiccount, sysArrParams3, bolGetNewValue);
+
+                        CommandManager.InvalidateRequerySuggested();
+
+                        RTtopiccount++;    //imp it change topic id 
+                        object[] arrayForopenint = new object[3];
+                        arrayForopenint[0] = "MktWatch";
+
+                        arrayForopenint[1] = line;
+                        arrayForopenint[2] = "Open Interest";
+
+                        Array sysArrParams4 = (Array)arrayForopenint;
+                        m_server.ConnectData(RTtopiccount, sysArrParams4, bolGetNewValue);
+
+
+                        RTtopiccount++;    //imp it change topic id 
+
+                        CommandManager.InvalidateRequerySuggested();
+
+                        retval = m_server.RefreshData(10);
+
+
+                        for (int count = 0; count <= 4; count++)
+                        {
+                            m_server.DisconnectData(count);
+                        }
+                        foreach (var item in retval)
+                        {
+
+                            yahoortdata.Add(item.ToString());
+                            CommandManager.InvalidateRequerySuggested();
+
+                        }
+
+                        m_server.ServerTerminate();
+                        flagfortotaldatacount++;
+                        CommandManager.InvalidateRequerySuggested();
+
+
+                    }
+                    CommandManager.InvalidateRequerySuggested();
+
+                    string tempfilepath = txtTargetFolder.Text + "\\YahooRealTimeData.txt";
+                    //log4net.Config.XmlConfigurator.Configure();
+                    //ILog log = LogManager.GetLogger(typeof(MainWindow));
+                    //log.Debug("Data Capturing At" + DateTime.Now.TimeOfDay);
+                    string storeinfile1 = "";
+                    CommandManager.InvalidateRequerySuggested();
+
+                    //c=c+2 we not want 1st 3rd 5th and so on values.
+                    int value = 5;
+                    int flagtocheckfirstvaluefordate = 0;
+
+                    for (int j = 5; j < yahoortdata.Count - 1; j = j + 10)
+                    {
+                        CommandManager.InvalidateRequerySuggested();
+
+                        int c;
+                        value = j + 5;
+                        if (flagtocheckfirstvaluefordate == 0)
+                        {
+                            storeinfile1 = DateTime.Today.Date.ToShortDateString() + storeinfile1;
+                            flagtocheckfirstvaluefordate = 1;
+                            CommandManager.InvalidateRequerySuggested();
+
+                        }
+                        else
+                        {
+                            storeinfile1 = storeinfile1 + "," + DateTime.Today.Date.ToShortDateString();
+
+                            flagtocheckfirstvaluefordate = 1;
+
+                        }
+                        for (c = j; c <= value - 1; c = c + 1)
+                        {
+                            CommandManager.InvalidateRequerySuggested();
+
+                            storeinfile1 = storeinfile1 + "," + yahoortdata[c].ToString();
+
+                        }
+
+
+                        CommandManager.InvalidateRequerySuggested();
+
+
+                        //////////////////////////////////////
+
+
+
+
+                        
+
+
+
+                        storeinfile1 = storeinfile1 + "\r\n";
+
+
+                    }
+
+
+
+                    //if count is greater than data required then dont write it in file
+                    if (yahoortdata.Count <= flagfortotaldatacount * 10)
+                    {
+                        //<TICKER>,<NAME>,<PER>,<DATE>,<TIME>,<OPEN>,<HIGH>,<LOW>,<CLOSE>,<VOL>,<OPENINT>
+                        using (var writer = new StreamWriter(tempfilepath))
+
+                            writer.WriteLine(storeinfile1);
+
+                        if (Format_cb.SelectedItem == "Amibroker")
+                        {
+                            int count = 0;
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                string realtimemetastock = "";
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    string[] words = line1.Split(',');
+                                    if (count == 0)
+                                    {
+                                        realtimemetastock = words[1] + "," + words[1] + "," + "I" + "," + words[0] + "," + words[2] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[4] + "," + words[5];
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        realtimemetastock = words[2] + "," + words[2] + "," + "I" + "," + words[1] + "," + words[3] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[5] + "," + words[6];
+
+                                    }
+                                    string filename = txtTargetFolder.Text + "\\YahooRealTimeData.csv";
+                                    //   System.Windows.MessageBox.Show(realtimemetastock);
+                                    using (var writer = new StreamWriter(filename, true))
+                                        writer.WriteLine(realtimemetastock);
+                                }
+                            }
+
+                        }
+
+                        if (Format_cb.SelectedItem == "Fchart")
+                        {
+                            int count = 0;
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                string realtimemetastock = "";
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    string[] words = line1.Split(',');
+                                    if (count == 0)
+                                    {
+                                        realtimemetastock = words[1] + "," + words[1] + "," + "I" + "," + words[0] + "," + words[2] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[4] + "," + words[5];
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        realtimemetastock = words[2] + "," + words[2] + "," + "I" + "," + words[1] + "," + words[3] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[5] + "," + words[6];
+
+                                    }
+                                    string filename = txtTargetFolder.Text + "\\realtimefchart.csv";
+                                    //   System.Windows.MessageBox.Show(realtimemetastock);
+                                    using (var writer = new StreamWriter(filename, true))
+                                        writer.WriteLine(realtimemetastock);
+                                }
+                            }
+
+                        }
+
+                        if (Format_cb.SelectedItem == "Metastock")
+                        {
+                            int count = 0;
+                            string filename = "";
+                            using (var reader1 = new StreamReader(tempfilepath))
+                            {
+                                string line1 = null;
+                                string realtimemetastock = "";
+                                while ((line1 = reader1.ReadLine()) != null)
+                                {
+
+                                    if (line1 != "")
+                                    {
+                                        string[] words = line1.Split(',');
+
+                                        if (count == 0)
+                                        {
+                                            realtimemetastock = words[1] + "," + words[1] + "," + "I" + "," + words[0] + "," + words[2] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[3] + "," + words[4] + "," + words[5];
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            realtimemetastock = words[2] + "," + words[2] + "," + "I" + "," + words[1] + "," + words[3] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[4] + "," + words[5] + "," + words[6];
+
+                                        }
+                                        filename = txtTargetFolder.Text + "\\realtimemetastock.csv";
+                                        //   System.Windows.MessageBox.Show(realtimemetastock);
+                                        using (var writer = new StreamWriter(filename, true))
+                                            writer.WriteLine(realtimemetastock);
+                                    }
+                                }
+                            }
+                            if (!Directory.Exists(txtTargetFolder.Text + "\\Intraday\\Metastock"))
+                            {
+                                Directory.CreateDirectory(txtTargetFolder.Text + "\\Intraday\\Metastock");
+                            }
+                            // commandpromptcall(filename, txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock");
+                            System.Diagnostics.Process process = new System.Diagnostics.Process();
+                            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                            startInfo.FileName = "cmd.exe";
+                            //startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
+                            startInfo.Arguments = "/C  C:\\asc2ms.exe -f " + filename + " -r r -o " + txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock --forceWrite=yes";
+                            // startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a" ;
+
+
+
+                            process.StartInfo = startInfo;
+                            process.Start();
+
+                        }
+
+                       
+                    }
+
+                    CommandManager.InvalidateRequerySuggested();
+
+
+
+                    if (Format_cb.SelectedItem == "Amibroker")
+                    {
+                        ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                             ExcelInst, args);
+
+
+                        CommandManager.InvalidateRequerySuggested();
+
+                        ExcelType.InvokeMember("RefreshAll", BindingFlags.InvokeMethod | BindingFlags.Public, null,
+                               ExcelInst, new object[1] { "" });
+                    }
                 }
             }
             catch
@@ -8123,13 +8604,18 @@ namespace StockD
             selectfilebluk.Items.Add("NSE_block");
             selectfilebluk.Items.Add("BSE_bulk");
             selectfilebluk.Items.Add("BSE_block");
+            Format_cb.Items.Add("Amibroker");
+            Format_cb.Items.Add("Metastock");
+            Format_cb.Items.Add("Fchart");
+
+            Format_cb.SelectedIndex = 1;
 
 
 
             
 
 
-            for (int i = 3; i < 60; i++)
+            for (int i = 1; i < 60; i++)
             {
                 timetoRT.Items.Add(i);
             }
@@ -9183,6 +9669,8 @@ namespace StockD
 
 
 
+             
+
 
            
 
@@ -9354,7 +9842,6 @@ namespace StockD
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
-            System.Windows.Forms.MessageBox.Show("dsadsa");
 
         }
 
@@ -9592,11 +10079,12 @@ namespace StockD
             }
             CommandManager.InvalidateRequerySuggested();
 
-
+            if (Format_cb.SelectedItem == "Amibroker")
+            {
             ExcelType = Type.GetTypeFromProgID("Broker.Application");
             ExcelInst = Activator.CreateInstance(ExcelType);
             args[0] = Convert.ToInt16(0);
-            args[1] = txtTargetFolder.Text + "\\YahooRealTimeData.txt";
+            args[1] = txtTargetFolder.Text + "\\AmibrokerRTdata.txt";
             args[2] = formatfilename.Text;
 
             ExcelType.InvokeMember("Visible", BindingFlags.SetProperty, null,
@@ -9607,6 +10095,7 @@ namespace StockD
                       ExcelInst, args);
             CommandManager.InvalidateRequerySuggested();
             StartRT.IsEnabled = false;
+            }
             RtdataRecall();
             CommandManager.InvalidateRequerySuggested();
 
@@ -9625,10 +10114,35 @@ namespace StockD
 
         private void FindSymbol_Click(object sender, RoutedEventArgs e)
         {
-            //  savesymbol.Items.Clear();
-            marketsymbol.Clear();
-            marketsymboltoremove.Clear();
-            SystemAccessibleObject sao = SystemAccessibleObject.FromPoint(4, 200);
+           string filepath= System.Reflection.Assembly.GetExecutingAssembly().Location.ToString();
+            string processtostart = filepath.Substring(0, filepath.Length - 12) + "FindWindow.exe";
+
+            
+           // System.Windows.Forms.MessageBox.Show(processtostart);
+            
+            System.Diagnostics.Process.Start(processtostart );
+            string[] wordsdata = null;
+            Thread.Sleep(5000);
+            //point come from another exe findwindow
+            try
+            {
+
+                using (var reader = new StreamReader("C:\\data\\Mousepoint.txt"))
+                {
+                    string line = null;
+
+                    line = reader.ReadLine();
+                    wordsdata = line.Split(',');
+
+
+                }
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Please Find Window Again ");
+            }
+
+            SystemAccessibleObject sao = SystemAccessibleObject.FromPoint( Convert.ToInt32(  wordsdata[0]), Convert.ToInt32( wordsdata[1]));
             try
             {
 

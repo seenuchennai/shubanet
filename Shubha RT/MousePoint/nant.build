@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="ManagedWinapi" default="build">
+
+  <!-- Path to Microsoft Visual Studio 2005 command line version to compile stuff -->
+  <property name="devenv.path" value="d:\Progs\Microsoft Visual Studio 8\Common7\IDE\devenv"/>
+
+  <target name="clean">
+    <delete dir="build"/>
+    <delete dir="dist"/>
+    <exec program="${devenv.path}" verbose="True">
+      <arg value="ManagedWinapi.sln"/>
+      <arg value="/clean"/>
+      <arg value="Release"/>
+    </exec>
+    <exec program="${devenv.path}" verbose="True">
+      <arg value="ManagedWinapi.sln"/>
+      <arg value="/clean"/>
+      <arg value="Debug"/>
+    </exec>
+    <foreach item="File" property="solutionfile">
+      <in>
+        <items>
+          <include name="Tools/*.sln"/>
+        </items>
+      </in>
+      <do>
+        <exec program="${devenv.path}" verbose="True">
+          <arg value="${solutionfile}"/>
+          <arg value="/clean"/>
+          <arg value="Debug"/>
+        </exec>
+        <exec program="${devenv.path}" verbose="True">
+          <arg value="${solutionfile}"/>
+          <arg value="/clean"/>
+          <arg value="Release"/>
+        </exec>
+      </do>
+    </foreach>
+  </target>
+
+  <target name="build-dll">
+    <mkdir dir="build/bin" />
+    <exec program="${devenv.path}" verbose="True">
+      <arg value="ManagedWinapi.sln"/>
+      <arg value="/build"/>
+      <arg value="Release"/>
+    </exec>
+    <copy file="ManagedWinapi\bin\release\ManagedWinapi.dll"
+          todir="build/bin"/>
+    <copy file="ManagedWinapi\ManagedWinapiNativeHelper.dll"
+          todir="build/bin"/>
+  </target>
+
+  <target name="build" depends="build-dll">
+    <foreach item="Folder" property="toolpath">
+      <in>
+        <items>
+          <include name="Tools/*"/>
+          <exclude name="Tools/.svn"/>
+          <exclude name="Tools" />
+        </items>
+      </in>
+      <do>
+        <property name="toolname" value="${path::get-file-name(toolpath)}" />
+        <exec program="${devenv.path}" verbose="True">
+          <arg value="Tools/${toolname}.sln"/>
+          <arg value="/build"/>
+          <arg value="Release"/>
+        </exec>
+        <copy file="Tools/${toolname}/bin/Release/${toolname}.exe" todir="build/bin"/>
+      </do>
+    </foreach>
+  </target>
+
+  <target name="dist" depends="build">
+    <mkdir dir="dist/bin"/>
+    <mkdir dir="dist/tools"/>
+    <mkdir dir="dist/src"/>
+    <copy todir="dist/bin">
+      <fileset basedir="build/bin">
+        <include name="*.dll" />
+        <include name="*.chm" />
+      </fileset>
+    </copy>
+    <copy todir="dist/bin">
+      <fileset basedir=".">
+        <include name="COPYING"/>
+        <include name="readme.txt"/>
+      </fileset>
+    </copy>
+    <copy todir="dist/tools">
+      <fileset basedir="build/bin">
+        <include name="*.dll" />
+        <include name="*.exe" />
+      </fileset>
+    </copy>
+    <copy todir="dist/tools">
+      <fileset basedir=".">
+        <include name="COPYING"/>
+        <include name="readme.txt"/>
+      </fileset>
+    </copy>
+    <copy todir="dist/src">
+      <fileset basedir=".">
+        <include name="COPYING"/>
+        <include name="ManagedWinap.shfb"/>
+        <include name="ManagedWinapi.sln"/>
+        <include name="nant.build"/>
+        <include name="readme.txt"/>
+        <include name="ManagedWinapiNativeHelper/*"/>
+        <include name="ManagedWinapi/**"/>
+        <include name="Tools/**"/>
+        <exclude name="**/*.suo"/>
+        <exclude name="**/*.csproj.user" />
+        <exclude name="**/bin/**"/>
+        <exclude name="**/obj/**"/>
+      </fileset>
+    </copy>
+  </target>
+</project>

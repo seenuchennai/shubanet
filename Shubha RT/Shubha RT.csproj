@@ -22,7 +22,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>ftp://www.shubhalabha.in/dev1/</PublishUrl>
+    <PublishUrl>ftp://shubhalabha.in/dev1/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -33,7 +33,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://shubhalabha.in/dev1/</InstallUrl>
-    <UpdateUrl>https://sourceforge.net/projects/shubhanet/files/b1/</UpdateUrl>
+    <UpdateUrl>http://shubhalabha.in/dev1/</UpdateUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
     <ProductName>ShubhaDownloader</ProductName>
@@ -41,7 +41,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>90</ApplicationRevision>
+    <ApplicationRevision>93</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -151,6 +151,7 @@
     <Compile Include="Dataitem.cs" />
     <Compile Include="Dataitemforsymbol.cs" />
     <Compile Include="Fchart.cs" />
+    <Compile Include="fileread.cs" />
     <Compile Include="FO.cs" />
     <Compile Include="Google.cs" />
     <Compile Include="Index.cs" />
@@ -469,6 +470,9 @@
     <Content Include="contactus.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="FindWindow.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="GoogleEOD.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -482,6 +486,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="logo iconp.ico" />
+    <Resource Include="Mousepoint.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Notice.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

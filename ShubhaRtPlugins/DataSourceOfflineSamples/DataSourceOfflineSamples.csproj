@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A41E0653-AE63-47E8-9278-9563C2235E8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmiBroker.Samples.DataSourceOfflineSamples</RootNamespace>
+    <AssemblyName>AmiBroker.Samples.DataSourceOfflineSamples</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>$(DotNetForAB_Reference).NET for AmiBroker\Assemblies\</ReferencePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="AmiBroker.PlugInHost" />
+    <Reference Include="AmiBroker.Utils" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\SolutionVersion.cs" />
+    <Compile Include="SQL\DataSourceSql.cs" />
+    <Compile Include="TextFile\DataSourceTextFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ascii\SampleDB.xlsx" />
+    <None Include="Ascii\demodata_hist.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+@ECHO ***** Updating AmiBroker folders *****
+IF "%25DotNetForAB_Home%25" EQU "" IF "%25DotNetForABx64_Home%25" EQU "" (ECHO "ERROR: Cannot deploy project output to AmiBroker folders. Missing environment variables." &amp; ECHO . &amp; EXIT -1)
+
+IF "%25DotNetForAB_Home%25" NEQ "" (
+ECHO ***** Deploying project output to "%25DotNetForAB_Home%25".
+xcopy /Y /I /F "$(TargetDir)$(TargetName).*" "%25DotNetForAB_Home%25\.NET for AmiBroker\Assemblies"
+xcopy /Y /I /F "$(ProjectDir)\Ascii\*.csv" "%25DotNetForAB_Home%25\.NET for AmiBroker\Samples\Ascii"
+xcopy /Y /I /F "$(ProjectDir)\Ascii\*.xlsx" "%25DotNetForAB_Home%25\.NET for AmiBroker\Samples\Ascii"
+)
+
+IF "%25DotNetForABx64_Home%25" NEQ "" (
+ECHO ***** Deploying project output to "%25DotNetForABx64_Home%25".
+xcopy /Y /I /F "$(TargetDir)$(TargetName).*" "%25DotNetForABx64_Home%25\.NET for AmiBroker\Assemblies"
+xcopy /Y /I /F "$(ProjectDir)\Ascii\*.csv" "%25DotNetForABx64_Home%25\.NET for AmiBroker\Samples\Ascii"
+xcopy /Y /I /F "$(ProjectDir)\Ascii\*.xlsx" "%25DotNetForABx64_Home%25\.NET for AmiBroker\Samples\Ascii"
+)
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>
