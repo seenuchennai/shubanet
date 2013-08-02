@@ -19,12 +19,12 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>C:\source forge\</PublishUrl>
+    <PublishUrl>ftp://shubhalabha.in/dev1/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -32,7 +32,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://sourceforge.net/projects/shubhanet/files/release/</UpdateUrl>
+    <InstallUrl>http://localhost/ShubhaRt/</InstallUrl>
+    <UpdateUrl>http://shubhalabha.in/dev1/</UpdateUrl>
     <SupportUrl>http://www.shubhalabha.in</SupportUrl>
     <ErrorReportUrl>http://www.shubhalabha.in</ErrorReportUrl>
     <ProductName>ShubhaDownloader</ProductName>
@@ -40,7 +41,7 @@
     <SuiteName>Shubhalabha net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>96</ApplicationRevision>
+    <ApplicationRevision>50</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -66,7 +67,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E1E3C833CA67E49BA0006BC705D9F9A1AA3117C8</ManifestCertificateThumbprint>
@@ -78,7 +78,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ShubhaRt.App</StartupObject>
@@ -87,16 +87,10 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Shubha RT_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>logo iconp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FileHelpers">
@@ -111,12 +105,6 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\Shantesh\Log4NetFrameworkSolution\Log4NetFrameworkSolution\Lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="ManagedWinapi">
-      <HintPath>..\..\..\Downloads\managedwinapi-src-0.3\Tools\AOExplorer\bin\Debug\ManagedWinapi.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.JScript" />
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
@@ -136,6 +124,9 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -144,21 +135,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdvanceGet.cs" />
-    <Compile Include="amibriker.cs" />
     <Compile Include="BSECSV.cs" />
     <Compile Include="Dataitem.cs" />
-    <Compile Include="Dataitemforsymbol.cs" />
-    <Compile Include="Fchart.cs" />
-    <Compile Include="fileread.cs" />
     <Compile Include="FO.cs" />
     <Compile Include="Google.cs" />
     <Compile Include="Index.cs" />
-    <Compile Include="Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Market.cs" />
-    <Compile Include="marketdataitem.cs" />
     <Compile Include="MCXBHAV.cs" />
     <Compile Include="MCXINDEX.cs" />
     <Compile Include="MCXSPOTINDEX.cs" />
@@ -175,8 +156,8 @@
     <Compile Include="Url.cs" />
     <Compile Include="YAHOO.cs" />
     <Page Include="Login.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -204,6 +185,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -229,7 +213,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="Images\Logo.jpg_org" />
     <None Include="Images\Thumbs.db" />
@@ -466,12 +452,6 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="contactus.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FindWindow.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="GoogleEOD.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -484,10 +464,6 @@
     <Content Include="IndiaIndices.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="logo iconp.ico" />
-    <Resource Include="Mousepoint.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Content Include="Notice.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

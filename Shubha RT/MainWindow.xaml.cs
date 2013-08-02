@@ -7543,10 +7543,12 @@ namespace StockD
                 }
                 if (File.Exists(txtTargetFolder.Text + "\\realtimefchart.csv"))
                 {
+                    File.Copy(txtTargetFolder.Text + "\\realtimefchart.csv", txtTargetFolder.Text + "\\Finalrealtimefchart.csv",true );
                     File.Delete(txtTargetFolder.Text + "\\realtimefchart.csv");
                 }
                 if (File.Exists(txtTargetFolder.Text + "\\YahooRealTimeData.csv"))
                 {
+
                     File.Delete(txtTargetFolder.Text + "\\YahooRealTimeData.csv");
                 }
                
@@ -7825,12 +7827,23 @@ namespace StockD
                                     Directory.CreateDirectory(txtTargetFolder.Text + "\\Intraday\\Metastock");
                                 }
                                 // commandpromptcall(filename, txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock");
-                                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                                try
+                                {
+
+                                    string filepath = System.Reflection.Assembly.GetExecutingAssembly().Location.ToString();
+                                    string processtostart = filepath.Substring(0, filepath.Length - 12) + "asc2ms.exe";
+
+                                    File.Move(processtostart, txtTargetFolder.Text + "\\asc2ms.exe");
+                                }
+                                catch
+                                {
+                                }    
+                            System.Diagnostics.Process process = new System.Diagnostics.Process();
                                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                                 startInfo.FileName = "cmd.exe";
                                 //startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
-                                startInfo.Arguments = "/C  C:\\asc2ms.exe -f " + filename  + " -r r -o " + txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock --forceWrite=yes";
+                                startInfo.Arguments = "/C  "+txtTargetFolder.Text+"\\asc2ms.exe -f " + filename  + " -r r -o " + txtTargetFolder.Text + "\\Intraday\\Metastock\\realtimemetastock --forceWrite=yes";
                                 // startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a" ;
 
 
@@ -7881,7 +7894,8 @@ namespace StockD
                 }
                 if (File.Exists(txtTargetFolder.Text + "\\realtimemetastock.csv"))
                 {
-                    File.Delete(txtTargetFolder.Text + "\\realtimemetastock.csv");
+                    File.Copy(txtTargetFolder.Text + "\\realtimefchart.csv", txtTargetFolder.Text + "\\Finalrealtimefchart.csv", true);
+                    File.Delete(txtTargetFolder.Text + "\\realtimefchart.csv");
                 }
                 if (File.Exists(txtTargetFolder.Text + "\\YahooRealTimeData.csv"))
                 {
@@ -8551,6 +8565,7 @@ namespace StockD
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
+           
 
 
 
@@ -9679,15 +9694,27 @@ namespace StockD
 
         public void commandpromptcall(string filename,string filestorename)
         {
+             try
+            {
+
+                string filepath = System.Reflection.Assembly.GetExecutingAssembly().Location.ToString();
+                string processtostart = filepath.Substring(0, filepath.Length - 12) + "asc2ms.exe";
+
+                File.Move(processtostart, txtTargetFolder.Text+"\\asc2ms.exe");
+            }
+            catch
+            {
+            }
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            //startInfo.Arguments = "/C  C:\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
-            startInfo.Arguments = "/C  C:\\asc2ms.exe -f "+filename +" -r r -o "+filestorename ;
+            startInfo.Arguments = "/C  "+txtTargetFolder.Text +"\\asc2ms.exe -f C:\\data\\Metastock\\M.csv -r r -o C:\\data\\Metastock\\google\\e";
+           // startInfo.Arguments = "/C  C:\\asc2ms.exe -f "+filename +" -r r -o "+filestorename ;
+
            // startInfo.Arguments = @"/C  C:\asc2ms.exe -f C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod -r r -o C:\Documents and Settings\maheshwar\My Documents\BSe\Downloads\Googleeod\Metastock\a" ;
-            
-            
+
+
             
             process.StartInfo = startInfo;
             process.Start();
@@ -10094,8 +10121,9 @@ namespace StockD
             ExcelType.InvokeMember("Import", BindingFlags.InvokeMethod | BindingFlags.Public, null,
                       ExcelInst, args);
             CommandManager.InvalidateRequerySuggested();
-            StartRT.IsEnabled = false;
             }
+            StartRT.IsEnabled = false;
+
             RtdataRecall();
             CommandManager.InvalidateRequerySuggested();
 
