@@ -7833,7 +7833,7 @@ namespace StockD
                                     string filepath = System.Reflection.Assembly.GetExecutingAssembly().Location.ToString();
                                     string processtostart = filepath.Substring(0, filepath.Length - 12) + "asc2ms.exe";
 
-                                    File.Move(processtostart, txtTargetFolder.Text + "\\asc2ms.exe");
+                                    File.Copy(processtostart, txtTargetFolder.Text + "\\asc2ms.exe",true );
                                 }
                                 catch
                                 {
