@@ -150,8 +150,9 @@ namespace ShubhaRt
 
                         newwin.ShowDialog();
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        MessageBox.Show(ex.Message );
                     }
 
 

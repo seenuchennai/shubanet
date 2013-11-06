@@ -2051,7 +2051,7 @@ namespace StockD
 
 
                             ExecuteOPTIONProcessing(PRFO, "FO", txtTargetFolder.Text + "\\STD_CSV", sec);
-                            filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                            filetransfer(PRFO[0], txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
                             if (!Directory.Exists(txtTargetFolder.Text + "\\Amibroker"))
                             {
@@ -2067,24 +2067,24 @@ namespace StockD
                             }
                             if (comboBox1.SelectedItem.ToString() == "Amibroker")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Amibroker(txtTargetFolder.Text + "\\Amibroker\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                             if (comboBox1.SelectedItem.ToString() == "FCharts")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                Fchart(txtTargetFolder.Text + "\\FCharts\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
                             if (comboBox1.SelectedItem.ToString() == "AdvanceGet")
                             {
-                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                System.IO.File.Copy(txtTargetFolder.Text + "\\STD_CSV\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv", txtTargetFolder.Text + "\\AdvanceGet\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
 
 
-                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_FOREX_Futures_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
+                                AdvanceGet(txtTargetFolder.Text + "\\AdvanceGet\\NSE_FOREX_Option_CO" + date1 + strMonthName.Substring(0, 3).ToUpper() + day.Year + "bhav.csv");
                             }
 
                         }
@@ -4079,8 +4079,8 @@ namespace StockD
 
                             string destfilepath = txtTargetFolder.Text + "\\Downloads\\Temp_FUTURE_STD.csv";
                             string dateformtoprocessingsave = formatdate(day);
-                            try
-                            {
+                            //try
+                            //{
 
                                 string[] mcxbhavname = new string[1] { "" };
                                 mcxbhavname[0] = strYearDir;
@@ -4114,11 +4114,11 @@ namespace StockD
                                     Amibroker(txtTargetFolder.Text + "\\Amibroker\\Mcx_Com_MCX_" + datetoselect + "bhav.csv");
                                 }
 
-                            }
-                            catch
-                            {
+                            //}
+                            //catch
+                            //{
 
-                            }
+                            //}
 
 
                         }
@@ -4886,22 +4886,26 @@ namespace StockD
                     //}
                     //else
                     //{
-                    long valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
 
                     // }
 
+                    long valueforgoogletime = 1;
 
                     while (icntr < resbsecsv1.Length)
                     {
                         finalarr[icntr] = new GOOGLEFINAL();
+                        if (resbsecsv1[icntr].Name.Contains('a'))
+                        {
+                            valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
+                        }
                         finalarr[icntr].ticker = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6);
                         finalarr[icntr].name = strbseequityfilename.Substring(2, strbseequityfilename.Length - 6); ;
 
 
-                        timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(valueforgoogletime);
+                        timefromyahoo = new DateTime(1970, 1, 1, 5, 30, 0).AddSeconds(valueforgoogletime);
                         valueforgoogletime = valueforgoogletime + 300;
 
-                        string timetostore = yahootime(timefromyahoo);
+                        string timetostore = timefromyahoo.Hour.ToString() + ":" + timefromyahoo.Minute.ToString() + ":" + timefromyahoo.Millisecond.ToString();
 
                         string[] yahoodate = timefromyahoo.ToString().Split('-');
 
@@ -4976,7 +4980,7 @@ namespace StockD
                     //}
                     //else
                     //{
-                    long valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
+                    long valueforgoogletime = 1;
 
                     // }
 
@@ -4985,12 +4989,15 @@ namespace StockD
                     {
                         finalarr[icntr] = new GOOGLEFINAL();
 
+                        if (resbsecsv1[icntr].Name.Contains('a'))
+                        {
+                            valueforgoogletime = Convert.ToInt64(resbsecsv1[icntr].Name.Substring(1, resbsecsv1[icntr].Name.Length - 1));
+                        }
 
-
-                        timefromyahoo = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(valueforgoogletime);
+                        timefromyahoo = new DateTime(1970, 1, 1, 5, 30, 0).AddSeconds(valueforgoogletime);
                         valueforgoogletime = valueforgoogletime + 60;
 
-                        string timetostore = yahootime(timefromyahoo);
+                        string timetostore = timefromyahoo.Hour.ToString() + ":" + timefromyahoo.Minute.ToString() + ":" + timefromyahoo.Millisecond.ToString();
 
 
                         string[] yahoodate = timefromyahoo.ToString().Split('-');
@@ -5949,11 +5956,11 @@ namespace StockD
                         string date = resbsecsv[i].EXP_DATE.Substring(3, 3).ToUpper();
                         if (date == "JAN")
                         {
-                            date = "January";
+                            date = "january";
                         }
                         else if (date == "FEB")
                         {
-                            date = "February ";
+                            date = "February";
 
                         }
                         else if (date == "MAR")
@@ -5991,7 +5998,7 @@ namespace StockD
                         }
                         else if (date == "OCT")
                         {
-                            date = "October";
+                            date = "october";
 
                         }
                         else if (date == "NOV")
@@ -6134,6 +6141,60 @@ namespace StockD
                             countformcxbhavblankrow++;
 
                         }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 4)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-IV";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 5)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-V";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 6)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-VI";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 7)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-VII";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 8)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-VIII";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 9)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-IX";
+                            countformcxbhavblankrow++;
+                        }
+
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 10)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-X";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 11)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-XI";
+                            countformcxbhavblankrow++;
+
+                        }
+                        else if (Convert.ToInt32(resbsecsv[i].EXP_DATE) == lowmonth + 12)
+                        {
+                            resbsecsv[i].SYMBOL = resbsecsv[i].SYMBOL.Trim() + "-XII";
+                            countformcxbhavblankrow++;
+
+                        }
                         else
                         {
 
@@ -6192,7 +6253,7 @@ namespace StockD
 
                         }
 
-                        finalarr[itmp].openint = Convert.ToInt32(resbsecsv[icntr].OPEN_INT.ToString().Trim()); //enint;
+                        finalarr[itmp].openint =  (resbsecsv[icntr].OPEN_INT.ToString().Trim()); //enint;
 
                         if (name == "CF")
                         {
@@ -7132,7 +7193,7 @@ namespace StockD
                     finalarr[icntr].ticker = resbsecsv[icntr].SYMBOL.Trim();
                     string name = resbsecsv[icntr].Exbasis.Substring(1, resbsecsv[icntr].Exbasis.Length - 2);
                     finalarr[icntr].name = resbsecsv[icntr].Commodity.Trim() + name.Trim();
-
+                    finalarr[icntr].name.Trim();
 
                     if (resbsecsv[icntr].EXP_DATE.Substring(2, 1) == "/")
                     {
@@ -7267,12 +7328,15 @@ namespace StockD
                     finalarr[icntr].openint = resbsecsv[icntr].openint;  //enint;
                     try
                     {
-                        na = resbsecsv[icntr].openint.Substring(2, 2);
-                        if (na == "NA")
+                        if (finalarr[icntr].openint.Contains("NA"))
                         {
                             finalarr[icntr].openint = "0"; //Convert.ToInt32(resbsecsv[icntr].openint);  //enint;
                         }
-
+                        if (finalarr[icntr].volume.Contains("NA"))
+                        {
+                            finalarr[icntr].volume = "0"; //Convert.ToInt32(resbsecsv[icntr].openint);  //enint;
+                        }
+                        
                     }
                     catch { }
 
@@ -8565,7 +8629,35 @@ namespace StockD
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
+            try
+            {
+                string filepath = System.Reflection.Assembly.GetExecutingAssembly().Location.ToString();
+                string processtostart = filepath.Substring(0, filepath.Length - 12) + "asc2ms.exe";
+
+                File.Copy(processtostart, "C:\\Windows\\System32\\asc2ms.exe",true );
+               // File.Copy(processtostart, "C:\\Windows\\SysWOW64\\asc2ms.exe");
+
+
+                processtostart = filepath.Substring(0, filepath.Length - 12) + "pthread.dll";
+
+                File.Copy(processtostart, "C:\\pthread.dll", true);
+                File.Copy(processtostart, "C:\\Windows\\System32\\pthread.dll", true);
+               // File.Copy(processtostart, "C:\\Windows\\SysWOW64\\pthread.dll", true);
+
+                processtostart = filepath.Substring(0, filepath.Length - 12) + "pthreadGC2.dll";
+
+                File.Copy(processtostart, "C:\\Windows\\System32\\pthreadGC2.dll", true);
+               // File.Copy(processtostart, "C:\\Windows\\SysWOW64\\pthreadGC2.dll", true);
+
+
+
+            }
+            catch(Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message );
+            }
+
 
 
 
@@ -9679,14 +9771,11 @@ namespace StockD
         }
         private void Lbl_reset_Click(object sender, RoutedEventArgs e)
         {
+            
             dtStartDate.Text = DateTime.Today.ToShortDateString();
             dtEndDate.Text = DateTime.Today.ToShortDateString();
 
-
-
-             
-
-
+           
            
 
         }

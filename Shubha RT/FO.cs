@@ -70,8 +70,11 @@ namespace ShubhaRt
             public double low;
             public double close;
             public string  volume;
-            [FieldNullValue(typeof(long), "0")]
-            public Nullable<long> openint;
+            public string openint;
+
+
+            //[FieldNullValue(typeof(long), "0")]
+            //public Nullable<long> openint;
             public string AUX1;
 
         }
